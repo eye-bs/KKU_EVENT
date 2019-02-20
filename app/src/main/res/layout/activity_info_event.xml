@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InfoEventActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/img_backArrow"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:elevation="10dp"
+                    app:srcCompat="@drawable/back"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="24dp"/>
+
+
+            <ImageView
+                android:id="@+id/img_Info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_title_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/morkhor1"
+                android:gravity="center"
+                android:text="Title"
+                android:textColor="@color/main_header"
+                android:textSize="@dimen/title_info"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_Info" />
+
+            <TextView
+                android:id="@+id/tv_sponsor_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/rsu_regular"
+                android:lineSpacingExtra="@dimen/linespace_supermarket"
+                android:text="sponsor"
+                app:layout_constraintEnd_toStartOf="@+id/imageView2"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tv_title_info"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_info" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_sponsor_info"
+                app:srcCompat="@drawable/unlike" />
+
+            <ImageView
+                android:id="@+id/img_clock_info"
+                android:layout_width="@dimen/img_info"
+                android:layout_height="@dimen/img_info"
+                android:layout_marginTop="8dp"
+                android:src="@mipmap/clockdetail"
+                app:layout_constraintStart_toStartOf="@+id/tv_sponsor_info"
+                app:layout_constraintTop_toBottomOf="@+id/tv_sponsor_info" />
+
+            <TextView
+                android:id="@+id/tv_time_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/rsu_regular"
+                android:text="วัน/เวลา"
+                android:lineSpacingExtra="@dimen/linespace_supermarket"
+                android:textSize="@dimen/font_size_info"
+                app:layout_constraintStart_toEndOf="@+id/img_clock_info"
+                app:layout_constraintTop_toTopOf="@+id/img_clock_info" />
+
+            <ImageView
+                android:id="@+id/img_pin_info"
+                android:layout_width="@dimen/img_info"
+                android:layout_height="@dimen/img_info"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="@+id/img_clock_info"
+                app:layout_constraintTop_toBottomOf="@+id/tv_time_info"
+                app:srcCompat="@mipmap/pindetail" />
+
+            <TextView
+                android:id="@+id/tv_location_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/rsu_regular"
+                android:text="สถานที่"
+                android:lineSpacingExtra="@dimen/linespace_supermarket"
+                android:textSize="@dimen/font_size_info"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/img_pin_info"
+                app:layout_constraintTop_toTopOf="@+id/img_pin_info" />
+
+            <ImageView
+                android:id="@+id/img_phone_info"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/button"
+                app:layout_constraintEnd_toStartOf="@+id/button"
+                app:layout_constraintTop_toTopOf="@+id/button"
+                app:srcCompat="@mipmap/phonedetail" />
+
+            <ImageView
+                android:id="@+id/img_web_info"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/button"
+                app:layout_constraintStart_toEndOf="@+id/button"
+                app:layout_constraintTop_toTopOf="@+id/button"
+                app:srcCompat="@mipmap/webdetail" />
+
+            <TextView
+                android:id="@+id/tv_content_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/thsarabunnew_bold"
+                android:text="content "
+                android:textSize="@dimen/detail_item_font"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_location_info" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/add_to_calendar"
+                android:fontFamily="@font/mavenpro_regular"
+                android:padding="@dimen/menu_padding"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_content_info"
+                android:background="@drawable/menu_button_round"
+                android:textColor="@color/button_login"/>
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+
+
+</android.support.constraint.ConstraintLayout>

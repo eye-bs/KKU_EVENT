@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:cardview="http://schemas.android.com/tools"
+    android:id="@+id/list_item_rec"
+    android:background="@color/mainac_color">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_button"
+        android:layout_marginTop="@dimen/listview_margin"
+        android:layout_marginStart="@dimen/listview_margin"
+        android:layout_marginEnd="@dimen/listview_margin"
+        android:clickable="false"
+        cardview:cardCornerRadius="4dp"
+        cardview:cardElevation="5dp"
+        android:id="@+id/relativeLayout3">
+
+        <TextView
+            android:id="@+id/event_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="14dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="@dimen/listview_margin"
+            android:fontFamily="@font/morkhor1"
+            android:text="@string/event_item_name"
+            android:textSize="@dimen/event_item_dimen"
+            android:maxLines="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/event_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="2dp"
+            android:clickable="false"
+            android:fontFamily="@font/thsarabunnew_bold"
+            android:text="@string/event_item_location"
+            android:textSize="@dimen/detail_item_font"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/event_time"
+            app:layout_constraintTop_toBottomOf="@+id/event_time" />
+
+        <com.inthecheesefactory.thecheeselibrary.widget.AdjustableImageView
+            android:id="@+id/bt_like"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/unlike"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/event_location" />
+
+        <TextView
+            android:id="@+id/event_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="16dp"
+            android:clickable="false"
+            android:fontFamily="@font/thsarabunnew_bold"
+            android:text="@string/event_item_time"
+            android:textSize="@dimen/detail_item_font"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/img_clock"
+            app:layout_constraintTop_toBottomOf="@+id/event_name" />
+
+        <ImageView
+            android:id="@+id/img_clock"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:clickable="false"
+            app:layout_constraintBottom_toBottomOf="@+id/event_time"
+            app:layout_constraintStart_toStartOf="@id/event_name"
+            app:layout_constraintTop_toTopOf="@+id/event_time"
+            app:srcCompat="@mipmap/clock" />
+
+        <ImageView
+            android:id="@+id/img_pin"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:clickable="false"
+            app:layout_constraintBottom_toBottomOf="@+id/event_location"
+            app:layout_constraintStart_toStartOf="@id/img_clock"
+            app:layout_constraintTop_toTopOf="@+id/event_location"
+            app:srcCompat="@mipmap/placeholder" />
+    </android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>

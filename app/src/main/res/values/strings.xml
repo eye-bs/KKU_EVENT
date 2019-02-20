@@ -1,0 +1,60 @@
+<resources>
+    <string name="app_name">KKU Event</string>
+    <string name="log_kku">KKU MAIL</string>
+    <string name="pre_login1">Enter via kku mail account</string>
+    <string name="pre_login2">Or use a guest account</string>
+    <string name="pre_login3">Forgot Password?</string>
+    <string name="log_skip">SKIP</string>
+    <string name="kku_event">KKU EVENT</string>
+    <string name="menu_kku">กิจกรรมมหาวิทยาลัย</string>
+    <string name="menu_credit">กิจกรรมที่ได้หน่วยกิต</string>
+    <string name="menu_student">กิจกรรมนักศึกษา</string>
+    <string name="searchHintText_searchToolbar">Search</string>
+    <string name="event_item_name">ชื่อกิจกกรม</string>
+    <string name="event_item_time">วัน/เวลา</string>
+    <string name="event_item_location">สถานที่</string>
+    <string name="add_to_calendar">Add to Calendar</string>
+
+    <string-array name="faculty">
+        <item>เสรี</item>
+        <item>สำนักงานอธิการบดี</item>
+        <item>คณะวิทยาศาสตร์</item>
+        <item>คณะเกษตรศาสตร์</item>
+        <item>คณะวิศวกรรมศาสตร์</item>
+        <item>คณะศึกษาศาสตร์</item>
+        <item>คณะพยาบาลศาสตร์</item>
+        <item>คณะแพทย์ศาสตร์</item>
+        <item>คณะมนุษยศาสตร์และสังคมศาสตร์</item>
+        <item>คณะเทคนิคการแพทย์</item>
+        <item>บัณฑิตวิทยาลัย</item>
+        <item>คณะสาธารณะสุขศาสตร์</item>
+        <item>สำนักหอสมุด</item>
+        <item>คณะทันตแพทย์ศาสตร์</item>
+        <item>สถาบันวิจัยและพัฒนา</item>
+        <item>คณะเภสัชศาสตร์</item>
+        <item>คณะเทคโนโลยีสารสนเทศ</item>
+        <item>คณะสัตวแพทย์ศาสตร์</item>
+        <item>ศูนย์วัฒนธรรม</item>
+        <item>คณะสถาปัตกรรมศาสตร์</item>
+        <item>คณะบริหารธุรกิจและการบัญชี</item>
+        <item>คณะศิลปกรรมศาสตร์</item>
+        <item>วิทยาเขตหนองคาย</item>
+        <item>สำนักบริหารและพัฒนาวิชาการ</item>
+        <item>ศูนย์บริการวิชาการ</item>
+        <item>ศูนย์หัวใจสิริกิต</item>
+        <item>คณะนิติศาสตร์</item>
+        <item>วิทยาลัยการปกครองท้องถิ่น</item>
+        <item>วิทยาลัยนานาชาติ</item>
+        <item>ศูนย์นวัตกรรมการเรียนการสอน</item>
+        <item>ศูนย์ภาษาอาเซียน</item>
+        <item>คณะเศรษฐศาสตร์</item>
+        <item>คณะวิทยาการจัดการ</item>
+        <item>สถาบันการสอนวิชาศึกษาทั่วไป</item>
+        <item>สถาบันภาษา</item>
+        <item>สถาบันขงจื้อ</item>
+        <item>วิทยาลัยบัณฑิตศึกษาการจัดการ</item>
+        <item>กองพัฒนานักศึกษาและศิษย์เก่าสัมพันธ์</item>
+    </string-array>
+
+
+</resources>

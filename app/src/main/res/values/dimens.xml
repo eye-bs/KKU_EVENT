@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="login_size">20dp</dimen>
+    <dimen name="menu_size">18sp</dimen>
+    <dimen name="menu_padding">10dp</dimen>
+    <dimen name="search_view_padding_searchToolbar">65dp</dimen>
+    <dimen name="search_icon_padding">12dp</dimen>
+    <dimen name="event_item_dimen">30sp</dimen>
+    <dimen name="listview_margin">20dp</dimen>
+    <dimen name="info_Margin">18dp</dimen>
+    <dimen name="img_info">24dp</dimen>
+    <dimen name="title_info">30sp</dimen>
+    <dimen name="font_size_info">16sp</dimen>
+    <dimen name="detail_item_font">20sp</dimen>
+    <dimen name="linespace_supermarket">10sp</dimen>
+
+</resources>
