@@ -8,9 +8,12 @@ import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -21,6 +24,8 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
     ImageView img_info , img_phone , img_web , img_backArrow;
     String phoneOnClick ;
     String webOnclick = "";
+    ProgressBar progressBar;
+    ScrollView scrollView_info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +37,7 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
 
 
 
-
+        scrollView_info = findViewById(R.id.scrollView_info);
         tv_title = findViewById(R.id.tv_title_info);
         tv_sponsor = findViewById(R.id.tv_sponsor_info);
         tv_time = findViewById(R.id.tv_time_info);
@@ -43,6 +48,10 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
         img_info = findViewById(R.id.img_Info);
         img_web = findViewById(R.id.img_web_info);
         img_backArrow = findViewById(R.id.img_backArrow);
+        progressBar = findViewById(R.id.progress_bar_info);
+
+        progressBar.setVisibility(View.VISIBLE);
+        scrollView_info.setVisibility(View.INVISIBLE);
 
         img_backArrow.setOnClickListener(this);
 
@@ -78,7 +87,18 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
         Point size = new Point();
         display. getSize(size);
         int width = size. x;
-       Picasso.with(this).load(imgURL).resize(width,0).placeholder(R.mipmap.loading).error(R.mipmap.loading).into(img_info);
+        Picasso.with(this).load(imgURL).resize(width,0).placeholder(R.drawable.rounded_button).error(R.drawable.rounded_button).into(img_info, new Callback() {
+            @Override
+            public void onSuccess() {
+                progressBar.setVisibility(View.GONE);
+                scrollView_info.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
 
 
 

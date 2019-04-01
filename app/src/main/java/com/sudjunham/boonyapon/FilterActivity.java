@@ -145,141 +145,97 @@ public class FilterActivity extends AppCompatActivity implements CompoundButton.
         switch (buttonView.getId()){
             case R.id.checkBox_uni:
                 if(isChecked) {
-                    checkBox_uni.setBackground(da_checked);
-                    checkBox_uni.setTextColor(Color.WHITE);
                    FilteHelper.getInstance().setCb_ui(true);
                 }
                 else {
-                    checkBox_uni.setBackground(da_unchecked);
-                    checkBox_uni.setTextColor(Color.BLACK);
                     FilteHelper.getInstance().setCb_ui(false);
                 }
                 break;
             case R.id.checkBox_ununi:
                 if(isChecked) {
-                    checkBox_ununi.setBackground(da_checked);
-                    checkBox_ununi.setTextColor(Color.WHITE);
                     FilteHelper.getInstance().setCb_outsude(true);
                 }
                 else {
-                    checkBox_ununi.setBackground(da_unchecked);
-                    checkBox_ununi.setTextColor(Color.BLACK);
                     FilteHelper.getInstance().setCb_outsude(false);
                 }
                 break;
 
             case R.id.cb_c1:
                 if(isChecked) {
-                    cb_c1.setBackground(da_checked);
-                    cb_c1.setTextColor(Color.WHITE);
                     FilteHelper.getInstance().setCb_credit1(true);
                 }
                 else {
-                    cb_c1.setBackground(da_unchecked);
-                    cb_c1.setTextColor(Color.BLACK);
                     FilteHelper.getInstance().setCb_credit1(false);
                 }
                 break;
 
             case R.id.cb_c2:
                 if(isChecked) {
-                    cb_c2.setBackground(da_checked);
-                    cb_c2.setTextColor(Color.WHITE);
                     FilteHelper.getInstance().setCb_credit2(true);
                 }
                 else {
-                    cb_c2.setBackground(da_unchecked);
-                    cb_c2.setTextColor(Color.BLACK);
                     FilteHelper.getInstance().setCb_credit2(false);
                 }
                 break;
 
             case R.id.cb_c3:
                 if(isChecked) {
-                    cb_c3.setBackground(da_checked);
-                    cb_c3.setTextColor(Color.WHITE);
                     FilteHelper.getInstance().setCb_credit3(true);
                 }
                 else {
-                    cb_c3.setBackground(da_unchecked);
-                    cb_c3.setTextColor(Color.BLACK);
                     FilteHelper.getInstance().setCb_credit3(false);
                 }
                 break;
 
             case R.id.cb_c4:
                 if(isChecked) {
-                    cb_c4.setBackground(da_checked);
-                    cb_c4.setTextColor(Color.WHITE);
                     FilteHelper.getInstance().setCb_credit4(true);
                 }
                 else {
-                    cb_c4.setBackground(da_unchecked);
-                    cb_c4.setTextColor(Color.BLACK);
                     FilteHelper.getInstance().setCb_credit4(false);}
                 break;
 
             case R.id.cb_c5:
                 if(isChecked) {
-                    cb_c5.setBackground(da_checked);
-                    cb_c5.setTextColor(Color.WHITE);
                     FilteHelper.getInstance().setCb_credit5(true);
                 }
                 else {
-                    cb_c5.setBackground(da_unchecked);
-                    cb_c5.setTextColor(Color.BLACK);
                     FilteHelper.getInstance().setCb_credit5(false);
                 }
                 break;
 
             case R.id.cb_T1:
                 if(isChecked) {
-                    cb_T1.setBackground(da_checked);
-                    cb_T1.setTextColor(Color.WHITE);
                     FilteHelper.getInstance().setCb_TAG1(true);
                 }
                 else {
-                    cb_T1.setBackground(da_unchecked);
-                    cb_T1.setTextColor(Color.BLACK);
                     FilteHelper.getInstance().setCb_TAG1(false);
                 }
                 break;
 
             case R.id.cb_T2:
                 if(isChecked) {
-                    cb_T2.setBackground(da_checked);
-                    cb_T2.setTextColor(Color.WHITE);
                     FilteHelper.getInstance().setCb_TAG2(true);
                 }
                 else {
-                    cb_T2.setBackground(da_unchecked);
-                    cb_T2.setTextColor(Color.BLACK);
                     FilteHelper.getInstance().setCb_TAG2(false);
                 }
                 break;
 
             case R.id.cb_T3:
                 if(isChecked) {
-                    cb_T3.setBackground(da_checked);
-                    cb_T3.setTextColor(Color.WHITE);
                     FilteHelper.getInstance().setCb_TAG3(true);
                 }
                 else {
-                    cb_T3.setBackground(da_unchecked);
-                    cb_T3.setTextColor(Color.BLACK);
                     FilteHelper.getInstance().setCb_TAG3(false);
                 }
                 break;
 
             case R.id.cb_T4:
                 if(isChecked) {
-                    cb_T4.setBackground(da_checked);
-                    cb_T4.setTextColor(Color.WHITE);
                     FilteHelper.getInstance().setCb_TAG4(true);
                 }
                 else {
-                    cb_T4.setBackground(da_unchecked);
-                    cb_T4.setTextColor(Color.BLACK);
                     FilteHelper.getInstance().setCb_TAG4(false);
                 }
                 break;

@@ -2,7 +2,6 @@ package com.sudjunham.boonyapon;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import java.time.LocalDate;
 import android.os.Build;
 import android.os.Parcelable;
@@ -12,16 +11,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.content.Intent;
-import android.speech.RecognizerIntent;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -41,16 +37,18 @@ import org.json.JSONObject;
 import org.parceler.Parcels;
 
 
-public class MainActivity extends AppCompatActivity implements RecyclerViewItemClickListener {
+public class MainActivity extends AppCompatActivity implements RecyclerViewItemClickListener, View.OnClickListener {
 
-    List<Event_list> event_List_Arr;
+    List<Event_list> event_List_Arr = new ArrayList<Event_list>();
     String[] titleSeach;
     ScrollView scrollView;
      RecyclerView recyclerView;
      RecyclerViewAdapter adapter;
-     RecyclerView.LayoutManager layoutManager;
-    private ProgressDialog mProgressDialog;
+     LinearLayoutManager manager;
     ImageView img_filter;
+    Boolean isActiveResult = false;
+    ProgressBar progressBar;
+    LinearLayout seach_bar;
 
     @SuppressLint("ResourceType")
     @Override
@@ -58,9 +56,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         scrollView = findViewById(R.id.scrollView_main);
         img_filter = findViewById(R.id.img_filter);
+        progressBar = findViewById(R.id.progress_circular);
+        seach_bar = findViewById(R.id.seach_bar);
+        seach_bar.setOnClickListener(this);
         img_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,21 +69,21 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
             }
         });
 
+        progressBar.setVisibility(View.VISIBLE);
         scrollView.smoothScrollTo(0,0);
-
         recyclerView = findViewById(R.id.list_view1);
+        recyclerView.setNestedScrollingEnabled(false);
         callEventAPI();
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+
+        manager = new LinearLayoutManager(this) ;
+        recyclerView.setLayoutManager(manager);
         adapter = new RecyclerViewAdapter(MainActivity.this,event_List_Arr);
         recyclerView.setAdapter(adapter);
-
-        mProgressDialog.dismiss();
-
         adapter.setOnItemClickListener(this);
+        progressBar.setVisibility(View.INVISIBLE);
+
 
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -91,8 +91,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         if(requestCode == 1000){
             if(resultCode == Activity.RESULT_OK) {
                 List<Event_list> event_List_Arr_stack = new ArrayList<Event_list>();
+                isActiveResult = true;
                 for(int i = 0 ; i < event_List_Arr.size() ; i++){
                     boolean anytingelse = true;
+                    Log.d("contain",event_List_Arr.size()+"");
                     if(FilteHelper.getInstance().getMinMonth() <= event_List_Arr.get(i).getCursorEvent()-1 && FilteHelper.getInstance().getMaxMonth() >= event_List_Arr.get(i).getCursorEvent()-1){
                         if(FilteHelper.getInstance().isCb_outsude() && event_List_Arr.get(i).getLocation().contains("จังหวัด")){
                                 event_List_Arr_stack.add(event_List_Arr.get(i));
@@ -127,15 +129,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
     }
 
     private void callEventAPI(){
-        mProgressDialog = new ProgressDialog(MainActivity.this);
-        mProgressDialog.setTitle("Loading");
-        mProgressDialog.setMessage("Loading");
-        mProgressDialog.show();
 
         String url = "https://www.kku.ac.th/ikku/api/activities/services/topActivity.php";
-        event_List_Arr = new ArrayList<Event_list>();
+        isActiveResult = false;
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+        final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
@@ -143,8 +141,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
                         try {
                             JSONArray jsonArray = response.getJSONArray("activities");
                             titleSeach = new String[jsonArray.length()];
-
-                            for(int i = 0 ; i < jsonArray.length();i++){
+                            for(int i = 0; i < jsonArray.length();i++){
                                 JSONObject activity_event = jsonArray.getJSONObject(i);
                                 Event_list event_list = new Event_list();
 
@@ -180,7 +177,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
                                 //}
                             }
 
-
                         } catch (JSONException e) {
 
                         } catch (ParseException e) {
@@ -188,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
                         }
 
                     }
+
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -195,6 +192,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
             }
         });
         AppController.getInstance().addToRequestQueue(request);
+
     }
 
     public static String dateThai(String strDate)
@@ -242,7 +240,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
 
     @Override
     public void onItemClick(View view, int position) {
-
         Intent intent = new Intent(MainActivity.this , InfoEventActivity.class);
         Parcelable parcelable = Parcels.wrap(adapter.getItem(position));
         intent.putExtra("objEvent",parcelable);
@@ -253,5 +250,13 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
     @Override
     public void onItemLongClick(View view, int position) {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(MainActivity.this , SeachActivity.class);
+        Parcelable parcelable = Parcels.wrap(adapter.getEvent_lists());
+        intent.putExtra("listEvent",parcelable);
+        startActivity(intent);
     }
 }

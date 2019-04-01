@@ -8,4 +8,5 @@
     <color name="main_header">#711500</color>
     <color name="menu_button_color">#A73B23</color>
     <color name="mainac_color">#EFF2F3</color>
+    <color name="dark_gray">#2B2B2B</color>
 </resources>

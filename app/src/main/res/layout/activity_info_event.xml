@@ -5,9 +5,22 @@
     android:id="@+id/relativeLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InfoEventActivity">
+    tools:context=".InfoEventActivity"
+    android:background="@android:color/white">
+
+    <ProgressBar
+        android:id="@+id/progress_bar_info"
+        style="@style/MyProgressBarRectangle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
+        android:id="@+id/scrollView_info"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,6 +40,7 @@
                     android:layout_height="24dp"
                     android:elevation="10dp"
                     app:srcCompat="@drawable/back"
+                    android:background="@drawable/btn_ripple_background_red"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginStart="24dp"
@@ -64,9 +78,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:fontFamily="@font/rsu_regular"
-                android:lineSpacingExtra="@dimen/linespace_supermarket"
+                android:fontFamily="@font/anakotmailight"
                 android:text="sponsor"
+                android:textColor="@color/dark_gray"
                 app:layout_constraintEnd_toStartOf="@+id/imageView2"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/tv_title_info"
@@ -98,6 +112,7 @@
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/rsu_regular"
                 android:text="วัน/เวลา"
+                android:textColor="@color/dark_gray"
                 android:lineSpacingExtra="@dimen/linespace_supermarket"
                 android:textSize="@dimen/font_size_info"
                 app:layout_constraintStart_toEndOf="@+id/img_clock_info"
@@ -120,6 +135,7 @@
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/rsu_regular"
                 android:text="สถานที่"
+                android:textColor="@color/dark_gray"
                 android:lineSpacingExtra="@dimen/linespace_supermarket"
                 android:textSize="@dimen/font_size_info"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -158,6 +174,7 @@
                 android:layout_marginEnd="24dp"
                 android:fontFamily="@font/thsarabunnew_bold"
                 android:text="content "
+                android:textColor="@color/dark_gray"
                 android:textSize="@dimen/detail_item_font"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -178,6 +195,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_content_info"
                 android:background="@drawable/menu_button_round"
                 android:textColor="@color/button_login"/>
+
         </android.support.constraint.ConstraintLayout>
 
     </ScrollView>

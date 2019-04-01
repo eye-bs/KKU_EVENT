@@ -56,46 +56,26 @@
         android:fontFamily="@font/mavenpro_regular"
         android:textColor="@color/button_login"/>
 
-    <Button
-        android:id="@+id/button_skip"
-        android:layout_width="254dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/tv_login2"
-        android:layout_marginTop="20dp"
-        android:alpha="0.5"
-        android:background="@drawable/rounded_button"
-        android:elevation="16dp"/>
-
     <TextView
         android:id="@+id/tv_skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button_skip"
+        android:layout_below="@id/tv_login2"
         android:layout_centerHorizontal="true"
         android:text="@string/log_skip"
         android:textSize="@dimen/login_size"
+        android:background="@drawable/btn_ripple_background"
         android:textColor="@color/button_login"
         android:fontFamily="@font/mavenpro_bold"
+        android:layout_marginTop="60dp"
         tools:ignore="SpUsage" />
-
-    <TextView
-        android:id="@+id/tv_login3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/button_skip"
-        android:layout_marginTop="20dp"
-        android:text="@string/pre_login3"
-        android:fontFamily="@font/mavenpro_regular"
-        android:textColor="@color/button_login"/>
 
     <ImageView
         android:id="@+id/logo_log"
         android:layout_width="104dp"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="100dp"
         app:srcCompat="@mipmap/logo_login" />
 
     <TextView

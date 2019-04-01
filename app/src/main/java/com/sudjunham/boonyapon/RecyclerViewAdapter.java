@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.parceler.Parcel;
+import org.parceler.ParcelConstructor;
+
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
@@ -93,6 +96,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     //setBackground method is different for some android versions.
+
     public void setImageViewBackgroundWithADrawable(ImageView image, int drawable){
         if(Build.VERSION.SDK_INT >=22){
             image.setBackground(context.getResources().getDrawable(drawable, null));
@@ -102,5 +106,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }else{
             image.setBackgroundDrawable(context.getResources().getDrawable(drawable));
         }
+    }
+
+    public List<Event_list> getEvent_lists() {
+        return event_lists;
     }
 }
