@@ -29,6 +29,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@drawable/btn_ripple_background"
+            android:contentDescription="@string/description"
             app:srcCompat="@drawable/userr" />
 
         <LinearLayout
@@ -54,6 +55,7 @@
                 android:layout_weight="1"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="8dp"
+                android:contentDescription="@string/description"
                 app:srcCompat="@drawable/search" />
 
             <TextView
@@ -61,7 +63,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="12"
-                android:text="Search..."
+                android:text="@string/search_main"
                 android:fontFamily="@font/rsu_regular"
                 android:layout_gravity="center"
                 android:textColor="@color/button_login" />
@@ -79,6 +81,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@drawable/btn_ripple_background"
+            android:contentDescription="@string/description"
             app:srcCompat="@drawable/filterr" />
 
     </android.support.constraint.ConstraintLayout>
@@ -99,7 +102,7 @@
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
 
@@ -109,13 +112,14 @@
 
                 <ImageView
                     android:id="@+id/imageView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="220dp"
                     android:background="@color/main_header"
                     android:paddingBottom="40dp"
-                    android:src="@mipmap/kku_logo"
+                    android:src="@drawable/app_icon"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    android:contentDescription="@string/description"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <RelativeLayout

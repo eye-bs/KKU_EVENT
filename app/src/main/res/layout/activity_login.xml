@@ -10,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/bglogin"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/description"
+        android:foreground="#4d000000"/>
 
     <Button
         android:id="@+id/button_kkumail"
@@ -39,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/tv_logo"
+        android:layout_below="@+id/logo_log"
         android:layout_marginTop="50dp"
         android:text="@string/pre_login1"
         android:fontFamily="@font/mavenpro_regular"
@@ -72,23 +74,12 @@
 
     <ImageView
         android:id="@+id/logo_log"
-        android:layout_width="104dp"
-        android:layout_height="100dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
-        app:srcCompat="@mipmap/logo_login" />
-
-    <TextView
-        android:id="@+id/tv_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/logo_log"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/mavenpro_bold"
-        android:text="@string/kku_event"
-        android:textColor="@color/button_login"
-        android:textSize="@dimen/login_size" />
+        android:contentDescription="@string/description"
+        app:srcCompat="@drawable/app_icon" />
 
 
 </RelativeLayout>
