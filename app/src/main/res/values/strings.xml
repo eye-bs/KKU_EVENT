@@ -14,6 +14,9 @@
     <string name="event_item_time">วัน/เวลา</string>
     <string name="event_item_location">สถานที่</string>
     <string name="add_to_calendar">Add to Calendar</string>
+    <string name="description">someting</string>
+    <string name="by">"โดย %1$s"</string>
+    <string name="search_th">ค้นหา</string>
 
     <string-array name="faculty">
         <item>เสรี</item>

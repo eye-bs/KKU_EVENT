@@ -72,7 +72,8 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
         }
 
         tv_title.setText(event_detail.getName());
-        tv_sponsor.setText("โดย "+event_detail.getSponsor());
+        String getBy = getString(R.string.by,event_detail.getSponsor());
+        tv_sponsor.setText(getBy);
         tv_time.setText(event_detail.getDate());
         tv_location.setText(event_detail.getLocation());
         tv_content.setText(event_detail.getContent());
@@ -99,9 +100,6 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
 
             }
         });
-
-
-
     }
 
 
