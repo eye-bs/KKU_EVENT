@@ -96,6 +96,14 @@ public class FilterActivity extends AppCompatActivity implements CompoundButton.
         cb_T3.setOnCheckedChangeListener(this);
         cb_T4.setOnCheckedChangeListener(this);
 
+        FilteHelper.getInstance().setCb_ui(false);
+        FilteHelper.getInstance().setCb_outsude(false);
+        FilteHelper.getInstance().setCb_TAG1(false);
+        FilteHelper.getInstance().setCb_TAG2(false);
+        FilteHelper.getInstance().setCb_TAG3(false);
+        FilteHelper.getInstance().setCb_TAG4(false);
+
+
         img_backFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,8 +117,8 @@ public class FilterActivity extends AppCompatActivity implements CompoundButton.
             public void onClick(View v) {
 
                 FilteHelper.getInstance().setFaculty(getFaculty);
-                FilteHelper.getInstance().setMinMonth(minV);
-                FilteHelper.getInstance().setMaxMonth(maxV);
+                FilteHelper.getInstance().setMinMonth(minV+1);
+                FilteHelper.getInstance().setMaxMonth(maxV+1);
 
                 intentFilter = new Intent();
                 setResult(RESULT_OK,intentFilter);
@@ -139,9 +147,6 @@ public class FilterActivity extends AppCompatActivity implements CompoundButton.
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        Drawable da_checked = (Drawable)getResources().getDrawable(R.drawable.rounded_checked_box);
-        Drawable da_unchecked = (Drawable)getResources().getDrawable(R.drawable.ounded_uncheck_box);
-
         switch (buttonView.getId()){
             case R.id.checkBox_uni:
                 if(isChecked) {

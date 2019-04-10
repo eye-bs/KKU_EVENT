@@ -18,6 +18,15 @@
     <string name="by">"โดย %1$s"</string>
     <string name="search_th">ค้นหา</string>
     <string name="search_main">Search…</string>
+    <string name="my_event">My event</string>
+    <string name="firstname_lastname">FirstName LastName</string>
+    <string name="kkumail_co_th">kkumail.co.th</string>
+    <string name="_0">0</string>
+    <string name="join">JOIN</string>
+    <string name="favorite">Favorite</string>
+    <string name="upcoming_event">Upcoming Event</string>
+    <string name="tag">TAG</string>
+    <string name="event_not_found">ไม่พบการค้นหาของคุณ</string>
 
     <string-array name="faculty">
         <item>เสรี</item>

@@ -87,7 +87,7 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
         Display display = getWindowManager(). getDefaultDisplay();
         Point size = new Point();
         display. getSize(size);
-        int width = size. x;
+        int width = size.x;
         Picasso.with(this).load(imgURL).resize(width,0).placeholder(R.drawable.rounded_button).error(R.drawable.rounded_button).into(img_info, new Callback() {
             @Override
             public void onSuccess() {

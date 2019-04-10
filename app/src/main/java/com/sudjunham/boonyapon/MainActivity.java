@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -45,10 +46,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
      RecyclerView recyclerView;
      RecyclerViewAdapter adapter;
      LinearLayoutManager manager;
-    ImageView img_filter;
-    Boolean isActiveResult = false;
-    ProgressBar progressBar;
+    ImageView img_filter,img_user;
+    Boolean checkedTAG = false,checkedLocation = false;
     LinearLayout seach_bar;
+    TextView tv_result_filter;
 
     @SuppressLint("ResourceType")
     @Override
@@ -58,9 +59,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
 
         scrollView = findViewById(R.id.scrollView_main);
         img_filter = findViewById(R.id.img_filter);
-        progressBar = findViewById(R.id.progress_circular);
         seach_bar = findViewById(R.id.seach_bar);
+        img_user = findViewById(R.id.img_user);
+        tv_result_filter = findViewById(R.id.tv_result_filter);
+        tv_result_filter.setVisibility(View.INVISIBLE);
         seach_bar.setOnClickListener(this);
+        img_user.setOnClickListener(this);
         img_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
             }
         });
 
-        progressBar.setVisibility(View.VISIBLE);
         scrollView.smoothScrollTo(0,0);
         recyclerView = findViewById(R.id.list_view1);
         recyclerView.setNestedScrollingEnabled(false);
@@ -80,58 +83,13 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         adapter = new RecyclerViewAdapter(MainActivity.this,event_List_Arr);
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(this);
-        progressBar.setVisibility(View.INVISIBLE);
 
 
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if(requestCode == 1000){
-            if(resultCode == Activity.RESULT_OK) {
-                List<Event_list> event_List_Arr_stack = new ArrayList<Event_list>();
-                isActiveResult = true;
-                for(int i = 0 ; i < event_List_Arr.size() ; i++){
-                    boolean anytingelse = true;
-                    Log.d("contain",event_List_Arr.size()+"");
-                    if(FilteHelper.getInstance().getMinMonth() <= event_List_Arr.get(i).getCursorEvent()-1 && FilteHelper.getInstance().getMaxMonth() >= event_List_Arr.get(i).getCursorEvent()-1){
-                        if(FilteHelper.getInstance().isCb_outsude() && event_List_Arr.get(i).getLocation().contains("จังหวัด")){
-                                event_List_Arr_stack.add(event_List_Arr.get(i));
-                                anytingelse = false;
-                                continue;
-                        }
-                        if(FilteHelper.getInstance().isCb_ui() && !event_List_Arr.get(i).getLocation().contains("จังหวัด")){
-                                event_List_Arr_stack.add(event_List_Arr.get(i));
-                                anytingelse = false;
-                                continue;
-                        }
-
-                        if(FilteHelper.getInstance().isCb_TAG1() && event_List_Arr.get(i).getContent().contains("จิตอาสา")){
-                            event_List_Arr_stack.add(event_List_Arr.get(i));
-                            anytingelse = false;
-                            continue;
-
-                        }
-                        if(anytingelse){
-                            event_List_Arr_stack.add(event_List_Arr.get(i));
-                        }
-
-
-                    }
-
-                }
-                adapter = new RecyclerViewAdapter(MainActivity.this,event_List_Arr_stack);
-                recyclerView.setAdapter(adapter);
-                adapter.setOnItemClickListener(this);
-            }
-        }
     }
 
     private void callEventAPI(){
 
         String url = "https://www.kku.ac.th/ikku/api/activities/services/topActivity.php";
-        isActiveResult = false;
 
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -163,13 +121,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
                                     event_list.setName(activity_event.getString("title"));
                                     event_list.setDate(dateThai(pDate) + pTime(pTimeST,pTimeED) );
                                     event_list.setLocation(activity_event.getString("place"));
-                                    event_list.setCursorEvent(i);
                                     event_list.setContent(activity_event.getString("content"));
                                     event_list.setImglink(activity_event.getString("image"));
                                     event_list.setSponsor(activity_event.getString("sponsor"));
                                     event_list.setPhonecontact(phoneDEL);
                                     event_list.setWebsite(activity_event.getJSONObject("contact").getString("website"));
-                                    event_list.setCursorEvent(getDateEvent.getMonthValue());
+                                    event_list.setmonthForFilter(getDateEvent.getMonthValue());
 
                                     event_List_Arr.add(event_list);
                                     titleSeach[i]=activity_event.getString("title");
@@ -193,6 +150,66 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         });
         AppController.getInstance().addToRequestQueue(request);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(requestCode == 1000){
+            if(resultCode == Activity.RESULT_OK) {
+                List<Event_list> event_List_Arr_stack = new ArrayList<>();
+                for(int i = 0 ; i < event_List_Arr.size() ; i++){
+                    checkedTAG = false;
+                    checkedLocation = false;
+                    if(FilteHelper.getInstance().getMinMonth() > event_List_Arr.get(i).getmonthForFilter() || FilteHelper.getInstance().getMaxMonth() < event_List_Arr.get(i).getmonthForFilter()){ }
+                    else{
+                        if(event_List_Arr.get(i).getLocation().contains("จังหวัด") && FilteHelper.getInstance().isCb_outsude()){
+                            checkedLocation = true;
+                        }
+                        else if(!event_List_Arr.get(i).getLocation().contains("จังหวัด") && FilteHelper.getInstance().isCb_ui()){
+                            checkedLocation = true;
+                        }
+                        else if(!FilteHelper.getInstance().isCb_ui() && !FilteHelper.getInstance().isCb_outsude()) {
+                            checkedLocation = true;
+                        }
+                        if(FilteHelper.getInstance().isCb_TAG1()&&event_List_Arr.get(i).getContent().contains("อบรม")){
+                            checkedTAG = true;
+                        }
+                        else if(FilteHelper.getInstance().isCb_TAG1()&&event_List_Arr.get(i).getContent().contains("บรรยาย")){
+                            checkedTAG = true;
+                        }
+                        else if(FilteHelper.getInstance().isCb_TAG2()&&event_List_Arr.get(i).getContent().contains("ค่าย")){
+
+                            checkedTAG = true;
+                        }
+                        else if(FilteHelper.getInstance().isCb_TAG3()&&event_List_Arr.get(i).getContent().contains("Start up")){
+                            checkedTAG = true;
+                        }
+                        else if(FilteHelper.getInstance().isCb_TAG4()&&event_List_Arr.get(i).getContent().contains("มาราธอน")){
+                            checkedTAG = true;
+                        }
+                        else if(!FilteHelper.getInstance().isCb_TAG4()&&!FilteHelper.getInstance().isCb_TAG3()&&!FilteHelper.getInstance().isCb_TAG2()&&!FilteHelper.getInstance().isCb_TAG1()){
+                            checkedTAG = true;
+                        }
+                        if(checkedTAG && checkedLocation){
+                            event_List_Arr_stack.add(event_List_Arr.get(i));
+                        }
+
+                    }
+                }
+                if(event_List_Arr_stack.size()== 0){
+                    tv_result_filter.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.INVISIBLE);
+                }
+                else{
+                    tv_result_filter.setVisibility(View.INVISIBLE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
+                adapter = new RecyclerViewAdapter(MainActivity.this,event_List_Arr_stack);
+                recyclerView.setAdapter(adapter);
+                adapter.setOnItemClickListener(this);
+            }
+        }
     }
 
     public static String dateThai(String strDate)
@@ -254,9 +271,17 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(MainActivity.this , SeachActivity.class);
-        Parcelable parcelable = Parcels.wrap(adapter.getEvent_lists());
-        intent.putExtra("listEvent",parcelable);
-        startActivity(intent);
+        switch (v.getId()) {
+            case R.id.seach_bar:
+                Intent intent = new Intent(MainActivity.this, SeachActivity.class);
+                Parcelable parcelable = Parcels.wrap(adapter.getEvent_lists());
+                intent.putExtra("listEvent", parcelable);
+                startActivity(intent);
+                break;
+            case R.id.img_user:
+                Intent intent2 = new Intent(MainActivity.this, UserActivity.class);
+                startActivity(intent2);
+
+        }
     }
 }

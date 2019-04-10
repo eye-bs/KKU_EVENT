@@ -31,7 +31,7 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
                 <ImageView
@@ -44,7 +44,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"/>
+                    android:layout_marginTop="24dp"
+                    android:foreground="@drawable/btn_ripple_background"/>
 
 
             <ImageView
@@ -152,7 +153,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/button"
                 app:layout_constraintEnd_toStartOf="@+id/button"
                 app:layout_constraintTop_toTopOf="@+id/button"
-                app:srcCompat="@mipmap/phonedetail" />
+                app:srcCompat="@mipmap/phonedetail"
+                android:foreground="@drawable/btn_ripple_background_red"/>
 
             <ImageView
                 android:id="@+id/img_web_info"
@@ -163,7 +165,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/button"
                 app:layout_constraintStart_toEndOf="@+id/button"
                 app:layout_constraintTop_toTopOf="@+id/button"
-                app:srcCompat="@mipmap/webdetail" />
+                app:srcCompat="@mipmap/webdetail"
+                android:foreground="@drawable/btn_ripple_background_red"/>
 
             <TextView
                 android:id="@+id/tv_content_info"

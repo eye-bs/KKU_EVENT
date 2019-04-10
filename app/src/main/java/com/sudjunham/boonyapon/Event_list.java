@@ -7,14 +7,14 @@ import org.parceler.ParcelConstructor;
 public class Event_list {
 
     String name, date,location , content , imglink,sponsor,phonecontact,website;
-    int cursorEvent;
+    int monthForFilter;
     private static final Event_list instance = new Event_list();
     @ParcelConstructor
     public Event_list() {
         this.date = date;
         this.name = name;
         this.location = location;
-        this.cursorEvent = cursorEvent;
+        this.monthForFilter = monthForFilter;
         this.content = content;
         this.imglink = imglink;
         this.sponsor = sponsor;
@@ -78,12 +78,12 @@ public class Event_list {
         this.date = date;
     }
 
-    public int getCursorEvent() {
-        return cursorEvent;
+    public int getmonthForFilter() {
+        return monthForFilter;
     }
 
-    public void setCursorEvent(int cursorEvent) {
-        this.cursorEvent = cursorEvent;
+    public void setmonthForFilter(int monthForFilter) {
+        this.monthForFilter = monthForFilter;
     }
 
     public void setLocation(String location) {

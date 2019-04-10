@@ -47,8 +47,8 @@ public class SeachActivity extends AppCompatActivity implements RecyclerViewItem
         img_cancel.setOnClickListener(this);
         img_search.setOnClickListener(this);
 
-
-        editText.setFocusable(true);
+        editText.setEnabled(true);
+        editText.requestFocus();
 
         final Intent intent = getIntent();
         event_List_Search = Parcels.unwrap(intent.getParcelableExtra("listEvent"));
@@ -65,8 +65,11 @@ public class SeachActivity extends AppCompatActivity implements RecyclerViewItem
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String getEdittext = editText.getText().toString();
+                if(!getEdittext.equals("")){
                 recyclerView.setVisibility(View.VISIBLE);
-                adapter.getFilter().filter(editText.getText().toString());
+                adapter.getFilter().filter(getEdittext);}
+                else recyclerView.setVisibility(View.INVISIBLE);
             }
 
             @Override
