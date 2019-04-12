@@ -6,7 +6,7 @@ import org.parceler.ParcelConstructor;
 @Parcel
 public class Event_list {
 
-    String name, date,location , content , imglink,sponsor,phonecontact,website;
+    String name, date,location , content , imglink,sponsor,phonecontact,website,dateTimeST,dateTimeED;
     int monthForFilter;
     private static final Event_list instance = new Event_list();
     @ParcelConstructor
@@ -20,6 +20,8 @@ public class Event_list {
         this.sponsor = sponsor;
         this.phonecontact = phonecontact;
         this.website = website;
+        this.dateTimeST = dateTimeST;
+        this.dateTimeED = dateTimeED;
 
 
 
@@ -29,6 +31,21 @@ public class Event_list {
     }
 
 
+    public String getDateTimeST() {
+        return dateTimeST;
+    }
+
+    public void setDateTimeST(String dateTimeST) {
+        this.dateTimeST = dateTimeST;
+    }
+
+    public String getDateTimeED() {
+        return dateTimeED;
+    }
+
+    public void setDateTimeED(String dateTimeED) {
+        this.dateTimeED = dateTimeED;
+    }
 
     public String getContent() {
         return content;

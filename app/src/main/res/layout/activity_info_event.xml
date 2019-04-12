@@ -150,9 +150,9 @@
                 android:layout_height="36dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/button"
-                app:layout_constraintEnd_toStartOf="@+id/button"
-                app:layout_constraintTop_toTopOf="@+id/button"
+                app:layout_constraintBottom_toBottomOf="@+id/bt_add_calendar"
+                app:layout_constraintEnd_toStartOf="@+id/bt_add_calendar"
+                app:layout_constraintTop_toTopOf="@+id/bt_add_calendar"
                 app:srcCompat="@mipmap/phonedetail"
                 android:foreground="@drawable/btn_ripple_background_red"/>
 
@@ -162,9 +162,9 @@
                 android:layout_height="36dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/button"
-                app:layout_constraintStart_toEndOf="@+id/button"
-                app:layout_constraintTop_toTopOf="@+id/button"
+                app:layout_constraintBottom_toBottomOf="@+id/bt_add_calendar"
+                app:layout_constraintStart_toEndOf="@+id/bt_add_calendar"
+                app:layout_constraintTop_toTopOf="@+id/bt_add_calendar"
                 app:srcCompat="@mipmap/webdetail"
                 android:foreground="@drawable/btn_ripple_background_red"/>
 
@@ -184,7 +184,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_location_info" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/bt_add_calendar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"

@@ -103,9 +103,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
                                 JSONObject activity_event = jsonArray.getJSONObject(i);
                                 Event_list event_list = new Event_list();
 
-                                String pDate = activity_event.getString("dateSt");
+                                String pDateST = activity_event.getString("dateSt");
+                                String pDateED = activity_event.getString("dateEd");
                                 String pTimeST = activity_event.getString("timeSt");
                                 String pTimeED = activity_event.getString("timeEd");
+
                                 String phoneDEL = activity_event.getJSONObject("contact").getString("phone");
                                 phoneDEL = phoneDEL.replaceAll(" " , "");
                                 phoneDEL = phoneDEL.replaceAll("-" , "");
@@ -115,11 +117,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
 
                                 String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
                                 LocalDate currentDate = LocalDate.parse( timeStamp , DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                                LocalDate getDateEvent = LocalDate.parse( pDate , DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                                LocalDate getDateEvent = LocalDate.parse( pDateST , DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
                                // if(currentDate.isBefore(getDateEvent) || currentDate.equals(getDateEvent)){
                                     event_list.setName(activity_event.getString("title"));
-                                    event_list.setDate(dateThai(pDate) + pTime(pTimeST,pTimeED) );
+                                    event_list.setDate(dateThai(pDateST) + pTime(pTimeST,pTimeED) );
                                     event_list.setLocation(activity_event.getString("place"));
                                     event_list.setContent(activity_event.getString("content"));
                                     event_list.setImglink(activity_event.getString("image"));
@@ -127,6 +129,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
                                     event_list.setPhonecontact(phoneDEL);
                                     event_list.setWebsite(activity_event.getJSONObject("contact").getString("website"));
                                     event_list.setmonthForFilter(getDateEvent.getMonthValue());
+                                    event_list.setDateTimeST(parseDateTime(pDateST,pTimeST));
+                                    event_list.setDateTimeED(parseDateTime(pDateED,pTimeED));
 
                                     event_List_Arr.add(event_list);
                                     titleSeach[i]=activity_event.getString("title");
@@ -237,6 +241,15 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         }
 
         return String.format("%s %s %s", day,Months[month],year);
+    }
+
+    public String parseDateTime(String date , String time)throws ParseException{
+        DateFormat parserTime = new SimpleDateFormat("a. HH.mm");
+        Date timeP = parserTime.parse(time);
+        SimpleDateFormat formatter = new SimpleDateFormat("HH.mm");
+        String formattedTime = formatter.format(timeP);
+       return date + " " + formattedTime;
+
     }
 
     public static String pTime(String strtime , String timeED) throws ParseException {
