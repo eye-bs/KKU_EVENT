@@ -23,6 +23,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.squareup.picasso.Picasso;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -50,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
     Boolean checkedTAG = false,checkedLocation = false;
     LinearLayout seach_bar;
     TextView tv_result_filter;
+    private GoogleSignInClient googleSignInClient;
+    private static final String TAG = "AndroidClarified";
 
     @SuppressLint("ResourceType")
     @Override
@@ -84,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(this);
 
+        setImgUser();
 
     }
 
@@ -292,9 +301,31 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
                 startActivity(intent);
                 break;
             case R.id.img_user:
-                Intent intent2 = new Intent(MainActivity.this, UserActivity.class);
-                startActivity(intent2);
 
+                GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
+                if (googleSignInAccount != null) {
+                    Intent userPage = new Intent(MainActivity.this, UserActivity.class);
+                    startActivity(userPage);
+                } else {
+                    GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                            .requestEmail()
+                            .build();
+                    googleSignInClient = GoogleSignIn.getClient(this, gso);
+
+                    Intent signInIntent = googleSignInClient.getSignInIntent();
+                    startActivityForResult(signInIntent, 101);
+
+                }
+        }
+    }
+
+    private void setImgUser() {
+        GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
+        if (googleSignInAccount != null) {
+            Picasso.with(this)
+                    .load(googleSignInAccount.getPhotoUrl().toString())
+                    .into(img_user);
+        } else {
         }
     }
 }

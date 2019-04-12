@@ -1,62 +1,61 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
-   >
+    tools:context=".LoginActivity">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/bglogin"
-        android:scaleType="centerCrop"
         android:contentDescription="@string/description"
-        android:foreground="#4d000000"/>
+        android:foreground="#4d000000"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bglogin" />
 
     <Button
-        android:id="@+id/button_kkumail"
+        android:id="@+id/btn_signin"
         android:layout_width="254dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/tv_login1"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:alpha="0.5"
         android:background="@drawable/rounded_button" />
 
     <TextView
-        android:id="@+id/tv_kkumail"
+        android:id="@+id/tv_signin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button_kkumail"
+        android:layout_alignBaseline="@+id/btn_signin"
         android:layout_centerHorizontal="true"
-        android:text="@string/log_kku"
-        android:textSize="@dimen/login_size"
-        android:textColor="@color/button_login"
         android:fontFamily="@font/mavenpro_bold"
+        android:text="@string/log_kku"
+        android:textColor="@color/button_login"
+        android:textSize="@dimen/login_size"
         tools:ignore="SpUsage" />
 
     <TextView
         android:id="@+id/tv_login1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/logo_log"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:text="@string/pre_login1"
         android:fontFamily="@font/mavenpro_regular"
-        android:textColor="@color/button_login"/>
+        android:text="@string/pre_login1"
+        android:textColor="@color/button_login" />
 
     <TextView
         android:id="@+id/tv_login2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/btn_signin"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/button_kkumail"
         android:layout_marginTop="20dp"
-        android:text="@string/pre_login2"
         android:fontFamily="@font/mavenpro_regular"
-        android:textColor="@color/button_login"/>
+        android:text="@string/pre_login2"
+        android:textColor="@color/button_login" />
 
     <TextView
         android:id="@+id/tv_skip"
@@ -64,12 +63,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_login2"
         android:layout_centerHorizontal="true"
-        android:text="@string/log_skip"
-        android:textSize="@dimen/login_size"
+        android:layout_marginTop="20dp"
         android:background="@drawable/btn_ripple_background"
-        android:textColor="@color/button_login"
         android:fontFamily="@font/mavenpro_bold"
-        android:layout_marginTop="60dp"
+        android:text="@string/log_skip"
+        android:textColor="@color/button_login"
+        android:textSize="@dimen/login_size"
         tools:ignore="SpUsage" />
 
     <ImageView

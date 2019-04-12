@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">KKU Event</string>
-    <string name="log_kku">KKU MAIL</string>
-    <string name="pre_login1">Enter via kku mail account</string>
+    <string name="log_kku">SIGN IN</string>
+    <string name="pre_login1">Enter via google account</string>
     <string name="pre_login2">Or use a guest account</string>
     <string name="pre_login3">Forgot Password?</string>
     <string name="log_skip">SKIP</string>
@@ -20,7 +20,7 @@
     <string name="search_main">Search…</string>
     <string name="my_event">My event</string>
     <string name="firstname_lastname">FirstName LastName</string>
-    <string name="kkumail_co_th">kkumail.co.th</string>
+    <string name="kkumail_co_th">E-mail</string>
     <string name="_0">0</string>
     <string name="join">JOIN</string>
     <string name="favorite">Favorite</string>
