@@ -27,6 +27,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
@@ -93,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         adapter.setOnItemClickListener(this);
 
         setImgUser();
-
     }
 
     private void callEventAPI(){
@@ -167,6 +168,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        setImgUser();
 
         if(requestCode == 1000){
             if(resultCode == Activity.RESULT_OK) {
@@ -314,7 +318,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
 
                     Intent signInIntent = googleSignInClient.getSignInIntent();
                     startActivityForResult(signInIntent, 101);
-
                 }
         }
     }
@@ -326,6 +329,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
                     .load(googleSignInAccount.getPhotoUrl().toString())
                     .into(img_user);
         } else {
+            Picasso.with(this)
+                    .load(R.drawable.userr)
+                    .into(img_user);
         }
     }
 }

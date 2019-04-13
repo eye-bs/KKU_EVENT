@@ -72,7 +72,8 @@ public class LoginActivity extends AppCompatActivity {
                     try {
                         Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
                         GoogleSignInAccount account = task.getResult(ApiException.class);
-                        onLoggedIn(account);
+                        Intent intent = new Intent(this, MainActivity.class);
+                        startActivity(intent);
                     } catch (ApiException e) {
                         Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
                     }
@@ -85,15 +86,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         GoogleSignInAccount alreadyloggedAccount = GoogleSignIn.getLastSignedInAccount(this);
         if (alreadyloggedAccount != null) {
-            onLoggedIn(alreadyloggedAccount);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         } else {
             Log.d(TAG, "Not logged in");
         }
-    }
-
-    private void onLoggedIn(GoogleSignInAccount googleSignInAccount) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
 
     private void checkPermissions(int callbackId, String... permissionsId) {

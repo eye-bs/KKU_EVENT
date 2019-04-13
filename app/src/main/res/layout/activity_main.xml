@@ -17,7 +17,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/img_user"
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -28,9 +29,23 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/btn_ripple_background"
-            android:contentDescription="@string/description"
-            app:srcCompat="@drawable/userr" />
+            android:src="@drawable/userr"
+            app:civ_border_color="#FF000000"/>
+
+        <!--<ImageView-->
+            <!--android:id="@+id/img_user"-->
+            <!--android:layout_width="48dp"-->
+            <!--android:layout_height="48dp"-->
+            <!--android:layout_marginStart="24dp"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:layout_marginBottom="8dp"-->
+            <!--android:elevation="1dp"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent"-->
+            <!--android:background="@drawable/btn_ripple_background"-->
+            <!--android:contentDescription="@string/description"-->
+            <!--app:srcCompat="@drawable/userr" />-->
 
         <LinearLayout
             android:id="@+id/seach_bar"
