@@ -19,7 +19,7 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/SplashTheme">
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".MyEventActivity"></activity>
         <activity android:name=".UserActivity" />
@@ -32,7 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"/>
         <activity android:name=".InfoEventActivity" />
     </application>
 

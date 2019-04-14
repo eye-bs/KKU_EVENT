@@ -137,8 +137,7 @@ public class SeachActivity extends AppCompatActivity implements RecyclerViewItem
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_back:
-                Intent intent = new Intent(SeachActivity.this,MainActivity.class);
-                startActivity(intent);
+                this.finish();
                 break;
             case R.id.img_search:
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);

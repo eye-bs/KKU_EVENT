@@ -5,7 +5,9 @@ import android.app.Activity;
 import java.time.LocalDate;
 import android.os.Build;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,12 +25,18 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
@@ -58,14 +66,30 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
     Boolean checkedTAG = false,checkedLocation = false;
     LinearLayout seach_bar;
     TextView tv_result_filter;
+    SwipeRefreshLayout pullToRefresh;
     private GoogleSignInClient googleSignInClient;
+    private GoogleApiClient mGoogleSignInClient;
+    private static final int RC_SIGN_IN = 1;
     private static final String TAG = "AndroidClarified";
+
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
 
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        pullToRefresh = findViewById(R.id.pullToRefresh);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                callEventAPI();
+                pullToRefresh.setRefreshing(false);
+            }
+        });
 
         scrollView = findViewById(R.id.scrollView_main);
         img_filter = findViewById(R.id.img_filter);
@@ -305,19 +329,13 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
                 startActivity(intent);
                 break;
             case R.id.img_user:
-
                 GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
                 if (googleSignInAccount != null) {
                     Intent userPage = new Intent(MainActivity.this, UserActivity.class);
                     startActivity(userPage);
                 } else {
-                    GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                            .requestEmail()
-                            .build();
-                    googleSignInClient = GoogleSignIn.getClient(this, gso);
-
-                    Intent signInIntent = googleSignInClient.getSignInIntent();
-                    startActivityForResult(signInIntent, 101);
+                    Intent userPage = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(userPage);
                 }
         }
     }

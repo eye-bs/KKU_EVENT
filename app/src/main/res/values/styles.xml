@@ -22,4 +22,8 @@
         <item name="android:minWidth">24dp</item>
     </style>
 
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash_bg</item>
+    </style>
+
 </resources>

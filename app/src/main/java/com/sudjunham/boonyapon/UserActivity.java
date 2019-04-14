@@ -16,6 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
@@ -35,7 +36,9 @@ public class UserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user);
 
         GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
         googleSignInClient = GoogleSignIn.getClient(this, gso);
@@ -49,8 +52,7 @@ public class UserActivity extends AppCompatActivity {
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mainPage = new Intent(UserActivity.this, MainActivity.class);
-                startActivity(mainPage);
+                finish();
             }
         });
 
@@ -63,6 +65,8 @@ public class UserActivity extends AppCompatActivity {
                         Intent intent = new Intent(UserActivity.this, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
+
+                        FirebaseAuth.getInstance().signOut();
                     }
                 });
             }
@@ -75,7 +79,6 @@ public class UserActivity extends AppCompatActivity {
         profileEmail.setText(googleSignInAccount.getEmail());
 
         img_calendar = findViewById(R.id.img_calendar);
-
         img_calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

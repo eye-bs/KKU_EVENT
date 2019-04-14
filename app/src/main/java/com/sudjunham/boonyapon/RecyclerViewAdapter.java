@@ -21,13 +21,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private LayoutInflater inflater;
     private RecyclerViewItemClickListener recyclerViewItemClickListener;
 
-
     //ViewHolder class
     //TextView and ImageView holders are binded with relevant views in item of recyclerview.
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView textViewName ;
         TextView textViewDate ;
         TextView textViewLocation ;
+
         public int position=0;
         public ViewHolder(View v) {
             super(v);
@@ -79,7 +79,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.position=position;
-        holder.textViewName.setText(event_lists.get(position).getName());
+        String evName = event_lists.get(position).getName();
+        evName = evName.replaceAll("&quot;", "\"");
+        holder.textViewName.setText(evName);
         holder.textViewDate.setText(event_lists.get(position).getDate());
         holder.textViewLocation.setText(event_lists.get(position).getLocation());
 

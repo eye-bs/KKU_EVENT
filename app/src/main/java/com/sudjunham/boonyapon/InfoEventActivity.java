@@ -98,13 +98,18 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
             img_phone.setVisibility(View.INVISIBLE);
         }
 
-        tv_title.setText(event_detail.getName());
+        String evName = event_detail.getName();
+        evName = evName.replaceAll("&quot;", "\"");
+
+        String evContent = event_detail.getContent();
+        evContent = evContent.replaceAll("&quot;", "\"");
+
+        tv_title.setText(evName);
         String getBy = getString(R.string.by, event_detail.getSponsor());
         tv_sponsor.setText(getBy);
         tv_time.setText(event_detail.getDate());
         tv_location.setText(event_detail.getLocation());
-        tv_content.setText(event_detail.getContent());
-
+        tv_content.setText(evContent);
 
         img_phone.setOnClickListener(this);
 
@@ -147,7 +152,7 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
                 startActivity(openBowser);
                 break;
             case R.id.img_backArrow:
-                startActivity(backMainActivity);
+                finish();
                 break;
             case R.id.bt_add_calendar:
 
