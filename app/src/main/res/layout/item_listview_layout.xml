@@ -55,7 +55,7 @@
             app:layout_constraintTop_toBottomOf="@+id/event_time" />
 
         <com.inthecheesefactory.thecheeselibrary.widget.AdjustableImageView
-            android:id="@+id/bt_like"
+            android:id="@+id/bt_like_main"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_margin="10dp"

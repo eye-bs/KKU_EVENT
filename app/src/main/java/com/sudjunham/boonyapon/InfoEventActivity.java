@@ -29,6 +29,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -46,7 +48,7 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 public class InfoEventActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView tv_title, tv_sponsor, tv_time, tv_location, tv_content;
-    ImageView img_info, img_phone, img_web, img_backArrow;
+    ImageView img_info, img_phone, img_web, img_backArrow,bt_like;
     String phoneOnClick;
     String webOnclick = "";
     ProgressBar progressBar;
@@ -63,6 +65,7 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
         final Intent intent = getIntent();
         event_detail = Parcels.unwrap(intent.getParcelableExtra("objEvent"));
 
+        bt_like = findViewById(R.id.bt_like);
 
         scrollView_info = findViewById(R.id.scrollView_info);
         tv_title = findViewById(R.id.tv_title_info);
@@ -83,6 +86,13 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
 
         img_backArrow.setOnClickListener(this);
         bt_add_calendar.setOnClickListener(this);
+
+        GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
+        if (googleSignInAccount != null) {
+            bt_like.setOnClickListener(this);
+        } else {
+            bt_like.setVisibility(View.INVISIBLE);
+        }
 
         if (!event_detail.getWebsite().equals("") && event_detail.getWebsite().contains("http")) {
             webOnclick = event_detail.getWebsite();

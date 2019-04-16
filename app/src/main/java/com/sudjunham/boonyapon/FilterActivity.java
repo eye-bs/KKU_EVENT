@@ -107,8 +107,7 @@ public class FilterActivity extends AppCompatActivity implements CompoundButton.
         img_backFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FilterActivity.this,MainActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 

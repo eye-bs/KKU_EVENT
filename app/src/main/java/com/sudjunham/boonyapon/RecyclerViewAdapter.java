@@ -2,12 +2,16 @@ package com.sudjunham.boonyapon;
 
 import android.content.Context;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import org.parceler.Parcel;
 import org.parceler.ParcelConstructor;
@@ -27,18 +31,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView textViewName ;
         TextView textViewDate ;
         TextView textViewLocation ;
+        ImageView btn_like;
 
         public int position=0;
         public ViewHolder(View v) {
             super(v);
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //When item view is clicked, trigger the itemclicklistener
-                    //Because that itemclicklistener is indicated in MainActivity
-                    recyclerViewItemClickListener.onItemClick(v,position);
-                }
-            });
+
+                v.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //When item view is clicked, trigger the itemclicklistener
+                        //Because that itemclicklistener is indicated in MainActivity
+                        recyclerViewItemClickListener.onItemClick(v, position);
+                    }
+                });
+
             v.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
@@ -51,6 +58,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             textViewName = v.findViewById(R.id.event_name);
             textViewDate = v.findViewById(R.id.event_time);
             textViewLocation = v.findViewById(R.id.event_location);
+            btn_like = v.findViewById(R.id.bt_like_main);
+
         }
     }
 

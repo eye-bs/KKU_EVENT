@@ -127,9 +127,6 @@ public class LoginActivity extends AppCompatActivity {
             if (result.isSuccess()){
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                //intent.putExtra("mService",user.getEmail());
-                startActivity(intent);
             } else {
 
             }
@@ -144,6 +141,7 @@ public class LoginActivity extends AppCompatActivity {
         if (alreadyloggedAccount != null) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            finish();
         } else {
             Log.d(TAG, "Not logged in");
         }
@@ -163,6 +161,7 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             //intent.putExtra("mService",user.getEmail());
                             startActivity(intent);
+                            finish();
                         } else {
                             //Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
