@@ -8,7 +8,7 @@
     android:background="@color/mainac_color">
 
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_button"
@@ -102,6 +102,6 @@
             app:layout_constraintStart_toStartOf="@id/img_clock"
             app:layout_constraintTop_toTopOf="@+id/event_location"
             app:srcCompat="@mipmap/placeholder" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

@@ -27,6 +27,9 @@
     <string name="upcoming_event">Upcoming Event</string>
     <string name="tag">TAG</string>
     <string name="event_not_found">ไม่พบการค้นหาของคุณ</string>
+    <string name="fetchfail">Failed to fetch the Image</string>
+    <string name="failedconnection">Connection Failed </string>
+
 
     <string-array name="faculty">
         <item>เสรี</item>
@@ -67,6 +70,16 @@
         <item>สถาบันขงจื้อ</item>
         <item>วิทยาลัยบัณฑิตศึกษาการจัดการ</item>
         <item>กองพัฒนานักศึกษาและศิษย์เก่าสัมพันธ์</item>
+    </string-array>
+
+    <string-array name="credit">
+        <item>ไม่มี</item>
+        <item>ด้านที่ 1 การพัฒนาศักยภาพตนเอง</item>
+        <item>ด้านที่ 2 การธำรงไว้ซึ่งสถาบันชาติ ศาสนา พระมหากษัตริย์ เสริมสร้างจิตสำนึกความภาคภูมิใจในมหาวิทยาลัยและคณะ</item>
+        <item>ด้านที่ 3 การเสริมสร้างจิตอาสา และจิตสาธารณะ</item>
+        <item>ด้านที่ 4 การสร้างคุณธรรมจริยธรรมและศีลธรรม</item>
+        <item>ด้านที่ 5 การอนุรักษ์ศิลปวัฒนธรรมไทยและภูมิปัญญาท้องถิ่น</item>
+
     </string-array>
 
 

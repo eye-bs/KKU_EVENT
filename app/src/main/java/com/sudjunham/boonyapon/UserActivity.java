@@ -3,8 +3,6 @@ package com.sudjunham.boonyapon;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.CalendarContract;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,12 +21,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 public class UserActivity extends AppCompatActivity {
     ImageView img_calendar;
     private GoogleSignInClient googleSignInClient;
     private TextView profileName, profileEmail;
-    private ImageView profileImage,backArrow;
-    private TextView signOut;
+    private ImageView profileImage;
+    private TextView signOut,myEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +48,13 @@ public class UserActivity extends AppCompatActivity {
         profileEmail = findViewById(R.id.tv_Email);
         profileImage = findViewById(R.id.profile_image);
         signOut = findViewById(R.id.btn_signout);
-        backArrow = findViewById(R.id.img_backArrow);
+        myEvent = findViewById(R.id.my_event);
 
-        backArrow.setOnClickListener(new View.OnClickListener() {
+        myEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(UserActivity.this,MyEventActivity.class);
+                startActivity(intent);
             }
         });
 

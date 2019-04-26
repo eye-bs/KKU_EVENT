@@ -1,25 +1,13 @@
 package com.sudjunham.boonyapon;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Point;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.CalendarContract;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.Button;
@@ -36,19 +24,18 @@ import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+
 import java.util.Date;
 import java.util.TimeZone;
 
-import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class InfoEventActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView tv_title, tv_sponsor, tv_time, tv_location, tv_content;
-    ImageView img_info, img_phone, img_web, img_backArrow,bt_like;
+    ImageView img_info, img_phone, img_web,bt_like;
     String phoneOnClick;
     String webOnclick = "";
     ProgressBar progressBar;
@@ -78,13 +65,11 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
         img_phone = findViewById(R.id.img_phone_info);
         img_info = findViewById(R.id.img_Info);
         img_web = findViewById(R.id.img_web_info);
-        img_backArrow = findViewById(R.id.img_backArrow);
         progressBar = findViewById(R.id.progress_bar_info);
 
         progressBar.setVisibility(View.VISIBLE);
         scrollView_info.setVisibility(View.INVISIBLE);
 
-        img_backArrow.setOnClickListener(this);
         bt_add_calendar.setOnClickListener(this);
 
         GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
@@ -160,9 +145,6 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.img_web_info:
                 startActivity(openBowser);
-                break;
-            case R.id.img_backArrow:
-                finish();
                 break;
             case R.id.bt_add_calendar:
 

@@ -5,19 +5,11 @@ import android.app.Activity;
 import java.time.LocalDate;
 import android.os.Build;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,17 +17,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
@@ -47,11 +32,18 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcels;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewItemClickListener, View.OnClickListener {
@@ -155,7 +147,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
 
                                // if(currentDate.isBefore(getDateEvent) || currentDate.equals(getDateEvent)){
                                     event_list.setName(activity_event.getString("title"));
-                                    event_list.setDate(dateThai(pDateST) + pTime(pTimeST,pTimeED) );
+                                    event_list.setDate((pDateST.equals(pDateED))
+                                        ? (dateThai(pDateST,null,pTimeST,pTimeED))
+                                        :(dateThai(pDateST,pDateED,pTimeST,pTimeED)));
                                     event_list.setLocation(activity_event.getString("place"));
                                     event_list.setContent(activity_event.getString("content"));
                                     event_list.setImglink(activity_event.getString("image"));
@@ -253,31 +247,34 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         }
     }
 
-    public static String dateThai(String strDate)
+    public static String dateThai(String strDate,String endDate,String strtime , String timeED)throws ParseException
     {
-        String Months[] = {
-                "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน",
-                "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม",
-                "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"};
-
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat DateFormat = new SimpleDateFormat("d MMMM", Locale.getDefault());
+        SimpleDateFormat DateFormatWYear = new SimpleDateFormat("d MMMM yyyy", Locale.getDefault());
 
-        int year=0,month=0,day=0;
-        try {
-            Date date = df.parse(strDate);
-            Calendar c = Calendar.getInstance();
-            c.setTime(date);
+        Date dateST = df.parse(strDate);
 
-            year = c.get(Calendar.YEAR);
-            month = c.get(Calendar.MONTH);
-            day = c.get(Calendar.DATE);
+        DateFormat parser = new SimpleDateFormat("a. HH.mm",Locale.getDefault());
+        SimpleDateFormat formatter = new SimpleDateFormat("HH.mm",Locale.getDefault());
+        Date dtimeST = parser.parse(strtime);
+        Date dtimeEd = parser.parse(timeED);
+        strtime = formatter.format(dtimeST);
+        timeED = formatter.format(dtimeEd);
 
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        //same date
+        if(endDate == null) {
+            strDate = DateFormatWYear.format(dateST);
+            return String.format("%s เวลา %s - %s น.", strDate,strtime,timeED);
         }
+        //muti date
+        else{
+            Date dateED = df.parse(endDate);
+            strDate = DateFormat.format(dateST);
+            endDate = DateFormat.format(dateED);
 
-        return String.format("%s %s %s", day,Months[month],year);
+            return String.format("%s %s น. - %s %s น.", strDate, strtime,endDate,timeED);
+        }
     }
 
     public String parseDateTime(String date , String time)throws ParseException{
@@ -286,18 +283,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         SimpleDateFormat formatter = new SimpleDateFormat("HH.mm");
         String formattedTime = formatter.format(timeP);
        return date + " " + formattedTime;
-
-    }
-
-    public static String pTime(String strtime , String timeED) throws ParseException {
-
-            DateFormat parser = new SimpleDateFormat("a. HH.mm");
-            Date dateST = parser.parse(strtime);
-            Date dateEd = parser.parse(timeED);
-            SimpleDateFormat formatter = new SimpleDateFormat("HH.mm");
-            String formattedDateST = formatter.format(dateST);
-            String formattedDateED = formatter.format(dateEd);
-            return String.format(" เวลา %s - %s น.", formattedDateST,formattedDateED );
 
     }
 

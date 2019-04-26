@@ -1,9 +1,6 @@
 package com.sudjunham.boonyapon;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +16,8 @@ import android.widget.Toast;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarFinalValueListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import static com.sudjunham.boonyapon.FilteHelper.*;
 
@@ -35,7 +33,6 @@ public class FilterActivity extends AppCompatActivity implements CompoundButton.
     String getFaculty;
     int minV , maxV;
     Intent intentFilter;
-    ImageView img_backFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +61,6 @@ public class FilterActivity extends AppCompatActivity implements CompoundButton.
 
 
         bt_filter_ok = findViewById(R.id.bt_filter_ok);
-        img_backFilter = findViewById(R.id.img_backFilter);
         spinner = findViewById(R.id.spinner_open);
 
         final String[] faculty = getResources().getStringArray(R.array.faculty);
@@ -103,13 +99,6 @@ public class FilterActivity extends AppCompatActivity implements CompoundButton.
         FilteHelper.getInstance().setCb_TAG3(false);
         FilteHelper.getInstance().setCb_TAG4(false);
 
-
-        img_backFilter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         bt_filter_ok.setOnClickListener(new View.OnClickListener() {
             @Override

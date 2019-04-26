@@ -3,26 +3,25 @@ package com.sudjunham.boonyapon;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 
 
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class SeachActivity extends AppCompatActivity implements RecyclerViewItemClickListener, View.OnClickListener {
     private SearchViewAdapter adapter;
@@ -31,7 +30,7 @@ public class SeachActivity extends AppCompatActivity implements RecyclerViewItem
     EditText editText;
     RecyclerView recyclerView;
     LinearLayoutManager manager;
-    ImageView img_search,img_cancel,img_backmain;
+    ImageView img_search,img_cancel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +39,7 @@ public class SeachActivity extends AppCompatActivity implements RecyclerViewItem
         editText = findViewById(R.id.editText);
         img_cancel = findViewById(R.id.img_cancel);
         img_search = findViewById(R.id.img_search);
-        img_backmain = findViewById(R.id.btn_back);
 
-        img_backmain.setOnClickListener(this);
 
         img_cancel.setOnClickListener(this);
         img_search.setOnClickListener(this);
@@ -136,9 +133,6 @@ public class SeachActivity extends AppCompatActivity implements RecyclerViewItem
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.btn_back:
-                this.finish();
-                break;
             case R.id.img_search:
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
