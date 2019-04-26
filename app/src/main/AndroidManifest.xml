@@ -19,7 +19,7 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/SplashTheme">
+        android:theme="@style/SplashTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".MyEventActivity"></activity>
         <activity android:name=".UserActivity" />
