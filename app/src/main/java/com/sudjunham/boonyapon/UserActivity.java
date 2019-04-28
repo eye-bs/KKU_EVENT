@@ -14,9 +14,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.client.util.ExponentialBackOff;
+import com.google.api.services.calendar.CalendarScopes;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -30,6 +38,16 @@ public class UserActivity extends AppCompatActivity {
     private TextView profileName, profileEmail;
     private ImageView profileImage;
     private TextView signOut,myEvent;
+    TextView tv_num_join;
+
+
+    com.google.api.services.calendar.Calendar mService;
+    private static final String[] SCOPES = {CalendarScopes.CALENDAR};
+    GoogleAccountCredential credentialCaledndar;
+    final HttpTransport transport = AndroidHttp.newCompatibleTransport();
+    final JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
+    static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
+    static final int REQUEST_AUTHORIZATION = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +67,20 @@ public class UserActivity extends AppCompatActivity {
         profileImage = findViewById(R.id.profile_image);
         signOut = findViewById(R.id.btn_signout);
         myEvent = findViewById(R.id.my_event);
+        tv_num_join = findViewById(R.id.tv_num_join);
+
+        credentialCaledndar = GoogleAccountCredential.usingOAuth2(
+                getApplicationContext(), Arrays.asList(SCOPES))
+                .setBackOff(new ExponentialBackOff())
+                .setSelectedAccountName(googleSignInAccount.getEmail());
+
+        mService = new com.google.api.services.calendar.Calendar.Builder(
+                transport, jsonFactory, credentialCaledndar)
+                .setApplicationName("Google Calendar API Android Quickstart")
+                .build();
+
+        new ApiAsyncTaskForUser(UserActivity.this).execute();
+
 
         myEvent.setOnClickListener(new View.OnClickListener() {
             @Override

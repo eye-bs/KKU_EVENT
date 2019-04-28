@@ -29,6 +29,8 @@
     <string name="event_not_found">ไม่พบการค้นหาของคุณ</string>
     <string name="fetchfail">Failed to fetch the Image</string>
     <string name="failedconnection">Connection Failed </string>
+    <string name="ok">ตกลง</string>
+    <string name="cancel">ยกเลิก</string>
 
 
     <string-array name="faculty">

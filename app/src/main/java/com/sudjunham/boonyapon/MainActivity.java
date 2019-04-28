@@ -146,12 +146,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
                                 LocalDate getDateEvent = LocalDate.parse( pDateST , DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
                                // if(currentDate.isBefore(getDateEvent) || currentDate.equals(getDateEvent)){
-                                    event_list.setName(activity_event.getString("title"));
+                                    event_list.setName(activity_event.getString("title").replaceAll("&quot;","\""));
                                     event_list.setDate((pDateST.equals(pDateED))
                                         ? (dateThai(pDateST,null,pTimeST,pTimeED))
                                         :(dateThai(pDateST,pDateED,pTimeST,pTimeED)));
                                     event_list.setLocation(activity_event.getString("place"));
-                                    event_list.setContent(activity_event.getString("content"));
+                                    event_list.setContent(activity_event.getString("content").replaceAll("&quot;","\""));
                                     event_list.setImglink(activity_event.getString("image"));
                                     event_list.setSponsor(activity_event.getString("sponsor"));
                                     event_list.setPhonecontact(phoneDEL);
@@ -280,9 +280,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
     public String parseDateTime(String date , String time)throws ParseException{
         DateFormat parserTime = new SimpleDateFormat("a. HH.mm");
         Date timeP = parserTime.parse(time);
-        SimpleDateFormat formatter = new SimpleDateFormat("HH.mm");
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
         String formattedTime = formatter.format(timeP);
-       return date + " " + formattedTime;
+       return date + "T" + formattedTime;
 
     }
 
