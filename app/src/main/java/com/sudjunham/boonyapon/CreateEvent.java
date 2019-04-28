@@ -243,9 +243,9 @@ public class CreateEvent extends AppCompatActivity {
                         .defaultDate(now)
                         .tab0Date(now)
                         .tab1Date(new Date(now.getTime() + TimeUnit.HOURS.toMillis(1)))
-                        .title("Date/Time")
-                        .tab0Text("Depart")
-                        .tab1Text("Return")
+                        .title("วันที่ / เวลา")
+                        .tab0Text("เริ่มกิจกรรม")
+                        .tab1Text("สิ้นสุดกิจกรรม")
                         .listener(new DoubleDateAndTimePickerDialog.Listener() {
                             @Override
                             public void onDateSelected(List<Date> dates) {
@@ -253,7 +253,7 @@ public class CreateEvent extends AppCompatActivity {
                                 String[] arrDate = new String[2];
                                 String[] arrTime = new String[2];
                                 SimpleDateFormat TimeFormat = new SimpleDateFormat("HH.mm", Locale.getDefault());
-                                SimpleDateFormat DateFormatCP = new SimpleDateFormat("d MMM", Locale.getDefault());
+                                SimpleDateFormat DateFormatCP = new SimpleDateFormat("d MMM", new Locale("th", "TH"));
 
                                 for (int i = 0 ; i < dates.size() ; i++){
                                     arrDate[i] = DateFormatCP.format(dates.get(i));
