@@ -7,6 +7,11 @@
     tools:context=".FilterActivity"
     android:background="@android:color/white">
 
+    <!--<RelativeLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--&gt;-->
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -32,7 +37,7 @@
                     android:id="@+id/linearLayout4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="24dp"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -48,11 +53,11 @@
                         android:background="@drawable/select_background_filter"
                         android:button="@android:color/transparent"
                         android:fontFamily="@font/rsu_regular"
-                        android:textColor="@color/selector_text_color"
                         android:gravity="center"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:text="อบรม/บรรยาย" />
+                        android:text="อบรม/บรรยาย"
+                        android:textColor="@color/selector_text_color" />
 
                     <CheckBox
                         android:id="@+id/cb_T2"
@@ -63,11 +68,11 @@
                         android:background="@drawable/select_background_filter"
                         android:button="@android:color/transparent"
                         android:fontFamily="@font/rsu_regular"
-                        android:textColor="@color/selector_text_color"
                         android:gravity="center"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:text="ค่าย" />
+                        android:text="ค่าย"
+                        android:textColor="@color/selector_text_color" />
 
                     <CheckBox
                         android:id="@+id/cb_T3"
@@ -78,11 +83,11 @@
                         android:background="@drawable/select_background_filter"
                         android:button="@android:color/transparent"
                         android:fontFamily="@font/rsu_regular"
-                        android:textColor="@color/selector_text_color"
                         android:gravity="center"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:text="Start up" />
+                        android:text="Start up"
+                        android:textColor="@color/selector_text_color" />
 
                     <CheckBox
                         android:id="@+id/cb_T4"
@@ -93,18 +98,18 @@
                         android:background="@drawable/select_background_filter"
                         android:button="@android:color/transparent"
                         android:fontFamily="@font/rsu_regular"
-                        android:textColor="@color/selector_text_color"
                         android:gravity="center"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:text="วิ่งมาราธอน" />
+                        android:text="วิ่งมาราธอน"
+                        android:textColor="@color/selector_text_color" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/linearLayout3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="11dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="24dp"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -120,11 +125,11 @@
                         android:background="@drawable/select_background_filter"
                         android:button="@android:color/transparent"
                         android:fontFamily="@font/rsu_regular"
-                        android:textColor="@color/selector_text_color"
                         android:gravity="center"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:text="ด้านที่ 1" />
+                        android:text="ด้านที่ 1"
+                        android:textColor="@color/selector_text_color" />
 
                     <CheckBox
                         android:id="@+id/cb_c2"
@@ -135,11 +140,11 @@
                         android:background="@drawable/select_background_filter"
                         android:button="@android:color/transparent"
                         android:fontFamily="@font/rsu_regular"
-                        android:textColor="@color/selector_text_color"
                         android:gravity="center"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:text="ด้านที่ 2" />
+                        android:text="ด้านที่ 2"
+                        android:textColor="@color/selector_text_color" />
 
                     <CheckBox
                         android:id="@+id/cb_c3"
@@ -150,11 +155,11 @@
                         android:background="@drawable/select_background_filter"
                         android:button="@android:color/transparent"
                         android:fontFamily="@font/rsu_regular"
-                        android:textColor="@color/selector_text_color"
                         android:gravity="center"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:text="ด้านที่ 3" />
+                        android:text="ด้านที่ 3"
+                        android:textColor="@color/selector_text_color" />
 
                     <CheckBox
                         android:id="@+id/cb_c4"
@@ -165,11 +170,11 @@
                         android:background="@drawable/select_background_filter"
                         android:button="@android:color/transparent"
                         android:fontFamily="@font/rsu_regular"
-                        android:textColor="@color/selector_text_color"
                         android:gravity="center"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:text="ด้านที่ 4" />
+                        android:text="ด้านที่ 4"
+                        android:textColor="@color/selector_text_color" />
 
                     <CheckBox
                         android:id="@+id/cb_c5"
@@ -180,11 +185,11 @@
                         android:background="@drawable/select_background_filter"
                         android:button="@android:color/transparent"
                         android:fontFamily="@font/rsu_regular"
-                        android:textColor="@color/selector_text_color"
                         android:gravity="center"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
-                        android:text="ด้านที่ 5" />
+                        android:text="ด้านที่ 5"
+                        android:textColor="@color/selector_text_color" />
 
 
                 </LinearLayout>
@@ -193,15 +198,15 @@
                     android:id="@+id/checkBox_ununi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/select_background_filter"
                     android:button="@android:color/transparent"
                     android:fontFamily="@font/rsu_regular"
-                    android:textColor="@color/selector_text_color"
                     android:padding="8dp"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
                     android:text="นอกมหาวิทยาลัย"
+                    android:textColor="@color/selector_text_color"
                     app:layout_constraintStart_toStartOf="@+id/textView3"
                     app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -209,10 +214,9 @@
                     android:id="@+id/textView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="32dp"
                     android:fontFamily="@font/rsu_regular"
-                    android:text="TAG"
+                    android:text="แท็ก"
                     app:layout_constraintStart_toStartOf="@+id/textView3"
                     app:layout_constraintTop_toBottomOf="@+id/spinner_open" />
 
@@ -220,8 +224,7 @@
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="30dp"
                     android:fontFamily="@font/rsu_regular"
                     android:text="การเปิดรับ"
                     app:layout_constraintStart_toStartOf="@+id/textView3"
@@ -241,7 +244,7 @@
                     android:id="@+id/bt_filter_ok"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="28dp"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/rounded_checked_box"
                     android:fontFamily="@font/rsu_bold"
@@ -268,16 +271,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/select_background_filter"
                     android:button="@android:color/transparent"
                     android:fontFamily="@font/rsu_regular"
-                    android:textColor="@color/selector_text_color"
                     android:gravity="center"
                     android:padding="8dp"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
                     android:text="ภายในมหาวิทยาลัย"
+                    android:textColor="@color/selector_text_color"
                     app:layout_constraintStart_toEndOf="@+id/checkBox_ununi"
                     app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -285,7 +288,7 @@
                     android:id="@+id/spinner_open"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="24dp"
                     android:background="@drawable/ounded_uncheck_box"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -308,19 +311,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="596dp"
                     android:fontFamily="@font/mavenpro_medium"
                     android:text="FILTER"
                     android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools:layout_editor_absoluteY="48dp" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="30dp"
                     android:fontFamily="@font/rsu_regular"
                     android:text="หน่วยกิจ"
                     app:layout_constraintStart_toStartOf="@+id/textView3"
@@ -330,7 +336,7 @@
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/rsu_regular"
                     android:text="ช่วงเวลา"
                     app:layout_constraintStart_toStartOf="@+id/textView3"
@@ -340,7 +346,7 @@
                     android:id="@+id/rangeSeekbar"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="24dp"
                     app:bar_color="@color/main_header"
                     app:bar_highlight_color="@color/main_header"
@@ -359,6 +365,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
-
+    <!--</RelativeLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

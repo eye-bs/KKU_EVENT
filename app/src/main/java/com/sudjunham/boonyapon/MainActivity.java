@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
                                     phoneDEL = phoneDEL.substring(0,9);
                                 }
 
-                                String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+                                String timeStamp = new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Calendar.getInstance().getTime());
                                 LocalDate currentDate = LocalDate.parse( timeStamp , DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                                 LocalDate getDateEvent = LocalDate.parse( pDateST , DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
@@ -249,7 +249,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
 
     public static String dateThai(String strDate,String endDate,String strtime , String timeED)throws ParseException
     {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         SimpleDateFormat DateFormat = new SimpleDateFormat("d MMMM", Locale.getDefault());
         SimpleDateFormat DateFormatWYear = new SimpleDateFormat("d MMMM yyyy", Locale.getDefault());
 

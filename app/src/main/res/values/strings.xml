@@ -16,11 +16,11 @@
     <string name="add_to_calendar">Add to Calendar</string>
     <string name="description">someting</string>
     <string name="by">"โดย %1$s"</string>
-    <string name="search_th">ค้นหา</string>
-    <string name="search_main">Search…</string>
-    <string name="my_event">My event</string>
-    <string name="firstname_lastname">FirstName LastName</string>
-    <string name="kkumail_co_th">E-mail</string>
+    <string name="search">ค้นหา</string>
+    <string name="search_main">ค้นหา</string>
+    <string name="my_event">My Event</string>
+    <string name="Username">USERNAME</string>
+    <string name="Mail">MAIL</string>
     <string name="_0">0</string>
     <string name="join">JOIN</string>
     <string name="favorite">Favorite</string>

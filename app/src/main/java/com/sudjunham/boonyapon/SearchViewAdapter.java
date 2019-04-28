@@ -70,7 +70,9 @@ public class SearchViewAdapter extends RecyclerView.Adapter<SearchViewAdapter.Ex
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int position) {
         holder.position=position;
         String currentItem = exampleList.get(position);
+        currentItem = currentItem.replaceAll("&quot;", "\"");
         holder.textView1.setText(currentItem);
+
     }
 
     @Override
