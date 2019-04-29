@@ -25,8 +25,10 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout2"
@@ -48,9 +50,9 @@
                 android:id="@+id/tv_title_info"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:fontFamily="@font/morkhor1"
                 android:gravity="center"
                 android:text="Title"
@@ -99,9 +101,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/rsu_regular"
+                android:lineSpacingExtra="@dimen/linespace_supermarket"
                 android:text="วัน/เวลา"
                 android:textColor="@color/dark_gray"
-                android:lineSpacingExtra="@dimen/linespace_supermarket"
                 android:textSize="@dimen/font_size_info"
                 app:layout_constraintStart_toEndOf="@+id/img_clock_info"
                 app:layout_constraintTop_toTopOf="@+id/img_clock_info" />
@@ -119,12 +121,12 @@
                 android:id="@+id/tv_location_info"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
                 android:fontFamily="@font/rsu_regular"
+                android:lineSpacingExtra="@dimen/linespace_supermarket"
                 android:text="สถานที่"
                 android:textColor="@color/dark_gray"
-                android:lineSpacingExtra="@dimen/linespace_supermarket"
                 android:textSize="@dimen/font_size_info"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -137,11 +139,11 @@
                 android:layout_height="36dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="8dp"
+                android:foreground="@drawable/btn_ripple_background_red"
                 app:layout_constraintBottom_toBottomOf="@+id/bt_add_calendar"
                 app:layout_constraintEnd_toStartOf="@+id/bt_add_calendar"
                 app:layout_constraintTop_toTopOf="@+id/bt_add_calendar"
-                app:srcCompat="@mipmap/phonedetail"
-                android:foreground="@drawable/btn_ripple_background_red"/>
+                app:srcCompat="@mipmap/phonedetail" />
 
             <ImageView
                 android:id="@+id/img_web_info"
@@ -149,11 +151,11 @@
                 android:layout_height="36dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginBottom="8dp"
+                android:foreground="@drawable/btn_ripple_background_red"
                 app:layout_constraintBottom_toBottomOf="@+id/bt_add_calendar"
                 app:layout_constraintStart_toEndOf="@+id/bt_add_calendar"
                 app:layout_constraintTop_toTopOf="@+id/bt_add_calendar"
-                app:srcCompat="@mipmap/webdetail"
-                android:foreground="@drawable/btn_ripple_background_red"/>
+                app:srcCompat="@mipmap/webdetail" />
 
             <TextView
                 android:id="@+id/tv_content_info"
@@ -174,22 +176,20 @@
                 android:id="@+id/bt_add_calendar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:layout_marginTop="24dp"
-                android:text="@string/add_to_calendar"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/menu_button_round"
                 android:fontFamily="@font/mavenpro_regular"
                 android:padding="@dimen/menu_padding"
+                android:text="@string/add_to_calendar"
+                android:textColor="@color/button_login"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_content_info"
-                android:background="@drawable/menu_button_round"
-                android:textColor="@color/button_login"/>
+                app:layout_constraintTop_toBottomOf="@+id/tv_content_info" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

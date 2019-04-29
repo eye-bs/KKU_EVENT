@@ -1,7 +1,9 @@
 package com.sudjunham.boonyapon;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,9 @@ import android.widget.TextView;
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
@@ -88,7 +93,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.textViewName.setText(evName);
         holder.textViewDate.setText(event_lists.get(position).getDate());
         holder.textViewLocation.setText(event_lists.get(position).getLocation());
-
+        holder.btn_like.setVisibility(View.INVISIBLE);
     }
 
     @Override

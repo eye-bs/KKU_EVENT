@@ -19,8 +19,6 @@ import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import static com.sudjunham.boonyapon.FilteHelper.*;
-
 public class FilterActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
     String Months[] = {

@@ -285,7 +285,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
 
     public static String dateThai(String strDate,String endDate,String strtime , String timeED)throws ParseException
     {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         SimpleDateFormat DateFormat = new SimpleDateFormat("d MMMM", Locale.getDefault());
         SimpleDateFormat DateFormatWYear = new SimpleDateFormat("d MMMM yyyy", Locale.getDefault());
 

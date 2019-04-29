@@ -23,7 +23,8 @@
             android:paddingEnd="15dp"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-            android:layout_marginStart="10dp">
+            android:layout_marginStart="10dp"
+            android:layout_weight="1">
 
 
             <ImageView
@@ -47,7 +48,7 @@
                 android:fontFamily="@font/rsu_regular"
                 android:textCursorDrawable="@null"
                 tools:ignore="Autofill"
-                android:hint="@string/search_th"
+                android:hint="@string/search"
                 />
 
             <ImageView
@@ -62,11 +63,22 @@
 
         </LinearLayout>
 
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="25dp"-->
+            <!--android:layout_alignEnd="@+id/linearLayout_head_search"-->
+            <!--android:layout_alignBottom="@+id/linearLayout_head_search"-->
+            <!--android:layout_weight="4"-->
+            <!--android:background="@android:color/transparent"-->
+            <!--android:fontFamily="@font/mavenpro_medium"-->
+            <!--android:text="Cancel"-->
+            <!--android:layout_marginTop="3dp"-->
+            <!--android:textAlignment="center"-->
 
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="20sp" />-->
 
     </LinearLayout>
-
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -79,6 +91,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 </RelativeLayout>

@@ -40,7 +40,6 @@ public class SeachActivity extends AppCompatActivity implements RecyclerViewItem
         img_cancel = findViewById(R.id.img_cancel);
         img_search = findViewById(R.id.img_search);
 
-
         img_cancel.setOnClickListener(this);
         img_search.setOnClickListener(this);
 
@@ -52,6 +51,7 @@ public class SeachActivity extends AppCompatActivity implements RecyclerViewItem
         fillExampleList();
         setUpRecyclerView();
         recyclerView.setVisibility(View.INVISIBLE);
+        img_cancel.setVisibility(View.INVISIBLE);
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -64,9 +64,14 @@ public class SeachActivity extends AppCompatActivity implements RecyclerViewItem
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String getEdittext = editText.getText().toString();
                 if(!getEdittext.equals("")){
-                recyclerView.setVisibility(View.VISIBLE);
-                adapter.getFilter().filter(getEdittext);}
-                else recyclerView.setVisibility(View.INVISIBLE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    img_cancel.setVisibility(View.VISIBLE);
+
+                    adapter.getFilter().filter(getEdittext);}
+                else {
+                    recyclerView.setVisibility(View.INVISIBLE);
+                    img_cancel.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
