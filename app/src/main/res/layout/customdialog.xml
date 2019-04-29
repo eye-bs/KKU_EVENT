@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white" >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical" >
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/main_header"
+            android:fontFamily="@font/morkhor1"
+            android:textSize="20sp"
+            android:text="เกิดข้อผิดพลาด" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:fontFamily="@font/morkhor1"
+            android:textSize="18sp"
+            android:text="ไม่สามารถเชื่อมต่อเครือข่ายได้ในขณะนี้ กรุณาลองใหม่อีกครั้ง" />
+        <Button
+            android:id="@+id/button_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:fontFamily="@font/morkhor1"
+            android:textColor="@color/main_header"
+            android:textSize="18sp"
+            android:background="@android:color/transparent"
+            android:text="@string/ok" />
+    </LinearLayout>
+</LinearLayout>

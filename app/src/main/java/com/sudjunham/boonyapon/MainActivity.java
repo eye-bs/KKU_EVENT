@@ -2,28 +2,32 @@ package com.sudjunham.boonyapon;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.time.LocalDate;
+import android.app.Dialog;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Parcelable;
 import android.os.Bundle;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,12 +37,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.parceler.Parcels;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -46,10 +48,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
-public class MainActivity extends AppCompatActivity implements RecyclerViewItemClickListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements RecyclerViewItemClickListener, View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
     List<Event_list> event_List_Arr = new ArrayList<Event_list>();
-    String[] titleSeach;
     ScrollView scrollView;
      RecyclerView recyclerView;
      RecyclerViewAdapter adapter;
@@ -59,14 +60,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
     LinearLayout seach_bar;
     TextView tv_result_filter;
     SwipeRefreshLayout pullToRefresh;
-    private GoogleSignInClient googleSignInClient;
-    private GoogleApiClient mGoogleSignInClient;
-    private static final int RC_SIGN_IN = 1;
-    private static final String TAG = "AndroidClarified";
-
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-
+    String urlVal , getName = null;
+    ProgressBar progressBar;
+    RadioButton rb_kku,rb_else;
+    RadioGroup rg_main;
 
     @SuppressLint("ResourceType")
     @Override
@@ -78,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                callEventAPI();
+                new RetrieveFeedTask().execute();
                 pullToRefresh.setRefreshing(false);
             }
         });
@@ -88,6 +85,13 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         seach_bar = findViewById(R.id.seach_bar);
         img_user = findViewById(R.id.img_user);
         tv_result_filter = findViewById(R.id.tv_result_filter);
+        progressBar = findViewById(R.id.progress_bar_main);
+        rb_kku = findViewById(R.id.rb_event_kku_main);
+        rb_else = findViewById(R.id.rb_event_else_main);
+        rg_main = findViewById(R.id.rg_main);
+
+        rg_main.setOnCheckedChangeListener(this);
+
         tv_result_filter.setVisibility(View.INVISIBLE);
         seach_bar.setOnClickListener(this);
         img_user.setOnClickListener(this);
@@ -102,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         scrollView.smoothScrollTo(0,0);
         recyclerView = findViewById(R.id.list_view1);
         recyclerView.setNestedScrollingEnabled(false);
-        callEventAPI();
+        new RetrieveFeedTask().execute();
 
         manager = new LinearLayoutManager(this) ;
         recyclerView.setLayoutManager(manager);
@@ -113,75 +117,126 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         setImgUser();
     }
 
-    private void callEventAPI(){
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+      switch (checkedId){
+          case R.id.rb_event_kku_main:
+              tv_result_filter.setVisibility(View.INVISIBLE);
+              recyclerView.setVisibility(View.VISIBLE);
+              new RetrieveFeedTask().execute();
+              break;
+          case R.id.rb_event_else_main:
+              tv_result_filter.setVisibility(View.VISIBLE);
+              recyclerView.setVisibility(View.GONE);
 
-        String url = "https://www.kku.ac.th/ikku/api/activities/services/topActivity.php";
+      }
+    }
 
-        final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @RequiresApi(api = Build.VERSION_CODES.O)
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONArray jsonArray = response.getJSONArray("activities");
-                            titleSeach = new String[jsonArray.length()];
-                            for(int i = 0; i < jsonArray.length();i++){
-                                JSONObject activity_event = jsonArray.getJSONObject(i);
-                                Event_list event_list = new Event_list();
+    class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
 
-                                String pDateST = activity_event.getString("dateSt");
-                                String pDateED = activity_event.getString("dateEd");
-                                String pTimeST = activity_event.getString("timeSt");
-                                String pTimeED = activity_event.getString("timeEd");
+        protected void onPreExecute() {
+            progressBar.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.INVISIBLE);
+        }
 
-                                String phoneDEL = activity_event.getJSONObject("contact").getString("phone");
-                                phoneDEL = phoneDEL.replaceAll(" " , "");
-                                phoneDEL = phoneDEL.replaceAll("-" , "");
-                                if(phoneDEL.length() > 10){
-                                    phoneDEL = phoneDEL.substring(0,9);
-                                }
+        @SuppressLint("WrongThread")
+        protected String doInBackground(Void... urls) {
+            try {
+                urlVal = "https://www.kku.ac.th/ikku/api/activities/services/topActivity.php";
+                URL urlAddr;
+                urlAddr = new URL(urlVal);
+                HttpURLConnection urlConnection = (HttpURLConnection) urlAddr.openConnection();
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
+                    }
+                    bufferedReader.close();
+                    return stringBuilder.toString();
+                }
+                finally{
+                    urlConnection.disconnect();
+                }
+            }
+            catch(Exception e) {
+                Log.e("ERROR", e.getMessage(), e);
+                return null;
+            }
+        }
 
-                                String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
-                                LocalDate currentDate = LocalDate.parse( timeStamp , DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                                LocalDate getDateEvent = LocalDate.parse( pDateST , DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        protected void onPostExecute(String response) {
 
-                               // if(currentDate.isBefore(getDateEvent) || currentDate.equals(getDateEvent)){
-                                    event_list.setName(activity_event.getString("title").replaceAll("&quot;","\""));
-                                    event_list.setDate((pDateST.equals(pDateED))
-                                        ? (dateThai(pDateST,null,pTimeST,pTimeED))
-                                        :(dateThai(pDateST,pDateED,pTimeST,pTimeED)));
-                                    event_list.setLocation(activity_event.getString("place"));
-                                    event_list.setContent(activity_event.getString("content").replaceAll("&quot;","\""));
-                                    event_list.setImglink(activity_event.getString("image"));
-                                    event_list.setSponsor(activity_event.getString("sponsor"));
-                                    event_list.setPhonecontact(phoneDEL);
-                                    event_list.setWebsite(activity_event.getJSONObject("contact").getString("website"));
-                                    event_list.setmonthForFilter(getDateEvent.getMonthValue());
-                                    event_list.setDateTimeST(parseDateTime(pDateST,pTimeST));
-                                    event_list.setDateTimeED(parseDateTime(pDateED,pTimeED));
+            try {
+                if(response == null) {
+                    final Dialog dialog = new Dialog(MainActivity.this);
+                    dialog.setContentView(R.layout.customdialog);
+                    dialog.setCancelable(false);
 
-                                    event_List_Arr.add(event_list);
-                                    titleSeach[i]=activity_event.getString("title");
-                                    adapter.notifyDataSetChanged();
-                                //}
-                            }
-
-                        } catch (JSONException e) {
-
-                        } catch (ParseException e) {
-                            e.printStackTrace();
+                    Button button1 = dialog.findViewById(R.id.button_dialog);
+                    button1.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            dialog.cancel();
+                            finish();
+                            System.exit(0);
                         }
+                    });
+                    dialog.show();
+                }else {
+
+                    JSONObject object = (JSONObject) new JSONTokener(response).nextValue();
+                    JSONArray jsonArray = object.getJSONArray("activities");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject activity_event = jsonArray.getJSONObject(i);
+                        Event_list event_list = new Event_list();
+
+                        String pDateST = activity_event.getString("dateSt");
+                        String pDateED = activity_event.getString("dateEd");
+                        String pTimeST = activity_event.getString("timeSt");
+                        String pTimeED = activity_event.getString("timeEd");
+
+                        String phoneDEL = activity_event.getJSONObject("contact").getString("phone");
+                        phoneDEL = phoneDEL.replaceAll(" ", "");
+                        phoneDEL = phoneDEL.replaceAll("-", "");
+                        if (phoneDEL.length() > 10) {
+                            phoneDEL = phoneDEL.substring(0, 9);
+                        }
+
+                        String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+                        LocalDate currentDate = LocalDate.parse(timeStamp, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                        LocalDate getDateEvent = LocalDate.parse(pDateST, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                        event_list.setName(activity_event.getString("title").replaceAll("&quot;", "\""));
+                        event_list.setDate((pDateST.equals(pDateED))
+                                ? (dateThai(pDateST, null, pTimeST, pTimeED))
+                                : (dateThai(pDateST, pDateED, pTimeST, pTimeED)));
+                        event_list.setLocation(activity_event.getString("place"));
+                        event_list.setContent(activity_event.getString("content").replaceAll("&quot;", "\""));
+                        event_list.setImglink(activity_event.getString("image"));
+                        event_list.setSponsor(activity_event.getString("sponsor"));
+                        event_list.setPhonecontact(phoneDEL);
+                        event_list.setWebsite(activity_event.getJSONObject("contact").getString("website"));
+                        event_list.setmonthForFilter(getDateEvent.getMonthValue());
+                        event_list.setDateTimeST(parseDateTime(pDateST, pTimeST));
+                        event_list.setDateTimeED(parseDateTime(pDateED, pTimeED));
+
+                        event_List_Arr.add(event_list);
+                        adapter.notifyDataSetChanged();
+
+                        getName += event_List_Arr.get(i).name + "\n";
 
                     }
 
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
 
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        });
-        AppController.getInstance().addToRequestQueue(request);
-
+        }
     }
 
     @Override
@@ -207,26 +262,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
                         else if(!FilteHelper.getInstance().isCb_ui() && !FilteHelper.getInstance().isCb_outsude()) {
                             checkedLocation = true;
                         }
-                        if(FilteHelper.getInstance().isCb_TAG1()&&event_List_Arr.get(i).getContent().contains("อบรม")){
-                            checkedTAG = true;
-                        }
-                        else if(FilteHelper.getInstance().isCb_TAG1()&&event_List_Arr.get(i).getContent().contains("บรรยาย")){
-                            checkedTAG = true;
-                        }
-                        else if(FilteHelper.getInstance().isCb_TAG2()&&event_List_Arr.get(i).getContent().contains("ค่าย")){
-
-                            checkedTAG = true;
-                        }
-                        else if(FilteHelper.getInstance().isCb_TAG3()&&event_List_Arr.get(i).getContent().contains("Start up")){
-                            checkedTAG = true;
-                        }
-                        else if(FilteHelper.getInstance().isCb_TAG4()&&event_List_Arr.get(i).getContent().contains("มาราธอน")){
-                            checkedTAG = true;
-                        }
-                        else if(!FilteHelper.getInstance().isCb_TAG4()&&!FilteHelper.getInstance().isCb_TAG3()&&!FilteHelper.getInstance().isCb_TAG2()&&!FilteHelper.getInstance().isCb_TAG1()){
-                            checkedTAG = true;
-                        }
-                        if(checkedTAG && checkedLocation){
+                        if(checkedLocation){
                             event_List_Arr_stack.add(event_List_Arr.get(i));
                         }
 

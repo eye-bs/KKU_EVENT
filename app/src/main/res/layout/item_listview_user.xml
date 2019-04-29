@@ -39,35 +39,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/event_location"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="2dp"
-            android:clickable="false"
-            android:fontFamily="@font/thsarabunnew_bold"
-            android:text="@string/event_item_location"
-            android:textSize="@dimen/detail_item_font"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            android:textColor="@android:color/darker_gray"
-            app:layout_constraintStart_toStartOf="@+id/event_time"
-            app:layout_constraintTop_toBottomOf="@+id/event_time" />
-
-        <com.inthecheesefactory.thecheeselibrary.widget.AdjustableImageView
-            android:id="@+id/bt_like_main"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_margin="10dp"
-            android:src="@drawable/unlike"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/event_location" />
-
-        <TextView
             android:id="@+id/event_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -93,15 +64,6 @@
             app:layout_constraintTop_toTopOf="@+id/event_time"
             app:srcCompat="@mipmap/clock" />
 
-        <ImageView
-            android:id="@+id/img_pin"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:clickable="false"
-            app:layout_constraintBottom_toBottomOf="@+id/event_location"
-            app:layout_constraintStart_toStartOf="@id/img_clock"
-            app:layout_constraintTop_toTopOf="@+id/event_location"
-            app:srcCompat="@mipmap/placeholder" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

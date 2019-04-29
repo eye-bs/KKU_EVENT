@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.provider.CalendarContract;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlayServicesAvailabilityIOException;
@@ -16,8 +19,13 @@ import com.google.api.services.calendar.model.EventReminder;
 import com.google.api.services.calendar.model.Events;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -34,6 +42,7 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
     boolean checkSummary = false;
     String uri = null;
     List<String> eventStrings;
+    Intent intent;
     /**
      * Constructor.
      * @param activity MainActivity that spawned this task.
@@ -75,29 +84,53 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         final String link = uri;
+        Log.d("TAGcal" , link+"");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal = new GregorianCalendar();
+        try {
 
-        if(iActivity.create){
-            View rootView = iActivity.findViewById(R.id.linearLayout2);
-            Snackbar.make(rootView, "เพิ่มกิจกรรมลงในปฏิทินของคุณแล้ว", Snackbar.LENGTH_LONG).setAction("เปิด", new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent openBowser = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                    iActivity.startActivity(openBowser);
-                }
-            })
-                    .setActionTextColor(Color.YELLOW)
-                    .show();
-        }
+            if(link != null) {
+                Date date = sdf.parse(link);
+                cal.setTime(date);
+                cal.add(Calendar.MONTH, 0);
+                long time = cal.getTime().getTime();
+                Uri.Builder builder =
+                        CalendarContract.CONTENT_URI.buildUpon();
+                builder.appendPath("time");
+                builder.appendPath(Long.toString(time));
+                intent = new Intent(Intent.ACTION_VIEW, builder.build());
 
-        if(checkSummary) {
-            iActivity.bt_add_calendar.setText("Open in Google calendar");
-            iActivity.bt_add_calendar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent openBowser = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                    iActivity.startActivity(openBowser);
+                if (iActivity.create) {
+                    View rootView = iActivity.findViewById(R.id.linearLayout2);
+                    Snackbar.make(rootView, "เพิ่มกิจกรรมลงในปฏิทินของคุณแล้ว", Snackbar.LENGTH_LONG).setAction("เปิด", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //                    Intent openBowser = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                            //                    iActivity.startActivity(openBowser);
+                            iActivity.startActivity(intent);
+                        }
+                    })
+                            .setActionTextColor(Color.YELLOW)
+                            .show();
                 }
-            });
+
+                if (checkSummary) {
+                    iActivity.bt_add_calendar.setText("Open in Google calendar");
+                    iActivity.bt_add_calendar.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //                    Intent openBowser = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                            //                    iActivity.startActivity(openBowser);
+                            iActivity.startActivity(intent);
+                        }
+                    });
+                }
+            }
+
+            iActivity.progressBar.setVisibility(View.GONE);
+            iActivity.scrollView_info.setVisibility(View.VISIBLE);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
     }
@@ -149,12 +182,14 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
         int i = 0;
         for (final Event event : items) {
             String getSummary = event.getSummary();
-            uri = event.getHtmlLink();
+            EventDateTime eventDateTime = event.getStart();
             String getTAG = event.getDescription();
             if(getTAG!= null && getTAG.contains("#KKUEvent")) {
                 eventStrings.add(String.format("%s (%s)", event.getSummary(), getTAG));
             }
             if(getSummary!= null && getSummary.equals(iActivity.event_detail.name)){
+                uri = eventDateTime.getDateTime().toString();
+                uri = uri.substring(0,10);
                checkSummary = true;
                break;
             }

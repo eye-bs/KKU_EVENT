@@ -27,7 +27,7 @@ public class FilterActivity extends AppCompatActivity implements CompoundButton.
             "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน",
             "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม",
             "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"};
-    CheckBox checkBox_uni , checkBox_ununi,cb_c1,cb_c2,cb_c3,cb_c4,cb_c5,cb_T1,cb_T2,cb_T3,cb_T4;
+    CheckBox checkBox_uni , checkBox_ununi,cb_c1,cb_c2,cb_c3,cb_c4,cb_c5;
     Button bt_filter_ok;
     Spinner spinner;
     String getFaculty;
@@ -51,10 +51,6 @@ public class FilterActivity extends AppCompatActivity implements CompoundButton.
         cb_c3 = findViewById(R.id.cb_c3);
         cb_c4 = findViewById(R.id.cb_c4);
         cb_c5 = findViewById(R.id.cb_c5);
-        cb_T1 = findViewById(R.id.cb_T1);
-        cb_T2 = findViewById(R.id.cb_T2);
-        cb_T3 = findViewById(R.id.cb_T3);
-        cb_T4 = findViewById(R.id.cb_T4);
 
         FilteHelper.getInstance().setCb_ui(false);
         FilteHelper.getInstance().setCb_outsude(false);
@@ -87,17 +83,9 @@ public class FilterActivity extends AppCompatActivity implements CompoundButton.
         cb_c3.setOnCheckedChangeListener(this);
         cb_c4.setOnCheckedChangeListener(this);
         cb_c5.setOnCheckedChangeListener(this);
-        cb_T1.setOnCheckedChangeListener(this);
-        cb_T2.setOnCheckedChangeListener(this);
-        cb_T3.setOnCheckedChangeListener(this);
-        cb_T4.setOnCheckedChangeListener(this);
 
         FilteHelper.getInstance().setCb_ui(false);
         FilteHelper.getInstance().setCb_outsude(false);
-        FilteHelper.getInstance().setCb_TAG1(false);
-        FilteHelper.getInstance().setCb_TAG2(false);
-        FilteHelper.getInstance().setCb_TAG3(false);
-        FilteHelper.getInstance().setCb_TAG4(false);
 
 
         bt_filter_ok.setOnClickListener(new View.OnClickListener() {
@@ -194,42 +182,6 @@ public class FilterActivity extends AppCompatActivity implements CompoundButton.
                 }
                 else {
                     FilteHelper.getInstance().setCb_credit5(false);
-                }
-                break;
-
-            case R.id.cb_T1:
-                if(isChecked) {
-                    FilteHelper.getInstance().setCb_TAG1(true);
-                }
-                else {
-                    FilteHelper.getInstance().setCb_TAG1(false);
-                }
-                break;
-
-            case R.id.cb_T2:
-                if(isChecked) {
-                    FilteHelper.getInstance().setCb_TAG2(true);
-                }
-                else {
-                    FilteHelper.getInstance().setCb_TAG2(false);
-                }
-                break;
-
-            case R.id.cb_T3:
-                if(isChecked) {
-                    FilteHelper.getInstance().setCb_TAG3(true);
-                }
-                else {
-                    FilteHelper.getInstance().setCb_TAG3(false);
-                }
-                break;
-
-            case R.id.cb_T4:
-                if(isChecked) {
-                    FilteHelper.getInstance().setCb_TAG4(true);
-                }
-                else {
-                    FilteHelper.getInstance().setCb_TAG4(false);
                 }
                 break;
         }

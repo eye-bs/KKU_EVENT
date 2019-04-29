@@ -8,6 +8,17 @@
     android:background="@color/mainac_color"
     tools:context=".MainActivity">
 
+    <ProgressBar
+        android:id="@+id/progress_bar_main"
+        style="@style/MyProgressBarRectangle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header_main"
         android:layout_width="0dp"
@@ -135,12 +146,53 @@
                     android:contentDescription="@string/description"
                     android:src="@drawable/app_icon" />
 
+            <LinearLayout
+                android:id="@+id/linear_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+                <RadioGroup
+                    android:id="@+id/rg_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:id="@+id/rb_event_kku_main"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="กิจกรรมของมหาวิทยาลัย"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/morkhor1"
+                        android:textSize="20sp"
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
+                        android:button="@null"
+                        android:checked="true"
+                        android:background="@drawable/select_menu_user" />
+                    <RadioButton
+                        android:id="@+id/rb_event_else_main"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="กิจกรรมอื่นๆ"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/morkhor1"
+                        android:textSize="20sp"
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
+                        android:button="@null"
+                        android:background="@drawable/select_menu_user"/>
+                </RadioGroup>
+
+            </LinearLayout>
+
                 <RelativeLayout
                     android:id="@+id/relativeLayout123"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:descendantFocusability="blocksDescendants"
-                    android:layout_marginTop="8dp">
+                    android:descendantFocusability="blocksDescendants">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/list_view1"

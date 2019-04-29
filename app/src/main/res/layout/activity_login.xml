@@ -80,5 +80,14 @@
         android:contentDescription="@string/description"
         app:srcCompat="@drawable/app_icon" />
 
+    <ImageView
+        android:id="@+id/img_connect_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/description"
+        android:foreground="#ad000000"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bglogin" />
+
 
 </RelativeLayout>

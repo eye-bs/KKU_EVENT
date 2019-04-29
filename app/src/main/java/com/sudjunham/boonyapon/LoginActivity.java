@@ -1,11 +1,14 @@
 package com.sudjunham.boonyapon;
 
 import android.Manifest;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -37,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
     TextView bt_skip;
     Button bt_login;
+    ImageView img_connect_error;
     private GoogleSignInClient mGoogleSignInClient1;
     private GoogleApiClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 1;
@@ -50,11 +55,32 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        final int callbackId = 42;
-        checkPermissions(callbackId, Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR);
-
         bt_skip = findViewById(R.id.tv_skip);
         bt_login = findViewById(R.id.btn_signin);
+        img_connect_error = findViewById(R.id.img_connect_error);
+
+        if (ConnectivityHelper.isConnectedToNetwork(this)) {
+            img_connect_error.setVisibility(View.INVISIBLE);
+        } else {
+           bt_login.setVisibility(View.INVISIBLE);
+
+            final Dialog dialog = new Dialog(this);
+            dialog.setContentView(R.layout.customdialog);
+            dialog.setCancelable(false);
+
+            Button button1 = dialog.findViewById(R.id.button_dialog);
+            button1.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    dialog.cancel();
+                    finish();
+                    System.exit(0);
+                }
+            });
+            dialog.show();
+        }
+
+        final int callbackId = 42;
+        checkPermissions(callbackId, Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR);
 
         mAuth = FirebaseAuth.getInstance();
 

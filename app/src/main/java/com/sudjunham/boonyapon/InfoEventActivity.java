@@ -157,18 +157,7 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
-        Picasso.with(this).load(imgURL).resize(width, 0).placeholder(R.drawable.rounded_button).error(R.drawable.rounded_button).into(img_info, new Callback() {
-            @Override
-            public void onSuccess() {
-                progressBar.setVisibility(View.GONE);
-                scrollView_info.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onError() {
-
-            }
-        });
+        Picasso.with(this).load(imgURL).resize(width, 0).placeholder(R.drawable.rounded_button).error(R.drawable.rounded_button).into(img_info);
     }
 
     @Override

@@ -46,8 +46,6 @@ public class UserActivity extends AppCompatActivity {
     GoogleAccountCredential credentialCaledndar;
     final HttpTransport transport = AndroidHttp.newCompatibleTransport();
     final JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
-    static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
-    static final int REQUEST_AUTHORIZATION = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
