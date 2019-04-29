@@ -78,10 +78,10 @@
 
             <ImageView
                 android:id="@+id/bt_like"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="25dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_sponsor_info"
                 app:srcCompat="@drawable/unlike" />

@@ -10,79 +10,44 @@
     <string name="menu_credit">กิจกรรมที่ได้หน่วยกิต</string>
     <string name="menu_student">กิจกรรมนักศึกษา</string>
     <string name="searchHintText_searchToolbar">Search</string>
-    <string name="event_item_name">ชื่อกิจกกรม</string>
-    <string name="event_item_time">วัน/เวลา</string>
-    <string name="event_item_location">สถานที่</string>
+    <string name="event_item_name">Event Name</string>
+    <string name="event_item_time">Date/Time</string>
+    <string name="event_item_location">Place</string>
     <string name="add_to_calendar">Add to Calendar</string>
     <string name="description">someting</string>
-    <string name="by">"โดย %1$s"</string>
-    <string name="search">ค้นหา</string>
-    <string name="search_main">ค้นหา</string>
+    <string name="by">"By %1$s"</string>
+    <string name="search">Search</string>
+    <string name="search_main">Search</string>
     <string name="my_event">My Event</string>
     <string name="Username">USERNAME</string>
     <string name="Mail">MAIL</string>
     <string name="_0">0</string>
     <string name="join">JOIN</string>
     <string name="favorite">Favorite</string>
-    <string name="upcoming_event">Upcoming Event</string>
+    <string name="upcoming_event">Upcoming Events</string>
     <string name="tag">TAG</string>
-    <string name="event_not_found">ไม่พบการค้นหาของคุณ</string>
+    <string name="event_not_found">Event Not Found</string>
     <string name="fetchfail">Failed to fetch the Image</string>
-    <string name="failedconnection">Connection Failed </string>
+    <string name="failedconnection">Connection Failed</string>
     <string name="ok">ตกลง</string>
-    <string name="cancel">ยกเลิก</string>
-
-
-    <string-array name="faculty">
-        <item>เสรี</item>
-        <item>สำนักงานอธิการบดี</item>
-        <item>คณะวิทยาศาสตร์</item>
-        <item>คณะเกษตรศาสตร์</item>
-        <item>คณะวิศวกรรมศาสตร์</item>
-        <item>คณะศึกษาศาสตร์</item>
-        <item>คณะพยาบาลศาสตร์</item>
-        <item>คณะแพทย์ศาสตร์</item>
-        <item>คณะมนุษยศาสตร์และสังคมศาสตร์</item>
-        <item>คณะเทคนิคการแพทย์</item>
-        <item>บัณฑิตวิทยาลัย</item>
-        <item>คณะสาธารณะสุขศาสตร์</item>
-        <item>สำนักหอสมุด</item>
-        <item>คณะทันตแพทย์ศาสตร์</item>
-        <item>สถาบันวิจัยและพัฒนา</item>
-        <item>คณะเภสัชศาสตร์</item>
-        <item>คณะเทคโนโลยีสารสนเทศ</item>
-        <item>คณะสัตวแพทย์ศาสตร์</item>
-        <item>ศูนย์วัฒนธรรม</item>
-        <item>คณะสถาปัตกรรมศาสตร์</item>
-        <item>คณะบริหารธุรกิจและการบัญชี</item>
-        <item>คณะศิลปกรรมศาสตร์</item>
-        <item>วิทยาเขตหนองคาย</item>
-        <item>สำนักบริหารและพัฒนาวิชาการ</item>
-        <item>ศูนย์บริการวิชาการ</item>
-        <item>ศูนย์หัวใจสิริกิต</item>
-        <item>คณะนิติศาสตร์</item>
-        <item>วิทยาลัยการปกครองท้องถิ่น</item>
-        <item>วิทยาลัยนานาชาติ</item>
-        <item>ศูนย์นวัตกรรมการเรียนการสอน</item>
-        <item>ศูนย์ภาษาอาเซียน</item>
-        <item>คณะเศรษฐศาสตร์</item>
-        <item>คณะวิทยาการจัดการ</item>
-        <item>สถาบันการสอนวิชาศึกษาทั่วไป</item>
-        <item>สถาบันภาษา</item>
-        <item>สถาบันขงจื้อ</item>
-        <item>วิทยาลัยบัณฑิตศึกษาการจัดการ</item>
-        <item>กองพัฒนานักศึกษาและศิษย์เก่าสัมพันธ์</item>
-    </string-array>
-
-    <string-array name="credit">
-        <item>ไม่มี</item>
-        <item>ด้านที่ 1 การพัฒนาศักยภาพตนเอง</item>
-        <item>ด้านที่ 2 การธำรงไว้ซึ่งสถาบันชาติ ศาสนา พระมหากษัตริย์ เสริมสร้างจิตสำนึกความภาคภูมิใจในมหาวิทยาลัยและคณะ</item>
-        <item>ด้านที่ 3 การเสริมสร้างจิตอาสา และจิตสาธารณะ</item>
-        <item>ด้านที่ 4 การสร้างคุณธรรมจริยธรรมและศีลธรรม</item>
-        <item>ด้านที่ 5 การอนุรักษ์ศิลปวัฒนธรรมไทยและภูมิปัญญาท้องถิ่น</item>
-
-    </string-array>
-
+    <string name="filter_h">FILTER</string>
+    <string name="university_events">University Events</string>
+    <string name="another_events">Another Events</string>
+    <string name="cancel">Cancel</string>
+    <string name="signout">Sign out</string>
+    <string name="DoubleBack">Press BACK again to exit</string>
+    <string name="fPlace">Places</string>
+    <string name="Type">Type</string>
+    <string name="fplaceOut">OUTSIDE UNIVERSITY</string>
+    <string name="fplaceIn">INSIDE UNIVERSITY</string>
+    <string name="period">Period</string>
+    <string name="type1">Type 1</string>
+    <string name="type2">Type 2</string>
+    <string name="type3">Type 3</string>
+    <string name="type4">Type 4</string>
+    <string name="type5">Type 5</string>
+    <string name="fFind">Done</string>
+    <string name="admit">Admit</string>
+    <string name="added_to_calendar">Added to Calendar</string>
 
 </resources>

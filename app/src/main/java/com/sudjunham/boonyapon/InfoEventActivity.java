@@ -212,6 +212,7 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
 
                 }
                 break;
+
             case R.id.img_pin_info:
                 Geocoder geocoder = new Geocoder(InfoEventActivity.this, Locale.getDefault());
                 try{

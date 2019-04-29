@@ -24,6 +24,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private List<Event_list> event_lists;
     private LayoutInflater inflater;
     private RecyclerViewItemClickListener recyclerViewItemClickListener;
+    GoogleSignInAccount googleSignInAccount;
 
     //ViewHolder class
     //TextView and ImageView holders are binded with relevant views in item of recyclerview.
@@ -87,13 +88,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     //TextViews and ImageView in viewholder which is attached to view is set with datas in model list
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+
+
+
         holder.position=position;
         String evName = event_lists.get(position).getName();
         evName = evName.replaceAll("&quot;", "\"");
         holder.textViewName.setText(evName);
         holder.textViewDate.setText(event_lists.get(position).getDate());
         holder.textViewLocation.setText(event_lists.get(position).getLocation());
-        holder.btn_like.setVisibility(View.INVISIBLE);
+
+//        holder.btn_like.setVisibility(View.INVISIBLE);
     }
 
     @Override

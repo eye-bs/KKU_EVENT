@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -24,6 +25,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class SeachActivity extends AppCompatActivity implements RecyclerViewItemClickListener, View.OnClickListener {
+
+    private long mLastClickTime = 0;
     private SearchViewAdapter adapter;
     private List<String> exampleList;
     List<Event_list> event_List_Search = new ArrayList<Event_list>();
@@ -117,6 +120,10 @@ public class SeachActivity extends AppCompatActivity implements RecyclerViewItem
     @Override
     public void onItemClick(View view, int position) {
         Log.d("Check","in position " + adapter.getItem(position));
+        if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+            return;
+        }
+        mLastClickTime = SystemClock.elapsedRealtime();
         for(int i = 0 ; i < event_List_Search.size(); i++){
             if(adapter.getItem(position).equals(event_List_Search.get(i).name)){
                 Intent intent = new Intent(SeachActivity.this , InfoEventActivity.class);

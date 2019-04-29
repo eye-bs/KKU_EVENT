@@ -10,9 +10,11 @@ import java.time.LocalDate;
 import android.app.Dialog;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.os.Bundle;
 import android.content.Intent;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -50,6 +52,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewItemClickListener, View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
+    private long mLastClickTime = 0;
     List<Event_list> event_List_Arr = new ArrayList<Event_list>();
     ScrollView scrollView;
      RecyclerView recyclerView;
@@ -132,8 +135,30 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
       }
     }
 
+    // Double Back to exit
+    boolean doubleBackToExitPressedOnce = false;
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, getString(R.string.DoubleBack), Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }
+
     class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
 
+        // display progressbar while loading
         protected void onPreExecute() {
             progressBar.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);
@@ -204,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
                             phoneDEL = phoneDEL.substring(0, 9);
                         }
 
-                        String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+                        String timeStamp = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH).format(Calendar.getInstance().getTime());
                         LocalDate currentDate = LocalDate.parse(timeStamp, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                         LocalDate getDateEvent = LocalDate.parse(pDateST, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
@@ -285,14 +310,14 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
 
     public static String dateThai(String strDate,String endDate,String strtime , String timeED)throws ParseException
     {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         SimpleDateFormat DateFormat = new SimpleDateFormat("d MMMM", Locale.getDefault());
         SimpleDateFormat DateFormatWYear = new SimpleDateFormat("d MMMM yyyy", Locale.getDefault());
 
         Date dateST = df.parse(strDate);
 
-        DateFormat parser = new SimpleDateFormat("a. HH.mm",Locale.getDefault());
-        SimpleDateFormat formatter = new SimpleDateFormat("HH.mm",Locale.getDefault());
+        DateFormat parser = new SimpleDateFormat("a. HH.mm",Locale.ENGLISH);
+        SimpleDateFormat formatter = new SimpleDateFormat("HH.mm",Locale.ENGLISH);
         Date dtimeST = parser.parse(strtime);
         Date dtimeEd = parser.parse(timeED);
         strtime = formatter.format(dtimeST);
@@ -314,7 +339,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
     }
 
     public String parseDateTime(String date , String time)throws ParseException{
-        DateFormat parserTime = new SimpleDateFormat("a. HH.mm");
+        DateFormat parserTime = new SimpleDateFormat("a. HH.mm", Locale.ENGLISH);
         Date timeP = parserTime.parse(time);
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
         String formattedTime = formatter.format(timeP);
@@ -328,6 +353,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
 
     @Override
     public void onItemClick(View view, int position) {
+        Log.d("Check","in position " + adapter.getItem(position));
+        if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+            return;
+        }
+        mLastClickTime = SystemClock.elapsedRealtime();
         Intent intent = new Intent(MainActivity.this , InfoEventActivity.class);
         Parcelable parcelable = Parcels.wrap(adapter.getItem(position));
         intent.putExtra("objEvent",parcelable);
