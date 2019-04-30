@@ -65,12 +65,17 @@ public class ApiAsyncTaskForUser extends AsyncTask<Void, Void, Void> {
 
         for (int i = 0 ; i < userActivity.event_kku.size();i++){
             for(int j = 0 ; j < eventStrings.size() ; j++){
-                if(eventStrings.get(j).equals(userActivity.event_kku.get(i))){
+              //  Log.d("TAG123" , "event: " + userActivity.event_kku.get(i).name + "\ncalendar: " + eventStrings.get(j));
+                if(eventStrings.get(j).equals(userActivity.event_kku.get(i).name)){
                     userActivity.upComing.add(userActivity.event_kku.get(i));
-                    Log.d("TAG123" , userActivity.upComing.get(i).name + "");
+                    userActivity.adapter.notifyDataSetChanged();
+                    Log.d("TAG123" , "added :" + userActivity.upComing.get(0).name);
                 }
             }
         }
+
+        userActivity.progressBar.setVisibility(View.INVISIBLE);
+        userActivity.scrollView.setVisibility(View.VISIBLE);
 
     }
 
@@ -85,7 +90,6 @@ public class ApiAsyncTaskForUser extends AsyncTask<Void, Void, Void> {
         List<Event> items = events.getItems();
         int i = 0;
         for (final Event event : items) {
-            String getSummary = event.getSummary();
             uri = event.getHtmlLink();
             String getTAG = event.getDescription();
             if(getTAG!= null && getTAG.contains("#KKUEvent")) {

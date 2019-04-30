@@ -34,6 +34,8 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.calendar.CalendarScopes;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.r0adkll.slidr.Slidr;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -46,8 +48,10 @@ import java.text.SimpleDateFormat;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.TimeZone;
 
 import androidx.annotation.Nullable;
@@ -74,6 +78,8 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
     static final int REQUEST_AUTHORIZATION = 1001;
     GoogleSignInAccount googleSignInAccount;
+    DatabaseReference myRef;
+
 
 
     @Override
@@ -86,6 +92,9 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
 
         final Intent intent = getIntent();
         event_detail = Parcels.unwrap(intent.getParcelableExtra("objEvent"));
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("message");
 
         bt_like = findViewById(R.id.bt_like);
 
@@ -253,6 +262,9 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
                     e.printStackTrace();
                 }
                 break;
+
+            case R.id.bt_like:
+
         }
 
     }
@@ -269,6 +281,15 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
                 dialog.show();
             }
         });
+    }
+
+    public void writeNewUser(String userId , String name , String email){
+        String key = myRef.child("user").push().getKey();
+        User user = new User(name ,email);
+        Map<String,Object> userValue = user.toMap();
+        Map<String,Object> childUpdate = new HashMap<>();
+        childUpdate.put("/users/" + userId,userValue);
+        myRef.updateChildren(childUpdate);
     }
 
 }

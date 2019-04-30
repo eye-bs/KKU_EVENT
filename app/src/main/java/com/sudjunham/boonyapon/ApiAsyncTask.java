@@ -175,14 +175,12 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
 
     private List<String> getDataFromApi() throws IOException {
 
-        DateTime now = new DateTime(System.currentTimeMillis());
         eventStrings = new ArrayList<String>();
         Events events = iActivity.mService.events().list("primary")
                 .setOrderBy("startTime")
                 .setSingleEvents(true)
                 .execute();
         List<Event> items = events.getItems();
-        int i = 0;
         for (final Event event : items) {
             String getSummary = event.getSummary();
             EventDateTime eventDateTime = event.getStart();

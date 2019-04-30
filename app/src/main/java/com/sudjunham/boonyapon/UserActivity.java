@@ -8,7 +8,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -43,11 +46,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.parceler.Parcels;
 
 public class UserActivity extends AppCompatActivity implements RecyclerViewItemClickListener, RadioGroup.OnCheckedChangeListener {
-    ImageView img_calendar;
+    ImageView img_calendar,signOut;
     private GoogleSignInClient googleSignInClient;
     private TextView profileName, profileEmail;
     private ImageView profileImage;
-    private TextView signOut,myEvent;
+    private TextView myEvent;
     TextView tv_num_join;
     RecyclerView recyclerView;
     RecyclerViewAdapterUser adapter;
@@ -55,6 +58,8 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewItemC
     List<Event_list> event_kku = new ArrayList<>();
     List<Event_list> upComing = new ArrayList<>();
     RadioGroup rd_user;
+   ScrollView scrollView;
+    ProgressBar progressBar;
 
 
     com.google.api.services.calendar.Calendar mService;
@@ -86,6 +91,11 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewItemC
         myEvent = findViewById(R.id.my_event);
         tv_num_join = findViewById(R.id.tv_num_join);
         rd_user = findViewById(R.id.rg_user);
+        scrollView = findViewById(R.id.scrollView_user);
+        progressBar = findViewById(R.id.progress_bar_user);
+
+        progressBar.setVisibility(View.VISIBLE);
+        scrollView.setVisibility(View.INVISIBLE);
 
         event_kku = Event_all.getInstance().getEventLists();
 
@@ -103,14 +113,11 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewItemC
 
         new ApiAsyncTaskForUser(UserActivity.this).execute();
 
-
         recyclerView = findViewById(R.id.list_view_user);
         recyclerView.setNestedScrollingEnabled(false);
-
         manager = new LinearLayoutManager(this) ;
         recyclerView.setLayoutManager(manager);
-        setAdapterFunc(upComing);
-
+        adapter = new RecyclerViewAdapterUser(UserActivity.this,upComing);
 
         myEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,10 +191,10 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewItemC
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId){
             case R.id.rb_user_fev:
-
+                recyclerView.setVisibility(View.GONE);
                 break;
             case R.id.rb_user_upcome:
-
+                setAdapterFunc(upComing);
                 break;
         }
     }

@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
               break;
           case R.id.rb_event_else_main:
               tv_result_filter.setVisibility(View.VISIBLE);
+              recyclerView.setVisibility(View.GONE);
 
               break;
 
