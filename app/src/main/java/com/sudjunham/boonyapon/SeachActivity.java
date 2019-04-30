@@ -24,6 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.r0adkll.slidr.Slidr;
+
 public class SeachActivity extends AppCompatActivity implements RecyclerViewItemClickListener, View.OnClickListener {
 
     private long mLastClickTime = 0;
@@ -38,6 +40,9 @@ public class SeachActivity extends AppCompatActivity implements RecyclerViewItem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seach);
+
+        // swipe to go back
+        Slidr.attach(this);
 
         editText = findViewById(R.id.editText);
         img_cancel = findViewById(R.id.img_cancel);

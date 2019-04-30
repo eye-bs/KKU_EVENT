@@ -156,16 +156,17 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         }, 2000);
     }
 
-    class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
-
+    public class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
         // display progressbar while loading
         protected void onPreExecute() {
+            super.onPreExecute();
             progressBar.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);
         }
 
         @SuppressLint("WrongThread")
         protected String doInBackground(Void... urls) {
+
             try {
                 urlVal = "https://www.kku.ac.th/ikku/api/activities/services/topActivity.php";
                 URL urlAddr;
@@ -193,6 +194,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
 
         @RequiresApi(api = Build.VERSION_CODES.O)
         protected void onPostExecute(String response) {
+            super.onPreExecute();
 
             try {
                 if(response == null) {
@@ -253,7 +255,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
                         getName += event_List_Arr.get(i).name + "\n";
 
                     }
-
                     progressBar.setVisibility(View.INVISIBLE);
                     recyclerView.setVisibility(View.VISIBLE);
                 }

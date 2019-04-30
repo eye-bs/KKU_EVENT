@@ -22,6 +22,7 @@ import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.firebase.auth.FirebaseAuth;
+import com.r0adkll.slidr.Slidr;
 import com.squareup.picasso.Picasso;
 
 import java.util.Arrays;
@@ -51,6 +52,9 @@ public class UserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+
+        // swipe to go back
+        Slidr.attach(this);
 
         GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
 

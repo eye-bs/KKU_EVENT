@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.github.florent37.singledateandtimepicker.dialog.DoubleDateAndTimePickerDialog;
+import com.r0adkll.slidr.Slidr;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -59,6 +60,10 @@ public class CreateEvent extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
+
+        // swipe to go back
+        Slidr.attach(this);
+
         addImage = findViewById(R.id.addImage);
         event_name = findViewById(R.id.eventName);
         dateBox = findViewById(R.id.dateTime);
