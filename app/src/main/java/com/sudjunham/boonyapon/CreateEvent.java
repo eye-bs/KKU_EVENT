@@ -61,9 +61,6 @@ public class CreateEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
 
-        // swipe to go back
-        Slidr.attach(this);
-
         addImage = findViewById(R.id.addImage);
         event_name = findViewById(R.id.eventName);
         dateBox = findViewById(R.id.dateTime);

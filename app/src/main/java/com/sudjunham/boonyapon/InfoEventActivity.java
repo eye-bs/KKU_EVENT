@@ -117,6 +117,7 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
 
         googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
 
+        tv_location.setOnClickListener(this);
         bt_add_calendar.setOnClickListener(this);
         img_pin_info.setOnClickListener(this);
 
@@ -246,6 +247,27 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
                 Geocoder geocoder = new Geocoder(InfoEventActivity.this, Locale.getDefault());
                 try{
                     List<Address> list = geocoder.getFromLocationName(tv_location.getText().toString(),1);
+                    if(list.isEmpty()){
+                        View rootView = findViewById(R.id.linearLayout2);
+                        Snackbar.make(rootView, "ไม่สามารถระบุตำแหน่งได้", Snackbar.LENGTH_LONG).show();
+                    }
+                    else {
+                        Address address = list.get(0);
+
+                        Uri gmmIntentUri = Uri.parse("geo:" + address.getLatitude() + "," + address.getLongitude() + "?q=" + Uri.encode(tv_location.getText().toString()));
+                        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                        mapIntent.setPackage("com.google.android.apps.maps");
+                        startActivity(mapIntent);
+                    }
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+
+            case R.id.tv_location_info:
+                Geocoder geocoder2 = new Geocoder(InfoEventActivity.this, Locale.getDefault());
+                try{
+                    List<Address> list = geocoder2.getFromLocationName(tv_location.getText().toString(),1);
                     if(list.isEmpty()){
                         View rootView = findViewById(R.id.linearLayout2);
                         Snackbar.make(rootView, "ไม่สามารถระบุตำแหน่งได้", Snackbar.LENGTH_LONG).show();
