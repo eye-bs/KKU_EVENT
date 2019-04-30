@@ -2,10 +2,13 @@ package com.sudjunham.boonyapon;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Parcelable;
 import android.provider.CalendarContract;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -24,21 +27,33 @@ import com.google.api.services.calendar.CalendarScopes;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class UserActivity extends AppCompatActivity {
+import org.parceler.Parcels;
+
+public class UserActivity extends AppCompatActivity implements RecyclerViewItemClickListener, RadioGroup.OnCheckedChangeListener {
     ImageView img_calendar;
     private GoogleSignInClient googleSignInClient;
     private TextView profileName, profileEmail;
     private ImageView profileImage;
     private TextView signOut,myEvent;
     TextView tv_num_join;
+    RecyclerView recyclerView;
+    RecyclerViewAdapterUser adapter;
+    LinearLayoutManager manager;
+    List<Event_list> event_kku = new ArrayList<>();
+    List<Event_list> upComing = new ArrayList<>();
+    RadioGroup rd_user;
 
 
     com.google.api.services.calendar.Calendar mService;
@@ -66,6 +81,11 @@ public class UserActivity extends AppCompatActivity {
         signOut = findViewById(R.id.btn_signout);
         myEvent = findViewById(R.id.my_event);
         tv_num_join = findViewById(R.id.tv_num_join);
+        rd_user = findViewById(R.id.rg_user);
+
+        event_kku = Event_all.getInstance().getEventLists();
+
+        rd_user.setOnCheckedChangeListener(this);
 
         credentialCaledndar = GoogleAccountCredential.usingOAuth2(
                 getApplicationContext(), Arrays.asList(SCOPES))
@@ -78,6 +98,14 @@ public class UserActivity extends AppCompatActivity {
                 .build();
 
         new ApiAsyncTaskForUser(UserActivity.this).execute();
+
+
+        recyclerView = findViewById(R.id.list_view_user);
+        recyclerView.setNestedScrollingEnabled(false);
+
+        manager = new LinearLayoutManager(this) ;
+        recyclerView.setLayoutManager(manager);
+        setAdapterFunc(upComing);
 
 
         myEvent.setOnClickListener(new View.OnClickListener() {
@@ -127,5 +155,36 @@ public class UserActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public void setAdapterFunc(List<Event_list> list){
+        adapter = new RecyclerViewAdapterUser(UserActivity.this,list);
+        recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Intent intent = new Intent(UserActivity.this , InfoEventActivity.class);
+        Parcelable parcelable = Parcels.wrap(adapter.getItem(position));
+        intent.putExtra("objEvent",parcelable);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onItemLongClick(View view, int position) {
+
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        switch (checkedId){
+            case R.id.rb_user_fev:
+
+                break;
+            case R.id.rb_user_upcome:
+
+                break;
+        }
     }
 }

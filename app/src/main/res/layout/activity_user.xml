@@ -49,11 +49,6 @@
                     android:paddingEnd="10dp"
                     />
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-
                 <TextView
                     android:id="@+id/btn_signout"
                     android:layout_width="wrap_content"
@@ -169,10 +164,12 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="35dp">
                 <RadioGroup
+                    android:id="@+id/rg_user"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <RadioButton
+                        android:id="@+id/rb_user_fev"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="@string/favorite"
@@ -185,6 +182,7 @@
                         android:checked="true"
                         android:background="@drawable/select_menu_user" />
                     <RadioButton
+                        android:id="@+id/rb_user_upcome"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="@string/upcoming_event"
@@ -202,7 +200,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list_view1"
+                    android:id="@+id/list_view_user"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </RelativeLayout>
