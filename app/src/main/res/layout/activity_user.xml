@@ -34,12 +34,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-              <ImageView
-                  android:id="@+id/btn_signout"
-                  android:layout_width="24dp"
-                  android:layout_height="24dp"
-                  android:src="@drawable/shutdown"
-                  android:foreground="@drawable/btn_ripple_background_red"/>
+                <ImageView
+                    android:id="@+id/btn_signout"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:foreground="@drawable/btn_ripple_background_red"
+                    android:src="@drawable/shutdown" />
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -54,25 +54,25 @@
                     android:id="@+id/my_event"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/my_event"
-                    android:fontFamily="@font/anakotmaimedium"
-                    android:textSize="14sp"
-                    android:textColor="@color/main_header"
-                    android:background="@drawable/ounded_uncheck_box"
-                    android:foreground="@drawable/btn_ripple_background_red"
                     android:layout_marginEnd="10dp"
+                    android:background="@drawable/ounded_uncheck_box"
+                    android:fontFamily="@font/anakotmaimedium"
+                    android:foreground="@drawable/btn_ripple_background_red"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    />
+                    android:layout_gravity="center"
+                    android:text="@string/my_event"
+                    android:textColor="@color/main_header"
+                    android:textSize="14sp" />
 
                 <ImageView
                     android:id="@+id/img_calendar"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="33dp"
+                    android:layout_height="33dp"
                     android:layout_gravity="end"
                     android:contentDescription="@string/description"
-                    android:src="@drawable/ic_event_available_black_24dp"
-                    android:foreground="@drawable/btn_ripple_background_red"/>
+                    android:foreground="@drawable/btn_ripple_background_red"
+                    android:src="@drawable/ic_event_available_black_24dp" />
 
             </LinearLayout>
             <de.hdodenhof.circleimageview.CircleImageView

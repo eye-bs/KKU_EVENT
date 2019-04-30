@@ -201,6 +201,7 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewItemC
                 break;
             case R.id.rb_user_upcome:
                 setAdapterFunc(upComing);
+                recyclerView.setVisibility(View.VISIBLE);
                 break;
         }
     }
