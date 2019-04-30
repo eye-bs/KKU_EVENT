@@ -13,6 +13,7 @@
         android:background="@drawable/addicon"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:foreground="@drawable/btn_ripple_background_red"
         android:layout_margin="20dp"/>
 
 </RelativeLayout>

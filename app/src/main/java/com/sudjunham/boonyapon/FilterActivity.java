@@ -22,14 +22,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class FilterActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
-    String Months[] = {
-            "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน",
-            "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม",
-            "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"};
+//    String Months[] = {
+//            "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน",
+//            "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม",
+//            "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"};
     CheckBox checkBox_uni , checkBox_ununi,cb_c1,cb_c2,cb_c3,cb_c4,cb_c5;
     Button bt_filter_ok;
     Spinner spinner;
-    String getFaculty;
+    String getFaculty,Months;
     int minV , maxV;
     Intent intentFilter;
 
@@ -62,6 +62,8 @@ public class FilterActivity extends AppCompatActivity implements CompoundButton.
         spinner = findViewById(R.id.spinner_open);
 
         final String[] faculty = getResources().getStringArray(R.array.faculty);
+        final String[] Months = getResources().getStringArray(R.array.month);
+
         ArrayAdapter adapterfaculty = ArrayAdapter.createFromResource(this,R.array.faculty,R.layout.my_spinner);
         spinner.setAdapter(adapterfaculty);
 

@@ -113,7 +113,7 @@
                 android:id="@+id/img_pin_info"
                 android:layout_width="@dimen/img_info"
                 android:layout_height="@dimen/img_info"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="@+id/img_clock_info"
                 app:layout_constraintTop_toBottomOf="@+id/tv_time_info"
                 app:srcCompat="@mipmap/pindetail" />
@@ -168,7 +168,7 @@
                 android:fontFamily="@font/thsarabunnew_bold"
                 android:text="content "
                 android:textColor="@color/dark_gray"
-                android:textSize="@dimen/detail_item_font"
+                android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_location_info" />
@@ -180,7 +180,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/menu_button_round"
-                android:fontFamily="@font/mavenpro_regular"
+                android:fontFamily="@font/anakotmailight"
                 android:padding="@dimen/menu_padding"
                 android:text="@string/add_to_calendar"
                 android:textColor="@color/button_login"

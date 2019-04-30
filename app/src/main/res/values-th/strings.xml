@@ -15,7 +15,7 @@
     <string name="event_item_time">วันที่/เวลา</string>
     <string name="event_item_location">สถานที่</string>
     <string name="add_to_calendar">เพิ่มในปฏิทิน</string>
-    <string name="description">someting</string>
+    <string name="description">รายละเอียดกิจกรรม</string>
     <string name="by">โดย %1$s</string>
     <string name="search">ค้นหา</string>
     <string name="search_main">ค้นหา</string>
@@ -30,7 +30,7 @@
     <string name="event_not_found">ไม่พบกิจกรรม</string>
     <string name="fetchfail">ไม่สามารถโหลดรูปภาพได้</string>
     <string name="failedconnection">การเชื่อมต่อผิดพลาด</string>
-    <string name="ok">ตกลง</string>
+    <string name="ok">บันทึก</string>
     <string name="cancel">ยกเลิก</string>
     <string name="filter_h">ตัวกรอง</string>
     <string name="university_events">กิจกรรมมหาวิทยาลัย</string>
@@ -50,6 +50,12 @@
     <string name="fFind">ค้นหา</string>
     <string name="admit">การเปิดรับ</string>
     <string name="added_to_calendar">เพิ่มกิจกรรมลงในปฏิทินของคุณแล้ว</string>
+    <string name="calender_added">เพิ่มลงในปฏิทินแล้ว</string>
+    <string name="btn_added">เปิดในปฏิทิน</string>
+    <string name="open_cal">เปิด</string>
+    <string name="phoneNum">เบอร์โทรศัพท์</string>
+    <string name="linkWeb">เว็บไซต์</string>
+    <string name="checkFill">กรุณากรอกข้อมูลให้ครบถ้วน</string>
 
 
 </resources>

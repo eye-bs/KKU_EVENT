@@ -1,7 +1,6 @@
 package com.sudjunham.boonyapon;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -43,6 +42,7 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
     String uri = null;
     List<String> eventStrings;
     Intent intent;
+
     /**
      * Constructor.
      * @param activity MainActivity that spawned this task.
@@ -102,7 +102,7 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
 
                 if (iActivity.create) {
                     View rootView = iActivity.findViewById(R.id.linearLayout2);
-                    Snackbar.make(rootView, "เพิ่มลงในปฏิทินแล้ว", Snackbar.LENGTH_LONG).setAction("เปิด", new View.OnClickListener() {
+                    Snackbar.make(rootView, R.string.calender_added, Snackbar.LENGTH_LONG).setAction(R.string.open_cal, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             //                    Intent openBowser = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
@@ -115,7 +115,7 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
                 }
 
                 if (checkSummary) {
-                    iActivity.bt_add_calendar.setText("เปิดในปฏิทิน");
+                    iActivity.bt_add_calendar.setText(R.string.btn_added);
                     iActivity.bt_add_calendar.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

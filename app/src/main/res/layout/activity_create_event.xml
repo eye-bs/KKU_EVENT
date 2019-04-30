@@ -39,7 +39,7 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/search_box_background"
                 android:fontFamily="@font/rsu_regular"
-                android:hint="ชื่องาน"
+                android:hint="@string/event_item_name"
                 android:textColor="@color/dark_gray"
                 android:inputType="textPersonName"
                 android:padding="8dp"
@@ -60,16 +60,16 @@
 
                 <EditText
                     android:id="@+id/dateTime"
-                    android:layout_width="match_parent"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:background="@android:color/transparent"
+                    android:focusable="false"
                     android:fontFamily="@font/rsu_regular"
-                    android:hint="วันที่ / เวลา"
+                    android:hint="@string/event_item_time"
                     android:inputType="none"
                     android:textColor="@color/dark_gray"
-                    android:focusable="false"
-                    android:layout_weight="1"
                     android:textCursorDrawable="@null"
                     tools:ignore="Autofill" />
 
@@ -100,13 +100,13 @@
 
                 <EditText
                     android:id="@+id/create_location"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/rsu_regular"
-                    android:hint="สถานที่"
+                    android:hint="@string/event_item_location"
                     android:inputType="text"
                     android:textColor="@color/dark_gray"
                     android:textCursorDrawable="@null"
@@ -114,9 +114,9 @@
 
                 <ImageView
                     android:id="@+id/img_location"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center|end"
                     android:layout_marginStart="15dp"
                     android:contentDescription="@string/description"
                     android:foreground="@drawable/btn_ripple_background_red"
@@ -128,7 +128,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/rsu_regular"
-                android:text="หน่วยกิจกรรม"
+                android:text="@string/Type"
                 android:textColor="@color/dark_gray"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
@@ -162,7 +162,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/rsu_regular"
-                android:text="การเปิดรับ"
+                android:text="@string/admit"
                 android:textColor="@color/dark_gray"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
@@ -201,7 +201,7 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/search_box_background"
                 android:fontFamily="@font/rsu_regular"
-                android:hint="เบอร์โทรศัพท์"
+                android:hint="@string/phoneNum"
                 android:inputType="number"
                 android:padding="8dp"
                 android:textColor="@color/dark_gray"
@@ -217,7 +217,7 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/search_box_background"
                 android:fontFamily="@font/rsu_regular"
-                android:hint="เว็บไซต์"
+                android:hint="@string/linkWeb"
                 android:textColor="@color/dark_gray"
                 android:inputType="textPersonName"
                 android:padding="8dp"
@@ -245,7 +245,7 @@
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/rsu_regular"
                     android:gravity="top"
-                    android:hint="รายละเอียดกิจกรรม"
+                    android:hint="@string/description"
                     android:inputType="textMultiLine"
                     android:minLines="3"
                     android:textColor="@color/dark_gray"
@@ -279,22 +279,12 @@
                     android:id="@+id/btn_save_myevent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="บันทึก"
+                    android:layout_gravity="center"
+                    android:background="@drawable/rounded_checked_box"
                     android:fontFamily="@font/rsu_regular"
+                    android:text="@string/ok"
                     android:textColor="@color/button_login"
-                    android:textSize="20sp"
-                    android:layout_marginEnd="60dp"
-                    android:background="@drawable/rounded_checked_box"/>
-
-                <Button
-                    android:id="@+id/btn_cancel_myevent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ยกเลิก"
-                    android:fontFamily="@font/rsu_regular"
-                    android:textColor="@color/button_login"
-                    android:textSize="20sp"
-                    android:background="@drawable/rounded_checked_box"/>
+                    android:textSize="20sp" />
 
             </LinearLayout>
 

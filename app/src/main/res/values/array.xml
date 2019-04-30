@@ -2,53 +2,68 @@
 <resources>
 
     <string-array name="faculty">
-        <item>เสรี</item>
-        <item>สำนักงานอธิการบดี</item>
-        <item>คณะวิทยาศาสตร์</item>
-        <item>คณะเกษตรศาสตร์</item>
-        <item>คณะวิศวกรรมศาสตร์</item>
-        <item>คณะศึกษาศาสตร์</item>
-        <item>คณะพยาบาลศาสตร์</item>
-        <item>คณะแพทย์ศาสตร์</item>
-        <item>คณะมนุษยศาสตร์และสังคมศาสตร์</item>
-        <item>คณะเทคนิคการแพทย์</item>
-        <item>บัณฑิตวิทยาลัย</item>
-        <item>คณะสาธารณะสุขศาสตร์</item>
-        <item>สำนักหอสมุด</item>
-        <item>คณะทันตแพทย์ศาสตร์</item>
-        <item>สถาบันวิจัยและพัฒนา</item>
-        <item>คณะเภสัชศาสตร์</item>
-        <item>คณะเทคโนโลยีสารสนเทศ</item>
-        <item>คณะสัตวแพทย์ศาสตร์</item>
-        <item>ศูนย์วัฒนธรรม</item>
-        <item>คณะสถาปัตกรรมศาสตร์</item>
-        <item>คณะบริหารธุรกิจและการบัญชี</item>
-        <item>คณะศิลปกรรมศาสตร์</item>
-        <item>วิทยาเขตหนองคาย</item>
-        <item>สำนักบริหารและพัฒนาวิชาการ</item>
-        <item>ศูนย์บริการวิชาการ</item>
-        <item>ศูนย์หัวใจสิริกิต</item>
-        <item>คณะนิติศาสตร์</item>
-        <item>วิทยาลัยการปกครองท้องถิ่น</item>
-        <item>วิทยาลัยนานาชาติ</item>
-        <item>ศูนย์นวัตกรรมการเรียนการสอน</item>
-        <item>ศูนย์ภาษาอาเซียน</item>
-        <item>คณะเศรษฐศาสตร์</item>
-        <item>คณะวิทยาการจัดการ</item>
-        <item>สถาบันการสอนวิชาศึกษาทั่วไป</item>
-        <item>สถาบันภาษา</item>
-        <item>สถาบันขงจื้อ</item>
-        <item>วิทยาลัยบัณฑิตศึกษาการจัดการ</item>
+        <item>All</item>
+        <item>Office of the President</item>
+        <item>Faculty of Science</item>
+        <item>Faculty of Agriculture</item>
+        <item>Faculty of Engineering</item>
+        <item>Faculty of Education</item>
+        <item>Faculty of Nursing</item>
+        <item>Faculty of Medicine</item>
+        <item>Faculty of Humanities and Social Sciences</item>
+        <item>Faculty of Associated Medical Sciences</item>
+        <item>Graduate School</item>
+        <item>Faculty of Public Health</item>
+        <item>Library</item>
+        <item>Faculty of Dentistry</item>
+        <item>Research for Social Development</item>
+        <item>Faculty of Pharmaceutical Sciences์</item>
+        <item>Faculty of Technology</item>
+        <item>Faculty of Veterinary Medicine</item>
+        <item>KKU Culture Center</item>
+        <item>Faculty of Architecture</item>
+        <item>Faculty of Business Administration and Accountancy</item>
+        <item>Faculty of Fine and Applied Arts</item>
+        <item>Nong Khai Campus</item>
+        <item>Bureau of Academic Administration and Development</item>
+        <item>Bureau of Academic Service</item>
+        <item>Queen Sirikit Heart Center of the Northeast</item>
+        <item>Faculty of Law</item>
+        <item>College of Local Administration</item>
+        <item>International College</item>
+        <item>Learning and Teaching Innovation Center</item>
+        <item>ASEAN Languages Center</item>
+        <item>Faculty of Economics</item>
+        <item>Faculty of Management Sciences</item>
+        <item>General Education Teaching Institute</item>
+        <item>Languague Institute</item>
+        <item>Confucius Institute</item>
+        <item>College of Graduate Study in Management</item>
         <item>กองพัฒนานักศึกษาและศิษย์เก่าสัมพันธ์</item>
     </string-array>
 
     <string-array name="credit">
-        <item>ไม่มี</item>
-        <item>ด้านที่ 1 การพัฒนาศักยภาพตนเอง</item>
-        <item>ด้านที่ 2 การธำรงไว้ซึ่งสถาบันชาติ ศาสนา พระมหากษัตริย์ เสริมสร้างจิตสำนึกความภาคภูมิใจในมหาวิทยาลัยและคณะ</item>
-        <item>ด้านที่ 3 การเสริมสร้างจิตอาสา และจิตสาธารณะ</item>
-        <item>ด้านที่ 4 การสร้างคุณธรรมจริยธรรมและศีลธรรม</item>
-        <item>ด้านที่ 5 การอนุรักษ์ศิลปวัฒนธรรมไทยและภูมิปัญญาท้องถิ่น</item>
+        <item>None</item>
+        <item>Type 1 การพัฒนาศักยภาพตนเอง</item>
+        <item>Type 2 การธำรงไว้ซึ่งสถาบันชาติ ศาสนา พระมหากษัตริย์ เสริมสร้างจิตสำนึกความภาคภูมิใจในมหาวิทยาลัยและคณะ</item>
+        <item>Type 3 การเสริมสร้างจิตอาสา และจิตสาธารณะ</item>
+        <item>Type 4 การสร้างคุณธรรมจริยธรรมและศีลธรรม</item>
+        <item>Type 5 การอนุรักษ์ศิลปวัฒนธรรมไทยและภูมิปัญญาท้องถิ่น</item>
+    </string-array>
+
+    <string-array name="month">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
     </string-array>
 
 </resources>

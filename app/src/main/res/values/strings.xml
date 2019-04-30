@@ -14,7 +14,6 @@
     <string name="event_item_time">Date/Time</string>
     <string name="event_item_location">Place</string>
     <string name="add_to_calendar">Add to Calendar</string>
-    <string name="description">someting</string>
     <string name="by">"By %1$s"</string>
     <string name="search">Search</string>
     <string name="search_main">Search</string>
@@ -29,7 +28,7 @@
     <string name="event_not_found">Event Not Found</string>
     <string name="fetchfail">Failed to fetch the Image</string>
     <string name="failedconnection">Connection Failed</string>
-    <string name="ok">ตกลง</string>
+    <string name="ok">Save</string>
     <string name="filter_h">FILTER</string>
     <string name="university_events">University Events</string>
     <string name="another_events">Another Events</string>
@@ -37,10 +36,10 @@
     <string name="signout">Sign out</string>
     <string name="DoubleBack">Press BACK again to exit</string>
     <string name="fPlace">Location</string>
-    <string name="Type">Type</string>
+    <string name="Type">Credit</string>
     <string name="fplaceOut">OUTSIDE UNIVERSITY</string>
     <string name="fplaceIn">INSIDE UNIVERSITY</string>
-    <string name="period">Period</string>
+    <string name="period">Months</string>
     <string name="type1">Type 1</string>
     <string name="type2">Type 2</string>
     <string name="type3">Type 3</string>
@@ -49,5 +48,12 @@
     <string name="fFind">Done</string>
     <string name="admit">Admit</string>
     <string name="added_to_calendar">Added to Calendar</string>
+    <string name="calender_added">Added to Calendar</string>
+    <string name="btn_added">Open Calendar</string>
+    <string name="open_cal">Open</string>
+    <string name="phoneNum">Phone Number</string>
+    <string name="linkWeb">Website Link</string>
+    <string name="description">Event Description</string>
+    <string name="checkFill">Please fill out this form.</string>
 
 </resources>

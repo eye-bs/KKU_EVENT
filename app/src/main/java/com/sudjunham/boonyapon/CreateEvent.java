@@ -75,7 +75,6 @@ public class CreateEvent extends AppCompatActivity {
         spinner_credit = findViewById(R.id.activity_credit);
         spinner_faculty = findViewById(R.id.register_faculty);
         saveBtn = findViewById(R.id.btn_save_myevent);
-        cancelBtn = findViewById(R.id.btn_cancel_myevent);
         coordinatorLayout = findViewById(R.id.coordinatorLayout);
 
         spinner();
@@ -106,14 +105,6 @@ public class CreateEvent extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 required();
-            }
-        });
-
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CreateEvent.this,MyEventActivity.class);
-                startActivity(intent);
             }
         });
 
@@ -279,13 +270,13 @@ public class CreateEvent extends AppCompatActivity {
 
     private  void required() {
         if( TextUtils.isEmpty (event_name.getText())){
-            event_name.setError( "กรุณากรอกข้อมูลให้ครบถ้วน" );
+            event_name.setError(getString(R.string.checkFill));
         } else if ( TextUtils.isEmpty (dateBox.getText())){
-            dateBox.setError( "กรุณากรอกข้อมูลให้ครบถ้วน" );
+            dateBox.setError(getString(R.string.checkFill));
         } else if ( TextUtils.isEmpty (locateBox.getText())){
-            locateBox.setError( "กรุณากรอกข้อมูลให้ครบถ้วน" );
+            locateBox.setError(getString(R.string.checkFill));
         } else if ( TextUtils.isEmpty (cloud_response_data.getText())){
-            cloud_response_data.setError( "กรุณากรอกข้อมูลให้ครบถ้วน" );
+            cloud_response_data.setError(getString(R.string.checkFill));
         }
 
         if ( !TextUtils.isEmpty (dateBox.getText())) {
