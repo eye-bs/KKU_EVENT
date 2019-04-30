@@ -69,9 +69,9 @@ public class ApiAsyncTaskForUser extends AsyncTask<Void, Void, Void> {
                 if(eventStrings.get(j).equals(userActivity.event_kku.get(i).name)){
                     userActivity.upComing.add(userActivity.event_kku.get(i));
                     userActivity.adapter.notifyDataSetChanged();
-                    Log.d("TAG123" , "added :" + userActivity.upComing.get(0).name);
                 }
             }
+
         }
 
         userActivity.progressBar.setVisibility(View.INVISIBLE);

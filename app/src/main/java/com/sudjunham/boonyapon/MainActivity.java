@@ -29,12 +29,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -43,6 +50,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.parceler.Parcels;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -67,6 +76,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
     ProgressBar progressBar;
     RadioButton rb_kku,rb_else;
     RadioGroup rg_main;
+    DatabaseReference myRef;
+    FirebaseDatabase database;
+    User user;
+    List<String> likedList;
+    GoogleSignInAccount googleSignInAccount;
 
     @SuppressLint("ResourceType")
     @Override
@@ -117,6 +131,13 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         recyclerView.setLayoutManager(manager);
         setAdapterFunc(event_List_Arr);
 
+        googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
+
+        if (googleSignInAccount != null){
+            database = FirebaseDatabase.getInstance();
+            myRef = database.getReference("like");
+            readNewUser();
+        }
         setImgUser();
     }
 
@@ -395,7 +416,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
     }
 
     private void setImgUser() {
-        GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
         if (googleSignInAccount != null) {
             Picasso.with(this)
                     .load(googleSignInAccount.getPhotoUrl().toString())
@@ -411,6 +431,29 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         adapter = new RecyclerViewAdapter(MainActivity.this,list);
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(this);
+    }
+
+    private void readNewUser(){
+
+        Query userID = myRef.child("users").child(googleSignInAccount.getId());
+        userID.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                user = dataSnapshot.getValue(User.class);
+                if(user != null){
+                    User.getInstance().setEmail(user.email);
+                    User.getInstance().setTitle(user.title);
+                    String getTitleFirebase = user.title;
+                    likedList = Arrays.asList(getTitleFirebase.split(","));
+                    User.getInstance().setLikedList(likedList);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }

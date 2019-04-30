@@ -1,17 +1,12 @@
 package com.sudjunham.boonyapon;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Point;
-import android.icu.text.IDNA;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
-import android.provider.CalendarContract;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
@@ -34,26 +29,26 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.calendar.CalendarScopes;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.r0adkll.slidr.Slidr;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-
 import org.parceler.Parcels;
-
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.TimeZone;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,7 +58,7 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
     TextView tv_title, tv_sponsor, tv_time, tv_location, tv_content;
     ImageView img_info, img_phone, img_web,bt_like,img_pin_info;
     String phoneOnClick;
-    boolean create = false , loadIMG = false , loadcalendar = false;
+    boolean create = false , loadIMG = false , loadcalendar = false , fev = false;
     String webOnclick = "";
     ProgressBar progressBar;
     ScrollView scrollView_info;
@@ -79,6 +74,9 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
     static final int REQUEST_AUTHORIZATION = 1001;
     GoogleSignInAccount googleSignInAccount;
     DatabaseReference myRef;
+    FirebaseDatabase database;
+    User user;
+    List<String> likedList;
 
 
 
@@ -92,9 +90,6 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
 
         final Intent intent = getIntent();
         event_detail = Parcels.unwrap(intent.getParcelableExtra("objEvent"));
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("message");
 
         bt_like = findViewById(R.id.bt_like);
 
@@ -121,20 +116,24 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
         img_pin_info.setOnClickListener(this);
 
         if (googleSignInAccount != null) {
-        credentialCaledndar = GoogleAccountCredential.usingOAuth2(
-                getApplicationContext(), Arrays.asList(SCOPES))
-                .setBackOff(new ExponentialBackOff())
-                .setSelectedAccountName(googleSignInAccount.getEmail());
+            credentialCaledndar = GoogleAccountCredential.usingOAuth2(
+                    getApplicationContext(), Arrays.asList(SCOPES))
+                    .setBackOff(new ExponentialBackOff())
+                    .setSelectedAccountName(googleSignInAccount.getEmail());
 
-        mService = new com.google.api.services.calendar.Calendar.Builder(
-                transport, jsonFactory, credentialCaledndar)
-                .setApplicationName("Google Calendar API Android Quickstart")
-                .build();
+            mService = new com.google.api.services.calendar.Calendar.Builder(
+                    transport, jsonFactory, credentialCaledndar)
+                    .setApplicationName("Google Calendar API Android Quickstart")
+                    .build();
 
             create = false;
             new ApiAsyncTask(InfoEventActivity.this).execute();
 
             bt_like.setOnClickListener(this);
+
+            database = FirebaseDatabase.getInstance();
+            myRef = database.getReference("like");
+           readliked();
 
         } else {
             bt_like.setVisibility(View.INVISIBLE);
@@ -264,6 +263,25 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
                 break;
 
             case R.id.bt_like:
+                if (fev){
+                    String likedThisEvent = "";
+                    for (int i = 0 ; i < likedList.size() ; i++){
+                        if(!likedList.get(i).equals(event_detail.name)){
+                            likedThisEvent += likedList.get(i)+",";
+                        }
+                    }
+                    writeNewUser(googleSignInAccount.getId(), likedThisEvent, googleSignInAccount.getEmail());
+                    bt_like.setImageDrawable(getResources().getDrawable(R.drawable.unlike));
+                }else {
+                    bt_like.setImageDrawable(getResources().getDrawable(R.drawable.like));
+                    if (user != null){
+                        writeNewUser(googleSignInAccount.getId(),user.title + event_detail.name+ "," , googleSignInAccount.getEmail());
+                    }else {
+                        writeNewUser(googleSignInAccount.getId(),event_detail.name, googleSignInAccount.getEmail());
+                    }
+                }
+                readliked();
+                break;
 
         }
 
@@ -283,13 +301,42 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
         });
     }
 
-    public void writeNewUser(String userId , String name , String email){
+    public void writeNewUser(String userId , String title , String email){
         String key = myRef.child("user").push().getKey();
-        User user = new User(name ,email);
+        User user = new User(title ,email);
         Map<String,Object> userValue = user.toMap();
         Map<String,Object> childUpdate = new HashMap<>();
         childUpdate.put("/users/" + userId,userValue);
         myRef.updateChildren(childUpdate);
+    }
+
+    private void readliked(){
+
+        Query userID = myRef.child("users").child(googleSignInAccount.getId());
+        userID.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                user = dataSnapshot.getValue(User.class);
+                if(user != null){
+                    User.getInstance().setEmail(user.email);
+                    User.getInstance().setTitle(user.title);
+                    String getTitleFirebase = user.title;
+                    likedList = Arrays.asList(getTitleFirebase.split(","));
+                    User.getInstance().setLikedList(likedList);
+                    for (String likedThisEvent : likedList) {
+                        if (likedThisEvent.equals(event_detail.name)) {
+                            fev = true;
+                            bt_like.setImageDrawable(getResources().getDrawable(R.drawable.like));
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }

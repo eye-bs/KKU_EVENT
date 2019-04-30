@@ -15,6 +15,7 @@
         android:layout_marginBottom="@dimen/listview_margin"
         android:layout_marginStart="@dimen/listview_margin"
         android:layout_marginEnd="@dimen/listview_margin"
+        android:paddingBottom="20dp"
         android:clickable="false"
         cardview:cardCornerRadius="4dp"
         cardview:cardElevation="5dp"
@@ -53,18 +54,6 @@
             android:textColor="@android:color/darker_gray"
             app:layout_constraintStart_toStartOf="@+id/event_time"
             app:layout_constraintTop_toBottomOf="@+id/event_time" />
-
-        <com.inthecheesefactory.thecheeselibrary.widget.AdjustableImageView
-            android:id="@+id/bt_like_main"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/unlike"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/event_location" />
 
         <TextView
             android:id="@+id/event_time"

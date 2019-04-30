@@ -51,16 +51,18 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewItemC
     private TextView profileName, profileEmail;
     private ImageView profileImage;
     private TextView myEvent;
-    TextView tv_num_join;
+    TextView tv_num_join,tv_num_fev;
     RecyclerView recyclerView;
     RecyclerViewAdapterUser adapter;
     LinearLayoutManager manager;
     List<Event_list> event_kku = new ArrayList<>();
     List<Event_list> upComing = new ArrayList<>();
+    List<Event_list> fevEvent = new ArrayList<>();
     RadioGroup rd_user;
-   ScrollView scrollView;
+    ScrollView scrollView;
     ProgressBar progressBar;
-
+    User user;
+    List<String> likedList;
 
     com.google.api.services.calendar.Calendar mService;
     private static final String[] SCOPES = {CalendarScopes.CALENDAR};
@@ -90,6 +92,7 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewItemC
         signOut = findViewById(R.id.btn_signout);
         myEvent = findViewById(R.id.my_event);
         tv_num_join = findViewById(R.id.tv_num_join);
+        tv_num_fev = findViewById(R.id.tv_num_fev);
         rd_user = findViewById(R.id.rg_user);
         scrollView = findViewById(R.id.scrollView_user);
         progressBar = findViewById(R.id.progress_bar_user);
@@ -117,7 +120,10 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewItemC
         recyclerView.setNestedScrollingEnabled(false);
         manager = new LinearLayoutManager(this) ;
         recyclerView.setLayoutManager(manager);
-        adapter = new RecyclerViewAdapterUser(UserActivity.this,upComing);
+        adapter = new RecyclerViewAdapterUser(UserActivity.this,fevEvent);
+
+        readliked();
+        setAdapterFunc(fevEvent);
 
         myEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,11 +197,29 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewItemC
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId){
             case R.id.rb_user_fev:
-                recyclerView.setVisibility(View.GONE);
+                setAdapterFunc(fevEvent);
                 break;
             case R.id.rb_user_upcome:
                 setAdapterFunc(upComing);
                 break;
+        }
+    }
+
+    private void readliked(){
+        user = User.getInstance();
+        if(user != null) {
+            String getTitleFirebase = user.title;
+            likedList = Arrays.asList(getTitleFirebase.split(","));
+            int countFev = (likedList.toString().equals("[]"))? 0 : likedList.size();
+                tv_num_fev.setText(Integer.toString(countFev));
+                for (int i = 0; i < event_kku.size(); i++) {
+                    for (int k = 0; k < likedList.size(); k++) {
+                        if (likedList.get(k).equals(event_kku.get(i).name)) {
+                            fevEvent.add(event_kku.get(i));
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                }
         }
     }
 }

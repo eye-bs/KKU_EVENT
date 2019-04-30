@@ -24,7 +24,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private List<Event_list> event_lists;
     private LayoutInflater inflater;
     private RecyclerViewItemClickListener recyclerViewItemClickListener;
-    GoogleSignInAccount googleSignInAccount;
 
     //ViewHolder class
     //TextView and ImageView holders are binded with relevant views in item of recyclerview.
@@ -59,7 +58,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             textViewName = v.findViewById(R.id.event_name);
             textViewDate = v.findViewById(R.id.event_time);
             textViewLocation = v.findViewById(R.id.event_location);
-            btn_like = v.findViewById(R.id.bt_like_main);
 
         }
     }
