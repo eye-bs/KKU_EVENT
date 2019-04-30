@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -61,6 +62,16 @@ public class ApiAsyncTaskForUser extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         userActivity.tv_num_join.setText(Integer.toString(eventStrings.size()));
+
+        for (int i = 0 ; i < userActivity.event_kku.size();i++){
+            for(int j = 0 ; j < eventStrings.size() ; j++){
+                if(eventStrings.get(j).equals(userActivity.event_kku.get(i))){
+                    userActivity.upComing.add(userActivity.event_kku.get(i));
+                    Log.d("TAG123" , userActivity.upComing.get(i).name + "");
+                }
+            }
+        }
+
     }
 
     private List<String> getDataFromApi() throws IOException {
@@ -78,7 +89,7 @@ public class ApiAsyncTaskForUser extends AsyncTask<Void, Void, Void> {
             uri = event.getHtmlLink();
             String getTAG = event.getDescription();
             if(getTAG!= null && getTAG.contains("#KKUEvent")) {
-                eventStrings.add(String.format("%s (%s)", event.getSummary(), getTAG));
+                eventStrings.add(event.getSummary());
             }
         }
         return eventStrings;

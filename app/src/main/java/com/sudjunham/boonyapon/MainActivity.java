@@ -78,7 +78,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new RetrieveFeedTask().execute();
+                event_List_Arr = Event_all.getInstance().getEventLists();
+                setAdapterFunc(event_List_Arr);
                 pullToRefresh.setRefreshing(false);
             }
         });
@@ -110,12 +111,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         recyclerView = findViewById(R.id.list_view1);
         recyclerView.setNestedScrollingEnabled(false);
         new RetrieveFeedTask().execute();
+        Event_all.getInstance().setEventLists(event_List_Arr);
 
         manager = new LinearLayoutManager(this) ;
         recyclerView.setLayoutManager(manager);
-        adapter = new RecyclerViewAdapter(MainActivity.this,event_List_Arr);
-        recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener(this);
+        setAdapterFunc(event_List_Arr);
 
         setImgUser();
     }
@@ -126,11 +126,14 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
           case R.id.rb_event_kku_main:
               tv_result_filter.setVisibility(View.INVISIBLE);
               recyclerView.setVisibility(View.VISIBLE);
-              new RetrieveFeedTask().execute();
+              event_List_Arr = Event_all.getInstance().getEventLists();
+              setAdapterFunc(event_List_Arr);
+
               break;
           case R.id.rb_event_else_main:
               tv_result_filter.setVisibility(View.VISIBLE);
-              recyclerView.setVisibility(View.GONE);
+
+              break;
 
       }
     }
@@ -217,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
                     JSONArray jsonArray = object.getJSONArray("activities");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject activity_event = jsonArray.getJSONObject(i);
-                        Event_list event_list = new Event_list();
+                      Event_list event_list = new Event_list();
 
                         String pDateST = activity_event.getString("dateSt");
                         String pDateED = activity_event.getString("dateEd");
@@ -236,23 +239,22 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
                         LocalDate getDateEvent = LocalDate.parse(pDateST, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
                         event_list.setName(activity_event.getString("title").replaceAll("&quot;", "\""));
-                        event_list.setDate((pDateST.equals(pDateED))
+                       event_list.setDate((pDateST.equals(pDateED))
                                 ? (dateThai(pDateST, null, pTimeST, pTimeED))
                                 : (dateThai(pDateST, pDateED, pTimeST, pTimeED)));
-                        event_list.setLocation(activity_event.getString("place"));
-                        event_list.setContent(activity_event.getString("content").replaceAll("&quot;", "\""));
+                       event_list.setLocation(activity_event.getString("place"));
+                       event_list.setContent(activity_event.getString("content").replaceAll("&quot;", "\""));
                         event_list.setImglink(activity_event.getString("image"));
-                        event_list.setSponsor(activity_event.getString("sponsor"));
+                       event_list.setSponsor(activity_event.getString("sponsor"));
                         event_list.setPhonecontact(phoneDEL);
-                        event_list.setWebsite(activity_event.getJSONObject("contact").getString("website"));
-                        event_list.setmonthForFilter(getDateEvent.getMonthValue());
-                        event_list.setDateTimeST(parseDateTime(pDateST, pTimeST));
-                        event_list.setDateTimeED(parseDateTime(pDateED, pTimeED));
+                       event_list.setWebsite(activity_event.getJSONObject("contact").getString("website"));
+                       event_list.setmonthForFilter(getDateEvent.getMonthValue());
+                       event_list.setDateTimeST(parseDateTime(pDateST, pTimeST));
+                       event_list.setDateTimeED(parseDateTime(pDateED, pTimeED));
 
                         event_List_Arr.add(event_list);
                         adapter.notifyDataSetChanged();
 
-                        getName += event_List_Arr.get(i).name + "\n";
 
                     }
                     progressBar.setVisibility(View.INVISIBLE);
@@ -302,9 +304,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
                     tv_result_filter.setVisibility(View.INVISIBLE);
                     recyclerView.setVisibility(View.VISIBLE);
                 }
-                adapter = new RecyclerViewAdapter(MainActivity.this,event_List_Arr_stack);
-                recyclerView.setAdapter(adapter);
-                adapter.setOnItemClickListener(this);
+
+                setAdapterFunc(event_List_Arr_stack);
             }
         }
     }
@@ -404,4 +405,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
                     .into(img_user);
         }
     }
+
+    public void setAdapterFunc(List<Event_list> list){
+        adapter = new RecyclerViewAdapter(MainActivity.this,list);
+        recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(this);
+    }
+
 }

@@ -11,16 +11,14 @@
     <ProgressBar
         android:id="@+id/progress_bar_main"
         style="@style/MyProgressBarRectangle"
-        android:indeterminate="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.752" />
+        app:layout_constraintTop_toTopOf="@+id/pullToRefresh" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header_main"
@@ -153,45 +151,40 @@
                 android:id="@+id/linear_menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@color/white"
-                android:orientation="horizontal"
-                android:paddingTop="5dp">
-
+                android:orientation="horizontal">
                 <RadioGroup
                     android:id="@+id/rg_main"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-
                     <RadioButton
                         android:id="@+id/rb_event_kku_main"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:text="กิจกรรมของมหาวิทยาลัย"
                         android:layout_weight="1"
-                        android:background="@drawable/select_menu_user"
+                        android:fontFamily="@font/morkhor1"
+                        android:textSize="20sp"
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
                         android:button="@null"
                         android:checked="true"
-                        android:fontFamily="@font/morkhor1"
-                        android:gravity="center"
-                        android:text="@string/university_events"
-                        android:textColor="@android:color/black"
-                        android:textSize="20sp"
-                        android:paddingBottom="10dp"/>
-
+                        android:background="@drawable/select_menu_user" />
                     <RadioButton
                         android:id="@+id/rb_event_else_main"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:text="กิจกรรมอื่นๆ"
                         android:layout_weight="1"
-                        android:background="@drawable/select_menu_user"
-                        android:button="@null"
                         android:fontFamily="@font/morkhor1"
-                        android:gravity="center"
-                        android:text="@string/another_events"
-                        android:textColor="@android:color/black"
                         android:textSize="20sp"
-                        android:paddingBottom="10dp"/>
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
+                        android:button="@null"
+                        android:background="@drawable/select_menu_user"/>
                 </RadioGroup>
 
             </LinearLayout>
@@ -215,7 +208,7 @@
                     android:fontFamily="@font/morkhor1"
                     android:textSize="@dimen/event_item_dimen"
                     android:layout_gravity="center"
-                    android:layout_margin="125dp"
+                    android:layout_margin="20dp"
                     />
 
         </LinearLayout>

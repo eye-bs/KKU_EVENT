@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.r0adkll.slidr.Slidr;
 
+
 public class MyEventActivity extends AppCompatActivity {
 
     Button bt_add_event;

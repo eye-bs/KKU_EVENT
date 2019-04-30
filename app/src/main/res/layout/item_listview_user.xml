@@ -5,14 +5,14 @@
     android:layout_height="wrap_content"
     xmlns:cardview="http://schemas.android.com/tools"
     android:id="@+id/list_item_rec"
-    android:background="@color/mainac_color">
+    android:background="@color/white">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_button"
-        android:layout_marginBottom="@dimen/listview_margin"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginStart="@dimen/listview_margin"
         android:layout_marginEnd="@dimen/listview_margin"
         android:clickable="false"
@@ -22,12 +22,11 @@
         android:foreground="@drawable/btn_ripple_background_red">
 
         <TextView
-            android:id="@+id/event_name"
+            android:id="@+id/event_name_user"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="14dp"
             android:layout_marginStart="14dp"
-            android:layout_marginTop="@dimen/listview_margin"
             android:fontFamily="@font/morkhor1"
             android:text="@string/event_item_name"
             android:textSize="@dimen/event_item_dimen"
@@ -39,7 +38,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/event_time"
+            android:id="@+id/event_time_user"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
@@ -51,19 +50,25 @@
             android:textColor="@android:color/darker_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/img_clock"
-            app:layout_constraintTop_toBottomOf="@+id/event_name" />
+            app:layout_constraintStart_toEndOf="@+id/img_clock_user"
+            app:layout_constraintTop_toBottomOf="@+id/event_name_user" />
 
         <ImageView
-            android:id="@+id/img_clock"
+            android:id="@+id/img_clock_user"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:clickable="false"
-            app:layout_constraintBottom_toBottomOf="@+id/event_time"
-            app:layout_constraintStart_toStartOf="@id/event_name"
-            app:layout_constraintTop_toTopOf="@+id/event_time"
-            app:srcCompat="@mipmap/clock" />
+            app:layout_constraintBottom_toBottomOf="@+id/event_time_user"
+            app:layout_constraintStart_toStartOf="@id/event_name_user"
+            app:layout_constraintTop_toTopOf="@+id/event_time_user"
+            app:srcCompat="@drawable/clock_red" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/relativeLayout3"
+        android:background="@android:color/darker_gray"
+        />
 
 </RelativeLayout>

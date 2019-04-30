@@ -127,8 +127,11 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
                 }
             }
 
-            iActivity.progressBar.setVisibility(View.GONE);
-            iActivity.scrollView_info.setVisibility(View.VISIBLE);
+            iActivity.loadcalendar = true;
+            if(iActivity.loadIMG) {
+                iActivity.progressBar.setVisibility(View.GONE);
+                iActivity.scrollView_info.setVisibility(View.VISIBLE);
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }
