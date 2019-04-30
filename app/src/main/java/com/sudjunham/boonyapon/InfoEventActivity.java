@@ -59,7 +59,7 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
     TextView tv_title, tv_sponsor, tv_time, tv_location, tv_content;
     ImageView img_info, img_phone, img_web,bt_like,img_pin_info;
     String phoneOnClick;
-    boolean create = false;
+    boolean create = false , loadIMG = false , loadcalendar = false;
     String webOnclick = "";
     ProgressBar progressBar;
     ScrollView scrollView_info;
@@ -161,7 +161,23 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
-        Picasso.with(this).load(imgURL).resize(width, 0).placeholder(R.drawable.rounded_button).error(R.drawable.rounded_button).into(img_info);
+        Picasso.with(this).load(imgURL).resize(width, 0).placeholder(R.drawable.rounded_button).error(R.drawable.rounded_button).into(img_info, new Callback() {
+            @Override
+            public void onSuccess() {
+                loadIMG = true;
+                if(loadcalendar){
+                    progressBar.setVisibility(View.GONE);
+                    scrollView_info.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onError() {
+                img_info.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
+                scrollView_info.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
