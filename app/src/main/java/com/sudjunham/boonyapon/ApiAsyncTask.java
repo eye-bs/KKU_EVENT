@@ -1,13 +1,13 @@
 package com.sudjunham.boonyapon;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GooglePlayServicesAvailabilityIOException;
@@ -102,7 +102,7 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
 
                 if (iActivity.create) {
                     View rootView = iActivity.findViewById(R.id.linearLayout2);
-                    Snackbar.make(rootView, "เพิ่มกิจกรรมลงในปฏิทินของคุณแล้ว", Snackbar.LENGTH_LONG).setAction("เปิด", new View.OnClickListener() {
+                    Snackbar.make(rootView, "เพิ่มลงในปฏิทินแล้ว", Snackbar.LENGTH_LONG).setAction("เปิด", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             //                    Intent openBowser = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
@@ -115,7 +115,7 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
                 }
 
                 if (checkSummary) {
-                    iActivity.bt_add_calendar.setText("Open in Google calendar");
+                    iActivity.bt_add_calendar.setText("เปิดในปฏิทิน");
                     iActivity.bt_add_calendar.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

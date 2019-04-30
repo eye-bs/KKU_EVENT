@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarFinalValueListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
+import com.r0adkll.slidr.Slidr;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -36,6 +37,9 @@ public class FilterActivity extends AppCompatActivity implements CompoundButton.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
+
+        // swipe to go back
+        Slidr.attach(this);
 
         final TextView tvMin = findViewById(R.id.tv_minSeek);
         final TextView tvMax = findViewById(R.id.tv_maxSeek);

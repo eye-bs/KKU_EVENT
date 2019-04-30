@@ -34,6 +34,7 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.calendar.CalendarScopes;
+import com.r0adkll.slidr.Slidr;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -79,6 +80,9 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_event);
+
+        // swipe to go back
+        Slidr.attach(this);
 
         final Intent intent = getIntent();
         event_detail = Parcels.unwrap(intent.getParcelableExtra("objEvent"));
@@ -212,6 +216,7 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
 
                 }
                 break;
+
             case R.id.img_pin_info:
                 Geocoder geocoder = new Geocoder(InfoEventActivity.this, Locale.getDefault());
                 try{

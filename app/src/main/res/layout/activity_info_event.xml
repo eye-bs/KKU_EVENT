@@ -11,6 +11,7 @@
     <ProgressBar
         android:id="@+id/progress_bar_info"
         style="@style/MyProgressBarRectangle"
+        android:indeterminate="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
@@ -78,10 +79,10 @@
 
             <ImageView
                 android:id="@+id/bt_like"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="25dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_sponsor_info"
                 app:srcCompat="@drawable/unlike" />

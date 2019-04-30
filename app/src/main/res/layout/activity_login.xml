@@ -2,8 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    android:layout_height="match_parent">
+
 
     <ImageView
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/btn_signin"
         android:layout_centerHorizontal="true"
-        android:fontFamily="@font/mavenpro_bold"
+        android:fontFamily="@font/anakotmaimedium"
         android:text="@string/log_kku"
         android:textColor="@color/button_login"
         android:textSize="@dimen/login_size"
@@ -42,7 +42,7 @@
         android:layout_below="@+id/logo_log"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:fontFamily="@font/mavenpro_regular"
+        android:fontFamily="@font/anakotmaimedium"
         android:text="@string/pre_login1"
         android:textColor="@color/button_login" />
 
@@ -53,7 +53,7 @@
         android:layout_below="@id/btn_signin"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:fontFamily="@font/mavenpro_regular"
+        android:fontFamily="@font/anakotmaimedium"
         android:text="@string/pre_login2"
         android:textColor="@color/button_login" />
 
@@ -65,7 +65,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:background="@drawable/btn_ripple_background"
-        android:fontFamily="@font/mavenpro_bold"
+        android:fontFamily="@font/anakotmaimedium"
         android:text="@string/log_skip"
         android:textColor="@color/button_login"
         android:textSize="@dimen/login_size"
@@ -88,6 +88,5 @@
         android:foreground="#ad000000"
         android:scaleType="centerCrop"
         android:src="@drawable/bglogin" />
-
 
 </RelativeLayout>

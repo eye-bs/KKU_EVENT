@@ -53,7 +53,7 @@
                     android:id="@+id/btn_signout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sign out"
+                    android:text="@string/signout"
                     android:layout_marginLeft="10dp"
                     android:fontFamily="@font/anakotmaimedium"
                     android:textSize="14sp"
@@ -145,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/join"
                         android:layout_gravity="center"
-                        android:fontFamily="@font/mavenpro_bold"
+                        android:fontFamily="@font/anakotmaimedium"
                         android:textColor="@android:color/white"
                         android:background="@color/main_header"
                         android:padding="5dp"/>
@@ -157,6 +157,7 @@
                     android:layout_weight="1"
                     />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/linear_menu"
                 android:layout_width="match_parent"

@@ -7,6 +7,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.r0adkll.slidr.Slidr;
+
 public class MyEventActivity extends AppCompatActivity {
 
     Button bt_add_event;
@@ -15,6 +17,9 @@ public class MyEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_event);
+
+        // swipe to go back
+        Slidr.attach(this);
 
         bt_add_event = findViewById(R.id.bt_add_event);
 

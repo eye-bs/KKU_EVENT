@@ -2,7 +2,6 @@ package com.sudjunham.boonyapon;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,12 +16,6 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
         GoogleSignInAccount LoggedIn = GoogleSignIn.getLastSignedInAccount(this);
         if (LoggedIn != null) {
             Intent intent = new Intent(this, MainActivity.class);
@@ -33,5 +26,11 @@ public class SplashScreenActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 }

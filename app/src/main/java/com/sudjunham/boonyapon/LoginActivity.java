@@ -166,14 +166,14 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        GoogleSignInAccount LoggedIn = GoogleSignIn.getLastSignedInAccount(this);
-        if (LoggedIn != null) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
-            Log.d(TAG,"Not logged in");
-        }
+//        GoogleSignInAccount LoggedIn = GoogleSignIn.getLastSignedInAccount(this);
+//        if (LoggedIn != null) {
+//            Intent intent = new Intent(this, MainActivity.class);
+//            startActivity(intent);
+//            finish();
+//        } else {
+//            Log.d(TAG,"Not logged in");
+//        }
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
