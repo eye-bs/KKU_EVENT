@@ -80,7 +80,8 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         final int callbackId = 42;
-        checkPermissions(callbackId, Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR);
+        checkPermissions(callbackId, Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
 
         mAuth = FirebaseAuth.getInstance();
 

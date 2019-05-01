@@ -100,6 +100,7 @@ public class CreateEvent extends AppCompatActivity {
         spinner_credit = findViewById(R.id.activity_credit);
         spinner_faculty = findViewById(R.id.register_faculty);
         saveBtn = findViewById(R.id.btn_save_myevent);
+        cancelBtn = findViewById(R.id.btn_cancel_myevent);
         coordinatorLayout = findViewById(R.id.coordinatorLayout);
         phoneNum = findViewById(R.id.phoneNumber);
         website = findViewById(R.id.website);
@@ -136,6 +137,14 @@ public class CreateEvent extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 required();
+            }
+        });
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CreateEvent.this, UserActivity.class);
+                startActivity(intent);
             }
         });
 

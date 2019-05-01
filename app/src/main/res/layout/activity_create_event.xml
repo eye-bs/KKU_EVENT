@@ -302,6 +302,18 @@
                     android:background="@drawable/rounded_checked_box"
                     android:fontFamily="@font/rsu_regular"
                     android:text="@string/ok"
+                    android:layout_marginRight="50dp"
+                    android:textColor="@color/button_login"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/btn_cancel_myevent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/rounded_checked_box"
+                    android:fontFamily="@font/rsu_regular"
+                    android:text="@string/cancel"
                     android:textColor="@color/button_login"
                     android:textSize="20sp" />
 
