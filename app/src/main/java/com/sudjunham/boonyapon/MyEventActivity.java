@@ -13,11 +13,13 @@ import com.r0adkll.slidr.Slidr;
 public class MyEventActivity extends AppCompatActivity {
 
     Button bt_add_event;
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_event);
+        email = getIntent().getExtras().getString("userEmail");
 
         // swipe to go back
         Slidr.attach(this);
@@ -28,6 +30,7 @@ public class MyEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MyEventActivity.this , CreateEvent.class );
+                intent.putExtra("userEmail", email);
                 startActivity(intent);
             }
         });

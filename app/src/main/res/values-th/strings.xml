@@ -56,6 +56,11 @@
     <string name="phoneNum">เบอร์โทรศัพท์</string>
     <string name="linkWeb">เว็บไซต์</string>
     <string name="checkFill">กรุณากรอกข้อมูลให้ครบถ้วน</string>
+    <string name="checkFillImage">กรุณาใส่รูปภาพ</string>
+    <string name="datetime">วันที่ / เวลา</string>
+    <string name="startDate">เริ่มกิจกรรม</string>
+    <string name="EndDate">สิ้นสุดกิจกรรม</string>
+    <string name="createActicity">สร้างกิจกรรมเรียบร้อย</string>
 
 
 </resources>

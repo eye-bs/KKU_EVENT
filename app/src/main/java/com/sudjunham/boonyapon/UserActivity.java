@@ -78,7 +78,7 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewItemC
         // swipe to go back
         Slidr.attach(this);
 
-        GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
+        final GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -129,6 +129,7 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewItemC
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(UserActivity.this,MyEventActivity.class);
+                intent.putExtra("userEmail", googleSignInAccount.getEmail());
                 startActivity(intent);
             }
         });
