@@ -61,6 +61,7 @@
     <string name="startDate">เริ่มกิจกรรม</string>
     <string name="EndDate">สิ้นสุดกิจกรรม</string>
     <string name="createActicity">สร้างกิจกรรมเรียบร้อย</string>
+    <string name="add_location">Add Location</string>
 
 
 </resources>

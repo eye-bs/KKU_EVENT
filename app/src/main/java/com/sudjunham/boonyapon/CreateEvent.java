@@ -75,6 +75,7 @@ public class CreateEvent extends AppCompatActivity {
     Button saveBtn, cancelBtn;
     Uri uri;
     int i = 0;
+    private final static int REQUEST_LOCATION_CODE = 6000;
     CoordinatorLayout coordinatorLayout;
     VisionCloud visionCloud;
     ProgressBar progressBar;
@@ -144,6 +145,14 @@ public class CreateEvent extends AppCompatActivity {
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .start(CreateEvent.this);
+            }
+        });
+
+        locationpicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CreateEvent.this , MapsActivity.class);
+                startActivityForResult(intent,REQUEST_LOCATION_CODE);
             }
         });
 
@@ -224,10 +233,15 @@ public class CreateEvent extends AppCompatActivity {
                     uri = data.getData();
                 }
             }
+            else if(requestCode == REQUEST_LOCATION_CODE && resultCode == 5000){
+               String locationName =  data.getStringExtra("locationName");
+               locateBox.setText(locationName);
+            }
         } catch (Exception e) {
             Toast.makeText(this, R.string.fetchfail, Toast.LENGTH_LONG)
                     .show();
         }
+
     }
 
 

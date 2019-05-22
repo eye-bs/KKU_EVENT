@@ -60,5 +60,7 @@
     <string name="startDate">Start Activity</string>
     <string name="EndDate">End Activity</string>
     <string name="createActicity">Create activity successfully</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="add_location">Add Location</string>
 
 </resources>
