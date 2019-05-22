@@ -26,14 +26,19 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.github.florent37.singledateandtimepicker.dialog.DoubleDateAndTimePickerDialog;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -43,7 +48,9 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -67,6 +74,7 @@ public class CreateEvent extends AppCompatActivity {
     EditText dateBox, locateBox, cloud_response_data, event_name, phoneNum, website;
     Button saveBtn, cancelBtn;
     Uri uri;
+    int i = 0;
     CoordinatorLayout coordinatorLayout;
     VisionCloud visionCloud;
     ProgressBar progressBar;
@@ -74,15 +82,16 @@ public class CreateEvent extends AppCompatActivity {
     Spinner spinner_credit, spinner_faculty;
     String getCredit, getEventFaculty;
     String picturePath, email, eventImagePath, eventName, eventPhone, eventDate, eventLocation, eventCredit
-            , eventFaculty, eventWebsite, eventDetail, userID, urlString;
+            , eventFaculty, eventWebsite, eventDetail, urlString, dateSt, dateEd, timeSt, timeEd, displayName;
     DoubleDateAndTimePickerDialog.Builder doubleBuilder;
 
     final Calendar myCalendar = Calendar.getInstance();
     private StorageReference mstorageRef;
-    DatabaseReference myRef;
+    DatabaseReference myRef, updateRef;
     FirebaseDatabase database;
     FirebaseUser user;
     Uri downloadUrl;
+    long maxid = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,11 +115,17 @@ public class CreateEvent extends AppCompatActivity {
         website = findViewById(R.id.website);
         progressBar = findViewById(R.id.progress_bar_create_event);
         scrollView = findViewById(R.id.main_app);
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("create-event/activities");
+        mstorageRef = FirebaseStorage.getInstance().getReference();
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         spinner();
 
         progressBar.setVisibility(View.INVISIBLE);
-        email = getIntent().getExtras().getString("activities");
+        email = getIntent().getExtras().getString("userEmail");
+        final GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
+        displayName = googleSignInAccount.getDisplayName();
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,7 +141,6 @@ public class CreateEvent extends AppCompatActivity {
         eventdetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .start(CreateEvent.this);
@@ -145,6 +159,20 @@ public class CreateEvent extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CreateEvent.this, UserActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    maxid = (dataSnapshot.getChildrenCount());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
 
@@ -275,6 +303,7 @@ public class CreateEvent extends AppCompatActivity {
 
                 final Date minDate = calendarMin.getTime();
                 final Date maxDate = calendarMax.getTime();
+                Date dateformatt;
 
                 doubleBuilder = new DoubleDateAndTimePickerDialog.Builder(CreateEvent.this)
                         .backgroundColor(Color.WHITE)
@@ -293,25 +322,37 @@ public class CreateEvent extends AppCompatActivity {
                         .tab1Text(getString(R.string.EndDate))
                         .listener(new DoubleDateAndTimePickerDialog.Listener() {
                             @Override
-                            public void onDateSelected(List<Date> dates) {
+                            public void onDateSelected(List<Date> dates){
                                 String parseDate = null;
                                 String[] arrDate = new String[2];
                                 String[] arrTime = new String[2];
+                                String[] arrDateJSON = new String[2];
+                                String[] arrTimeJSON = new String[2];
                                 SimpleDateFormat TimeFormat = new SimpleDateFormat("HH.mm", Locale.getDefault());
-                                SimpleDateFormat DateFormatCP = new SimpleDateFormat("d MMM", new Locale("th", "TH"));
+                                SimpleDateFormat DateFormatCP = new SimpleDateFormat("d MMM", Locale.getDefault());
+                                SimpleDateFormat DateConvert = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                                SimpleDateFormat TimeConvert = new SimpleDateFormat("a. HH.mm", Locale.ENGLISH);
 
                                 for (int i = 0 ; i < dates.size() ; i++){
                                     arrDate[i] = DateFormatCP.format(dates.get(i));
                                     arrTime[i] = TimeFormat.format(dates.get(i));
+                                    arrDateJSON[i] = DateConvert.format(dates.get(i));
+                                    arrTimeJSON[i] = TimeConvert.format(dates.get(i));
                                 }
 
                                 if(arrDate[0].equals(arrDate[1])){
                                     parseDate = String.format("%s เวลา %s - %s น.", arrDate[1],arrTime[0],arrTime[1]);
+                                    dateSt = arrDateJSON[1];
+                                    dateEd = arrDateJSON[1];
                                 }
                                 else{
                                     parseDate = String.format("%s %s น. - %s %s น.", arrDate[0],arrTime[0],arrDate[1],arrTime[1]);
+                                    dateSt = arrDateJSON[0];
+                                    dateEd = arrDateJSON[1];
                                 }
                                 dateBox.setText(parseDate);
+                                timeSt = arrTimeJSON[0];
+                                timeEd = arrTimeJSON[1];
                             }
                         });
                 doubleBuilder.display();
@@ -352,12 +393,7 @@ public class CreateEvent extends AppCompatActivity {
         eventWebsite = website.getText().toString();
         eventDetail = cloud_response_data.getText().toString();
 
-        userID = email.replace('.','+');
-
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("activities");
-        mstorageRef = FirebaseStorage.getInstance().getReference();
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        //myRef = database.getReference("create-event/activities");
 
         uploadFile(eventImagePath);
     }
@@ -384,7 +420,7 @@ public class CreateEvent extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                         downloadUrl = taskSnapshot.getUploadSessionUri();
                         urlString = downloadUrl.toString();
-                        writeNewUser(eventName, eventDate, eventLocation, eventCredit, eventFaculty, eventPhone,
+                        writeNewUser(eventName, displayName, dateSt, dateEd, timeSt, timeEd, eventLocation, eventCredit, eventFaculty, eventPhone,
                                 eventWebsite, eventDetail, urlString, email);
                         Log.i("Download url is ", urlString);
                         Toast.makeText(CreateEvent.this, getString(R.string.createActicity),
@@ -402,66 +438,16 @@ public class CreateEvent extends AppCompatActivity {
                 });
     }
 
-    private void writeNewUser(String name, String date, String location, String credit, String faculty,
+    private void writeNewUser(String name, String displayName, String dateSt, String dateEd, String timeSt, String timeEd,
+                              String location, String credit, String faculty,
                               String phone, String website, String detail, String url, String email) {
-        //String key = myRef.child("create-event").push().getKey();
-        User user = new User(name, date, location, credit, faculty, phone,
-                website, detail, url, email);
+
+        FirebaseUserActivity user = new FirebaseUserActivity(name, displayName, dateSt, dateEd, timeSt, timeEd, location, credit,
+                faculty, phone, website, detail, url, email);
         Map<String, Object> userValues = user.toMap();
-
-        Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("" , userValues );
-        myRef.updateChildren(childUpdates);
+        myRef.child(String.valueOf(maxid+i)).setValue(userValues);
+        i++;
     }
-
-    @IgnoreExtraProperties
-    public static class User {
-        public String name;
-        public String date;
-        public String location;
-        public String credit;
-        public String faculty;
-        public String phone;
-        public String website;
-        public String detail;
-        public String url;
-        public String email;
-
-        public  User() {
-
-        }
-
-        public User(String name, String date, String location, String credit, String faculty, String phone, String website,
-                    String detail, String url, String email) {
-            this.name = name;
-            this.date = date;
-            this.location = location;
-            this.credit = credit;
-            this.faculty = faculty;
-            this.phone = phone;
-            this.website = website;
-            this.detail = detail;
-            this.url = url;
-            this.email = email;
-        }
-
-        @Exclude
-        public Map<String, Object> toMap() {
-            HashMap<String, Object> result = new HashMap<>();
-            result.put("title", name);
-            result.put("datetime", date);
-            result.put("place", location);
-            result.put("credit", credit);
-            result.put("faculty", faculty);
-            result.put("phone", phone);
-            result.put("url", website);
-            result.put("content", detail);
-            result.put("image", url);
-            result.put("email", email);
-            return result;
-        }
-    }
-
 
     // Storage Permissions
     private static final int REQUEST_EXTERNAL_STORAGE = 1;

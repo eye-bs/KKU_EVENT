@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:textColor="@color/main_header"
-            android:fontFamily="@font/morkhor1"
+            android:fontFamily="@font/anakotmaimedium"
             android:textSize="20sp"
             android:text="เกิดข้อผิดพลาด" />
         <TextView
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
-            android:fontFamily="@font/morkhor1"
+            android:fontFamily="@font/anakotmaimedium"
             android:textSize="18sp"
             android:text="ไม่สามารถเชื่อมต่อเครือข่ายได้ในขณะนี้ กรุณาลองใหม่อีกครั้ง" />
         <Button
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:fontFamily="@font/morkhor1"
+            android:fontFamily="@font/anakotmaimedium"
             android:textColor="@color/main_header"
             android:textSize="18sp"
             android:background="@android:color/transparent"

@@ -209,8 +209,8 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewItemC
 
     private void readliked(){
         user = User.getInstance();
-        if(user != null) {
-            String getTitleFirebase = user.title;
+        String getTitleFirebase = user.title;
+        if(user != null && getTitleFirebase != null) {
             likedList = Arrays.asList(getTitleFirebase.split(","));
             int countFev = (likedList.toString().equals("[]"))? 0 : likedList.size();
                 tv_num_fev.setText(Integer.toString(countFev));

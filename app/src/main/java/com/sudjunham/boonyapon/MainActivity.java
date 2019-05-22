@@ -47,6 +47,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.parceler.Parcels;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
 
     private long mLastClickTime = 0;
     List<Event_list> event_List_Arr = new ArrayList<Event_list>();
+    List<Event_list> kku_List_Arr = new ArrayList<Event_list>();
     ScrollView scrollView;
      RecyclerView recyclerView;
      RecyclerViewAdapter adapter;
@@ -124,9 +126,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         scrollView.smoothScrollTo(0,0);
         recyclerView = findViewById(R.id.list_view1);
         recyclerView.setNestedScrollingEnabled(false);
-        new RetrieveFeedTask().execute();
         Event_all.getInstance().setEventLists(event_List_Arr);
-
+        urlVal = "https://www.kku.ac.th/ikku/api/activities/services/topActivity.php";
+        new RetrieveFeedTask().execute();
         manager = new LinearLayoutManager(this) ;
         recyclerView.setLayoutManager(manager);
         setAdapterFunc(event_List_Arr);
@@ -145,6 +147,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
     public void onCheckedChanged(RadioGroup group, int checkedId) {
       switch (checkedId){
           case R.id.rb_event_kku_main:
+              urlVal = "https://www.kku.ac.th/ikku/api/activities/services/topActivity.php";
+              new RetrieveFeedTask().execute();
               tv_result_filter.setVisibility(View.INVISIBLE);
               recyclerView.setVisibility(View.VISIBLE);
               event_List_Arr = Event_all.getInstance().getEventLists();
@@ -152,8 +156,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
 
               break;
           case R.id.rb_event_else_main:
-              tv_result_filter.setVisibility(View.VISIBLE);
-              recyclerView.setVisibility(View.GONE);
+              urlVal = "https://us-central1-kku-even.cloudfunctions.net/listKKU";
+              new RetrieveFeedTask().execute();
+              tv_result_filter.setVisibility(View.INVISIBLE);
+              recyclerView.setVisibility(View.VISIBLE);
+              kku_List_Arr = Event_all.getInstance().getEventLists();
+              setAdapterFunc(kku_List_Arr);
 
               break;
 
@@ -193,7 +201,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         protected String doInBackground(Void... urls) {
 
             try {
-                urlVal = "https://www.kku.ac.th/ikku/api/activities/services/topActivity.php";
                 URL urlAddr;
                 urlAddr = new URL(urlVal);
                 HttpURLConnection urlConnection = (HttpURLConnection) urlAddr.openConnection();
@@ -240,54 +247,100 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
 
                     JSONObject object = (JSONObject) new JSONTokener(response).nextValue();
                     JSONArray jsonArray = object.getJSONArray("activities");
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject activity_event = jsonArray.getJSONObject(i);
-                      Event_list event_list = new Event_list();
 
-                        String pDateST = activity_event.getString("dateSt");
-                        String pDateED = activity_event.getString("dateEd");
-                        String pTimeST = activity_event.getString("timeSt");
-                        String pTimeED = activity_event.getString("timeEd");
+                        if(urlVal.equals("https://www.kku.ac.th/ikku/api/activities/services/topActivity.php")) {
+                            kku_List_Arr.clear();
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject activity_event = jsonArray.getJSONObject(i);
+                                Event_list event_list = new Event_list();
 
-                        String phoneDEL = activity_event.getJSONObject("contact").getString("phone");
-                        phoneDEL = phoneDEL.replaceAll(" ", "");
-                        phoneDEL = phoneDEL.replaceAll("-", "");
-                        if (phoneDEL.length() > 10) {
-                            phoneDEL = phoneDEL.substring(0, 9);
+                                String pDateST = activity_event.getString("dateSt");
+                                String pDateED = activity_event.getString("dateEd");
+                                String pTimeST = activity_event.getString("timeSt");
+                                String pTimeED = activity_event.getString("timeEd");
+
+                                String timeStamp = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(Calendar.getInstance().getTime());
+                                LocalDate currentDate = LocalDate.parse(timeStamp, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                                LocalDate getDateEvent = LocalDate.parse(pDateST, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                                event_list.setName(activity_event.getString("title").replaceAll("&quot;", "\""));
+                                event_list.setDate((pDateST.equals(pDateED))
+                                        ? (dateThai(pDateST, null, pTimeST, pTimeED))
+                                        : (dateThai(pDateST, pDateED, pTimeST, pTimeED)));
+                                event_list.setLocation(activity_event.getString("place"));
+                                event_list.setContent(activity_event.getString("content").replaceAll("&quot;", "\""));
+                                event_list.setImglink(activity_event.getString("image"));
+                                event_list.setmonthForFilter(getDateEvent.getMonthValue());
+                                event_list.setDateTimeST(parseDateTime(pDateST, pTimeST));
+                                event_list.setDateTimeED(parseDateTime(pDateED, pTimeED));
+                                String phoneDEL = activity_event.getJSONObject("contact").getString("phone");
+
+                                phoneDEL = phoneDEL.replaceAll(" ", "");
+                                phoneDEL = phoneDEL.replaceAll("-", "");
+                                if (phoneDEL.length() > 10) {
+                                    phoneDEL = phoneDEL.substring(0, 9);
+                                }
+                                event_list.setPhonecontact(phoneDEL);
+                                event_list.setWebsite(activity_event.getJSONObject("contact").getString("website"));
+                                event_list.setSponsor(activity_event.getString("sponsor"));
+
+                                event_List_Arr.add(event_list);
+                                adapter.notifyDataSetChanged();
+                            }
+
+                        } else if (urlVal.equals("https://us-central1-kku-even.cloudfunctions.net/listKKU")) {
+                            event_List_Arr.clear();
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject activity_event = jsonArray.getJSONObject(i);
+                                Event_list event_list = new Event_list();
+
+                                String pDateST = activity_event.getString("dateSt");
+                                String pDateED = activity_event.getString("dateEd");
+                                String pTimeST = activity_event.getString("timeSt");
+                                String pTimeED = activity_event.getString("timeEd");
+
+                                String timeStamp = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(Calendar.getInstance().getTime());
+                                LocalDate currentDate = LocalDate.parse(timeStamp, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                                LocalDate getDateEvent = LocalDate.parse(pDateST, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                                event_list.setName(activity_event.getString("title").replaceAll("&quot;", "\""));
+                                event_list.setDate((pDateST.equals(pDateED))
+                                        ? (dateThai(pDateST, null, pTimeST, pTimeED))
+                                        : (dateThai(pDateST, pDateED, pTimeST, pTimeED)));
+                                event_list.setLocation(activity_event.getString("place"));
+                                event_list.setContent(activity_event.getString("content").replaceAll("&quot;", "\""));
+                                event_list.setImglink(activity_event.getString("image"));
+                                event_list.setmonthForFilter(getDateEvent.getMonthValue());
+                                event_list.setDateTimeST(parseDateTime(pDateST, pTimeST));
+                                event_list.setDateTimeED(parseDateTime(pDateED, pTimeED));
+                                String phoneDEL = activity_event.getString("phone");
+                                phoneDEL = phoneDEL.replaceAll(" ", "");
+                                phoneDEL = phoneDEL.replaceAll("-", "");
+                                if (phoneDEL.length() > 10) {
+                                    phoneDEL = phoneDEL.substring(0, 9);
+                                }
+                                event_list.setPhonecontact(phoneDEL);
+                                event_list.setWebsite(activity_event.getString("website"));
+                                event_list.setSponsor(activity_event.getString("sponsor"));
+
+                                kku_List_Arr.add(event_list);
+                                adapter.notifyDataSetChanged();
+                            }
                         }
 
-                        String timeStamp = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH).format(Calendar.getInstance().getTime());
-                        LocalDate currentDate = LocalDate.parse(timeStamp, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                        LocalDate getDateEvent = LocalDate.parse(pDateST, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-                        event_list.setName(activity_event.getString("title").replaceAll("&quot;", "\""));
-                       event_list.setDate((pDateST.equals(pDateED))
-                                ? (dateThai(pDateST, null, pTimeST, pTimeED))
-                                : (dateThai(pDateST, pDateED, pTimeST, pTimeED)));
-                       event_list.setLocation(activity_event.getString("place"));
-                       event_list.setContent(activity_event.getString("content").replaceAll("&quot;", "\""));
-                        event_list.setImglink(activity_event.getString("image"));
-                       event_list.setSponsor(activity_event.getString("sponsor"));
-                        event_list.setPhonecontact(phoneDEL);
-                       event_list.setWebsite(activity_event.getJSONObject("contact").getString("website"));
-                       event_list.setmonthForFilter(getDateEvent.getMonthValue());
-                       event_list.setDateTimeST(parseDateTime(pDateST, pTimeST));
-                       event_list.setDateTimeED(parseDateTime(pDateED, pTimeED));
-
-                        event_List_Arr.add(event_list);
-                        adapter.notifyDataSetChanged();
-
+                        /*event_List_Arr.add(event_list);
+                        adapter.notifyDataSetChanged();*/
 
                     }
                     progressBar.setVisibility(View.INVISIBLE);
                     recyclerView.setVisibility(View.VISIBLE);
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
+                } catch (ParseException e1) {
+                e1.printStackTrace();
+            } catch (JSONException e1) {
+                e1.printStackTrace();
             }
+
         }
-    }
+        }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
