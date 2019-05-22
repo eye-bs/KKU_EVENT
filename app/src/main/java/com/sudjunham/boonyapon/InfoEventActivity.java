@@ -77,6 +77,7 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
     FirebaseDatabase database;
     User user;
     List<String> likedList;
+    String imgURL;
 
 
 
@@ -163,8 +164,10 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
 
         img_phone.setOnClickListener(this);
 
-        String imgURL = event_detail.getImglink();
+         imgURL = event_detail.getImglink();
+
         imgURL = imgURL.replaceAll("http", "https");
+        imgURL = imgURL.replaceAll("httpss", "https");
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -287,6 +290,7 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
             case R.id.bt_like:
                 if (fev){
                     String likedThisEvent = "";
+                    fev = false;
                     for (int i = 0 ; i < likedList.size() ; i++){
                         if(!likedList.get(i).equals(event_detail.name)){
                             likedThisEvent += likedList.get(i)+",";

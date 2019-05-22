@@ -38,6 +38,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -51,6 +52,7 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -84,10 +86,14 @@ public class CreateEvent extends AppCompatActivity {
     String picturePath, email, eventImagePath, eventName, eventPhone, eventDate, eventLocation, eventCredit
             , eventFaculty, eventWebsite, eventDetail, urlString, dateSt, dateEd, timeSt, timeEd, displayName;
     DoubleDateAndTimePickerDialog.Builder doubleBuilder;
+    GoogleSignInAccount googleSignInAccount;
+    UserCreateEvent userEvent;
+    User user2;
+    List<String> createList;
 
     final Calendar myCalendar = Calendar.getInstance();
     private StorageReference mstorageRef;
-    DatabaseReference myRef, updateRef;
+    DatabaseReference myRef, userRef;
     FirebaseDatabase database;
     FirebaseUser user;
     Uri downloadUrl;
@@ -117,6 +123,7 @@ public class CreateEvent extends AppCompatActivity {
         scrollView = findViewById(R.id.main_app);
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("create-event/activities");
+        userRef = database.getReference("create-event/users");
         mstorageRef = FirebaseStorage.getInstance().getReference();
         user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -124,12 +131,18 @@ public class CreateEvent extends AppCompatActivity {
 
         progressBar.setVisibility(View.INVISIBLE);
         email = getIntent().getExtras().getString("userEmail");
-        final GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
+        googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
         displayName = googleSignInAccount.getDisplayName();
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pickImage();
+            }
+        });
+        dateBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datetimepicker();
             }
         });
         datepicker.setOnClickListener(new View.OnClickListener() {
@@ -177,6 +190,7 @@ public class CreateEvent extends AppCompatActivity {
         });
 
         visionCloud = new VisionCloud(this,progressDialog,coordinatorLayout,cloud_response_data);
+        readliked();
     }
 
     @Override
@@ -393,8 +407,6 @@ public class CreateEvent extends AppCompatActivity {
         eventWebsite = website.getText().toString();
         eventDetail = cloud_response_data.getText().toString();
 
-        //myRef = database.getReference("create-event/activities");
-
         uploadFile(eventImagePath);
     }
 
@@ -404,7 +416,7 @@ public class CreateEvent extends AppCompatActivity {
 
         final String toFIlePath = fileUri.getLastPathSegment();
 
-        StorageReference riversRef = mstorageRef.child("KKUEvent/" + email + "/" + toFIlePath);
+        final StorageReference riversRef = mstorageRef.child("KKUEvent/" + email + "/" + toFIlePath);
 
         UploadTask uploadTask = riversRef.putFile(fileUri);
         //Log.d("Arisara", "file is " + file.toString());
@@ -418,11 +430,22 @@ public class CreateEvent extends AppCompatActivity {
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         // Get a URL to the uploaded content
                         progressBar.setVisibility(View.GONE);
-                        downloadUrl = taskSnapshot.getUploadSessionUri();
-                        urlString = downloadUrl.toString();
-                        writeNewUser(eventName, displayName, dateSt, dateEd, timeSt, timeEd, eventLocation, eventCredit, eventFaculty, eventPhone,
-                                eventWebsite, eventDetail, urlString, email);
-                        Log.i("Download url is ", urlString);
+                        riversRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                String url = uri.toString();
+                                writeNewUser(eventName, displayName, dateSt, dateEd, timeSt, timeEd, eventLocation, eventCredit, eventFaculty, eventPhone,
+                                        eventWebsite, eventDetail, url, email);
+                            }
+                        });
+
+                        String createThisEvent = eventName + ",";
+                        if(createList != null) {
+                            for (int i = 0; i < createList.size(); i++) {
+                                createThisEvent += createList.get(i)+ ",";
+                            }
+                        }
+                        writeUserEvent(googleSignInAccount.getId(), createThisEvent, googleSignInAccount.getEmail());
                         Toast.makeText(CreateEvent.this, getString(R.string.createActicity),
                                 Toast.LENGTH_LONG ).show();
                         Intent intent = new Intent(CreateEvent.this, UserActivity.class);
@@ -447,6 +470,14 @@ public class CreateEvent extends AppCompatActivity {
         Map<String, Object> userValues = user.toMap();
         myRef.child(String.valueOf(maxid+i)).setValue(userValues);
         i++;
+    }
+
+    private void writeUserEvent(String userId , String title, String email) {
+        UserCreateEvent user = new UserCreateEvent(title, email);
+        Map<String,Object> userValue = user.toMap();
+        Map<String,Object> childUpdate = new HashMap<>();
+        childUpdate.put(userId,userValue);
+        userRef.updateChildren(childUpdate);
     }
 
     // Storage Permissions
@@ -476,6 +507,30 @@ public class CreateEvent extends AppCompatActivity {
                     REQUEST_EXTERNAL_STORAGE
             );
         }
+    }
+
+    private void readliked(){
+
+        Query userID = userRef.child(googleSignInAccount.getId());
+        userID.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                user2 = dataSnapshot.getValue(User.class);
+                if(user2 != null){
+                    User.getInstance().setEmail(user2.email);
+                    User.getInstance().setTitle(user2.title);
+                    String getTitleFirebase = user2.title;
+                    createList = Arrays.asList(getTitleFirebase.split(","));
+                    User.getInstance().setLikedList(createList);
+                    Log.d("eyeeye" , createList.toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }

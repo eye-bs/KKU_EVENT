@@ -80,23 +80,27 @@ public class ApiAsyncTaskForUser extends AsyncTask<Void, Void, Void> {
     }
 
     private List<String> getDataFromApi() throws IOException {
-
-        DateTime now = new DateTime(System.currentTimeMillis());
-        eventStrings = new ArrayList<String>();
-        Events events = userActivity.mService.events().list("primary")
-                .setOrderBy("startTime")
-                .setSingleEvents(true)
-                .execute();
-        List<Event> items = events.getItems();
-        int i = 0;
-        for (final Event event : items) {
-            uri = event.getHtmlLink();
-            String getTAG = event.getDescription();
-            if(getTAG!= null && getTAG.contains("#KKUEvent")) {
-                eventStrings.add(event.getSummary());
+        try {
+            DateTime now = new DateTime(System.currentTimeMillis());
+            eventStrings = new ArrayList<String>();
+            Events events = userActivity.mService.events().list("primary")
+                    .setOrderBy("startTime")
+                    .setSingleEvents(true)
+                    .execute();
+            List<Event> items = events.getItems();
+            int i = 0;
+            for (final Event event : items) {
+                uri = event.getHtmlLink();
+                String getTAG = event.getDescription();
+                if(getTAG!= null && getTAG.contains("#KKUEvent")) {
+                    eventStrings.add(event.getSummary());
+                }
             }
+            return eventStrings;
+        }catch (Exception e){
+            return eventStrings;
         }
-        return eventStrings;
+
     }
 
 

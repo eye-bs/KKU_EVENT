@@ -127,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         recyclerView = findViewById(R.id.list_view1);
         recyclerView.setNestedScrollingEnabled(false);
         Event_all.getInstance().setEventLists(event_List_Arr);
+
         urlVal = "https://www.kku.ac.th/ikku/api/activities/services/topActivity.php";
         new RetrieveFeedTask().execute();
         manager = new LinearLayoutManager(this) ;
@@ -160,9 +161,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
               new RetrieveFeedTask().execute();
               tv_result_filter.setVisibility(View.INVISIBLE);
               recyclerView.setVisibility(View.VISIBLE);
-              kku_List_Arr = Event_all.getInstance().getEventLists();
+              Event_kku.getInstance().setEventLists(kku_List_Arr);
               setAdapterFunc(kku_List_Arr);
-
               break;
 
       }
