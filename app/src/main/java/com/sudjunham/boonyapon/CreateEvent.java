@@ -148,6 +148,13 @@ public class CreateEvent extends AppCompatActivity {
             }
         });
 
+        dateBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datetimepicker();
+            }
+        });
+
         locationpicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,8 +173,7 @@ public class CreateEvent extends AppCompatActivity {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CreateEvent.this, UserActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -305,7 +311,6 @@ public class CreateEvent extends AppCompatActivity {
             }
         });
     }
-
 
     private void datetimepicker() {
                 final Date now = new Date();

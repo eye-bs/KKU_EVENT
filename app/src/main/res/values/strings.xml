@@ -62,5 +62,6 @@
     <string name="createActicity">Create activity successfully</string>
     <string name="title_activity_maps">Map</string>
     <string name="add_location">Add Location</string>
+    <string name="lang">EN</string>
 
 </resources>

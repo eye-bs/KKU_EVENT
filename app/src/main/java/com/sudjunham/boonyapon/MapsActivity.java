@@ -14,6 +14,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -73,6 +75,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         bt_addLocation = findViewById(R.id.bt_addlocation);
         relativeLayout = findViewById(R.id.map_activity);
 
+        img_cancel.setVisibility(View.INVISIBLE);
+
         mGoogleApiClient = new
                 GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -90,6 +94,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         inputMethodManager.toggleSoftInputFromWindow(
                 relativeLayout.getApplicationWindowToken(),
                 InputMethodManager.SHOW_FORCED, 0);
+
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String getEdittext = editText.getText().toString();
+                if(!getEdittext.equals("")){
+                    img_cancel.setVisibility(View.VISIBLE);
+                }
+                else {
+                    img_cancel.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
 
     }
@@ -241,6 +269,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             e.printStackTrace();
         }
     }
+
+
 
     @Override
     public void onClick(View v) {
