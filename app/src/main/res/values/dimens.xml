@@ -10,8 +10,8 @@
     <dimen name="info_Margin">18dp</dimen>
     <dimen name="img_info">24dp</dimen>
     <dimen name="title_info">30sp</dimen>
-    <dimen name="font_size_info">16sp</dimen>
-    <dimen name="detail_item_font">16sp</dimen>
+    <dimen name="font_size_info">20sp</dimen>
+    <dimen name="detail_item_font">20sp</dimen>
     <dimen name="linespace_supermarket">5sp</dimen>
 
 </resources>
