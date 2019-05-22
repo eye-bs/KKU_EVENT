@@ -336,6 +336,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
                 e1.printStackTrace();
             } catch (JSONException e1) {
                 e1.printStackTrace();
+            } catch (Exception e) {
+                return;
             }
 
         }
