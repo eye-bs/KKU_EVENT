@@ -154,6 +154,14 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
               recyclerView.setVisibility(View.VISIBLE);
               event_List_Arr = Event_all.getInstance().getEventLists();
               setAdapterFunc(event_List_Arr);
+              pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                  @Override
+                  public void onRefresh() {
+                      event_List_Arr = Event_all.getInstance().getEventLists();
+                      setAdapterFunc(event_List_Arr);
+                      pullToRefresh.setRefreshing(false);
+                  }
+              });
 
               break;
           case R.id.rb_event_else_main:
@@ -163,6 +171,15 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
               recyclerView.setVisibility(View.VISIBLE);
               Event_kku.getInstance().setEventLists(kku_List_Arr);
               setAdapterFunc(kku_List_Arr);
+              pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                  @Override
+                  public void onRefresh() {
+                      kku_List_Arr = Event_all.getInstance().getEventLists();
+                      setAdapterFunc(kku_List_Arr);
+                      pullToRefresh.setRefreshing(false);
+                  }
+              });
+
               break;
 
       }
