@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="12"
                 android:text="@string/search_main"
-                android:fontFamily="@font/rsu_regular"
+                android:fontFamily="@font/db_adman_x"
                 android:layout_gravity="center"
                 android:textColor="@color/button_login" />
         </LinearLayout>

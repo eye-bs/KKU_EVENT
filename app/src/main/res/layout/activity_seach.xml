@@ -45,7 +45,7 @@
                 android:inputType="text"
                 android:background="@android:color/transparent"
                 android:textColor="@android:color/black"
-                android:fontFamily="@font/rsu_regular"
+                android:fontFamily="@font/db_adman_x"
                 android:textCursorDrawable="@null"
                 tools:ignore="Autofill"
                 android:hint="@string/search"
