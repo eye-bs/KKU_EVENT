@@ -1,8 +1,15 @@
 package com.sudjunham.boonyapon;
 
+import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.provider.CalendarContract;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,6 +44,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,6 +54,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.parceler.Parcels;
 
 public class UserActivity extends AppCompatActivity implements RecyclerViewItemClickListener, RadioGroup.OnCheckedChangeListener {
+
+    private int langv = 0;
+
     ImageView img_calendar,signOut;
     private GoogleSignInClient googleSignInClient;
     private TextView profileName, profileEmail;
@@ -99,6 +110,8 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewItemC
 
         progressBar.setVisibility(View.VISIBLE);
         scrollView.setVisibility(View.INVISIBLE);
+
+        scrollView.smoothScrollTo(0,0);
 
         event_kku = Event_all.getInstance().getEventLists();
 

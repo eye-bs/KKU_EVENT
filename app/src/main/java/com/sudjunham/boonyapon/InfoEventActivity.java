@@ -289,6 +289,7 @@ public class InfoEventActivity extends AppCompatActivity implements View.OnClick
 
             case R.id.bt_like:
                 if (fev){
+                    fev = false;
                     String likedThisEvent = "";
                     fev = false;
                     for (int i = 0 ; i < likedList.size() ; i++){
