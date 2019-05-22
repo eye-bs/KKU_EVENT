@@ -16,6 +16,13 @@
             android:layout_height="wrap_content" />
     </RelativeLayout>
 
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
+
     <Button
         android:id="@+id/bt_add_event"
         android:layout_width="40dp"

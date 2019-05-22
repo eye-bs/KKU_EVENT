@@ -175,28 +175,33 @@ public class ApiAsyncTask extends AsyncTask<Void, Void, Void> {
 
     private List<String> getDataFromApi() throws IOException {
 
-        eventStrings = new ArrayList<String>();
-        Events events = iActivity.mService.events().list("primary")
-                .setOrderBy("startTime")
-                .setSingleEvents(true)
-                .execute();
-        List<Event> items = events.getItems();
-        for (final Event event : items) {
-            String getSummary = event.getSummary();
-            EventDateTime eventDateTime = event.getStart();
-            String getTAG = event.getDescription();
-            if(getTAG!= null && getTAG.contains("#KKUEvent")) {
-                eventStrings.add(String.format("%s (%s)", event.getSummary(), getTAG));
+        try {
+            eventStrings = new ArrayList<String>();
+            Events events = iActivity.mService.events().list("primary")
+                    .setOrderBy("startTime")
+                    .setSingleEvents(true)
+                    .execute();
+            List<Event> items = events.getItems();
+            for (final Event event : items) {
+                String getSummary = event.getSummary();
+                EventDateTime eventDateTime = event.getStart();
+                String getTAG = event.getDescription();
+                if(getTAG!= null && getTAG.contains("#KKUEvent")) {
+                    eventStrings.add(String.format("%s (%s)", event.getSummary(), getTAG));
+                }
+                if(getSummary!= null && getSummary.equals(iActivity.event_detail.name)){
+                    uri = eventDateTime.getDateTime().toString();
+                    uri = uri.substring(0,10);
+                    checkSummary = true;
+                    break;
+                }
             }
-            if(getSummary!= null && getSummary.equals(iActivity.event_detail.name)){
-                uri = eventDateTime.getDateTime().toString();
-                uri = uri.substring(0,10);
-               checkSummary = true;
-               break;
-            }
+
+            return eventStrings;
+        }catch (Exception e){
+            return eventStrings;
         }
 
-        return eventStrings;
     }
 
 
