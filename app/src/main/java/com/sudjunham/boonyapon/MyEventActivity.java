@@ -223,6 +223,8 @@ public class MyEventActivity extends AppCompatActivity implements RecyclerViewIt
                 e1.printStackTrace();
             } catch (JSONException e1) {
                 e1.printStackTrace();
+            }catch (Exception e){
+                return;
             }
         }
 
