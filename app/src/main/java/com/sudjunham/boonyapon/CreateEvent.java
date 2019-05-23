@@ -182,6 +182,12 @@ public class CreateEvent extends AppCompatActivity {
                 required();
             }
         });
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                required();
+            }
+        });
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -467,7 +473,7 @@ public class CreateEvent extends AppCompatActivity {
                         writeUserEvent(googleSignInAccount.getId(), createThisEvent, googleSignInAccount.getEmail());
                         Toast.makeText(CreateEvent.this, getString(R.string.createActicity),
                                 Toast.LENGTH_LONG ).show();
-                        Intent intent = new Intent(CreateEvent.this, UserActivity.class);
+                        Intent intent = new Intent(CreateEvent.this, MyEventActivity.class);
                         startActivity(intent);
                     }
                 })

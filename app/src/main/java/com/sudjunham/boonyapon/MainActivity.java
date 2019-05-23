@@ -1,5 +1,7 @@
 package com.sudjunham.boonyapon;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import java.io.BufferedReader;
@@ -29,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -83,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
     User user;
     List<String> likedList;
     GoogleSignInAccount googleSignInAccount;
+    FloatingActionButton fab;
 
     @SuppressLint("ResourceType")
     @Override
@@ -100,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
             }
         });
 
+        fab = findViewById(R.id.fab);
         scrollView = findViewById(R.id.scrollView_main);
         img_filter = findViewById(R.id.img_filter);
         seach_bar = findViewById(R.id.seach_bar);
@@ -127,6 +132,26 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         recyclerView = findViewById(R.id.list_view1);
         recyclerView.setNestedScrollingEnabled(false);
         Event_all.getInstance().setEventLists(event_List_Arr);
+
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                scrollView.smoothScrollTo(0, 0);
+            }
+        });
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if(dy > 0){
+                    fab.hide();
+                } else{
+                    fab.show();
+                }
+
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
 
         urlVal = "https://www.kku.ac.th/ikku/api/activities/services/topActivity.php";
         new RetrieveFeedTask().execute();
