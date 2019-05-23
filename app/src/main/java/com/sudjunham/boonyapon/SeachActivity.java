@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 
 import org.parceler.Parcels;
@@ -36,6 +37,7 @@ public class SeachActivity extends AppCompatActivity implements RecyclerViewItem
     RecyclerView recyclerView;
     LinearLayoutManager manager;
     ImageView img_search,img_cancel;
+    RelativeLayout relativeLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +49,7 @@ public class SeachActivity extends AppCompatActivity implements RecyclerViewItem
         editText = findViewById(R.id.editText);
         img_cancel = findViewById(R.id.img_cancel);
         img_search = findViewById(R.id.img_search);
-
+        relativeLayout = findViewById(R.id.relativeLayout_ss);
         img_cancel.setOnClickListener(this);
         img_search.setOnClickListener(this);
 
@@ -60,6 +62,12 @@ public class SeachActivity extends AppCompatActivity implements RecyclerViewItem
         setUpRecyclerView();
         recyclerView.setVisibility(View.INVISIBLE);
         img_cancel.setVisibility(View.INVISIBLE);
+
+        InputMethodManager inputMethodManager =
+                (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInputFromWindow(
+                relativeLayout.getApplicationWindowToken(),
+                InputMethodManager.SHOW_FORCED, 0);
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override

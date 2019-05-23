@@ -78,7 +78,7 @@ public class MyEventActivity extends AppCompatActivity implements RecyclerViewIt
         recyclerView = findViewById(R.id.list_view_create_event);
         list_view = findViewById(R.id.list_view);
 
-        email = getIntent().getExtras().getString("userEmail");
+//        email = getIntent().getExtras().getString("userEmail");
         //event_kku = Event_kku.getInstance().getEventLists();
 
         googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
@@ -217,7 +217,7 @@ public class MyEventActivity extends AppCompatActivity implements RecyclerViewIt
                         }
                         Event_kku.getInstance().setEventLists(event_kku);
                 }
-                setAdapterFunc(createEvent);
+                //setAdapterFunc(createEvent);
                 readevent();
             } catch (ParseException e1) {
                 e1.printStackTrace();

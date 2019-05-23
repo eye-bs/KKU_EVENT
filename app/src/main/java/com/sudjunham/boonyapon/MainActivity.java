@@ -1,7 +1,5 @@
 package com.sudjunham.boonyapon;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import java.io.BufferedReader;
@@ -105,7 +103,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
             }
         });
 
-        fab = findViewById(R.id.fab);
         scrollView = findViewById(R.id.scrollView_main);
         img_filter = findViewById(R.id.img_filter);
         seach_bar = findViewById(R.id.seach_bar);
@@ -115,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         rb_kku = findViewById(R.id.rb_event_kku_main);
         rb_else = findViewById(R.id.rb_event_else_main);
         rg_main = findViewById(R.id.rg_main);
+        fab = findViewById(R.id.fab);
 
         rg_main.setOnCheckedChangeListener(this);
 
@@ -136,28 +134,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         new RetrieveFeedTask_kku().execute();
 
 
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                scrollView.smoothScrollTo(0, 0);
-            }
-        });
-
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if(dy > 0){
-                    fab.hide();
-                } else{
-                    fab.show();
-                }
-
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        });
-
-        urlVal = "https://www.kku.ac.th/ikku/api/activities/services/topActivity.php";
-        new RetrieveFeedTask().execute();
         manager = new LinearLayoutManager(this) ;
         recyclerView.setLayoutManager(manager);
         setAdapterFunc(event_List_Arr);
@@ -170,6 +146,13 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
             readNewUser();
         }
         setImgUser();
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                scrollView.smoothScrollTo(0, 0);
+            }
+        });
+
     }
 
     @Override
