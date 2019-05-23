@@ -67,6 +67,8 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewItemC
     RecyclerViewAdapterUser adapter;
     LinearLayoutManager manager;
     List<Event_list> event_kku = new ArrayList<>();
+    List<Event_list> event_user = new ArrayList<>();
+    List<Event_list> event_all = new ArrayList<>();
     List<Event_list> upComing = new ArrayList<>();
     List<Event_list> fevEvent = new ArrayList<>();
     RadioGroup rd_user;
@@ -114,6 +116,7 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewItemC
         scrollView.smoothScrollTo(0,0);
 
         event_kku = Event_all.getInstance().getEventLists();
+        event_user = Event_all.getInstance().getEventUser();
 
         rd_user.setOnCheckedChangeListener(this);
 
@@ -227,14 +230,30 @@ public class UserActivity extends AppCompatActivity implements RecyclerViewItemC
             likedList = Arrays.asList(getTitleFirebase.split(","));
             int countFev = (likedList.toString().equals("[]"))? 0 : likedList.size();
                 tv_num_fev.setText(Integer.toString(countFev));
-                for (int i = 0; i < event_kku.size(); i++) {
-                    for (int k = 0; k < likedList.size(); k++) {
-                        if (likedList.get(k).equals(event_kku.get(i).name)) {
-                            fevEvent.add(event_kku.get(i));
+
+            Log.d("TAG123" , Event_all.getInstance().getEventUser().toString());
+
+                for (int i = 0 ; i < likedList.size() ; i++){
+                    for (int j = 0; j < event_kku.size(); j++) {
+                        if (likedList.get(i).equals(event_kku.get(j).name)) {
+                            fevEvent.add(event_kku.get(j));
                             adapter.notifyDataSetChanged();
                         }
+
                     }
+
                 }
+            for (int i = 0 ; i < likedList.size() ; i++){
+                for (int j = 0; j < event_user.size(); j++) {
+                    if (likedList.get(i).equals(event_user.get(j).name)) {
+                        fevEvent.add(event_user.get(j));
+                        adapter.notifyDataSetChanged();
+                    }
+
+                }
+
+            }
+
         }
     }
 }

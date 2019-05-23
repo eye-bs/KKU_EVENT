@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
     private long mLastClickTime = 0;
     List<Event_list> event_List_Arr = new ArrayList<Event_list>();
     List<Event_list> kku_List_Arr = new ArrayList<Event_list>();
+    List<Event_list> Arr = new ArrayList<Event_list>();
     ScrollView scrollView;
      RecyclerView recyclerView;
      RecyclerViewAdapter adapter;
@@ -131,7 +132,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         scrollView.smoothScrollTo(0,0);
         recyclerView = findViewById(R.id.list_view1);
         recyclerView.setNestedScrollingEnabled(false);
-        Event_all.getInstance().setEventLists(event_List_Arr);
+
+        new RetrieveFeedTask_kku().execute();
+
 
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -173,21 +176,38 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
     public void onCheckedChanged(RadioGroup group, int checkedId) {
       switch (checkedId){
           case R.id.rb_event_kku_main:
-              urlVal = "https://www.kku.ac.th/ikku/api/activities/services/topActivity.php";
-              new RetrieveFeedTask().execute();
+//              urlVal = "https://www.kku.ac.th/ikku/api/activities/services/topActivity.php";
+//              new RetrieveFeedTask().execute();
               tv_result_filter.setVisibility(View.INVISIBLE);
               recyclerView.setVisibility(View.VISIBLE);
               event_List_Arr = Event_all.getInstance().getEventLists();
               setAdapterFunc(event_List_Arr);
+              pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                  @Override
+                  public void onRefresh() {
+                      event_List_Arr = Event_all.getInstance().getEventLists();
+                      setAdapterFunc(event_List_Arr);
+                      pullToRefresh.setRefreshing(false);
+                  }
+              });
 
               break;
           case R.id.rb_event_else_main:
-              urlVal = "https://us-central1-kku-even.cloudfunctions.net/listKKU";
-              new RetrieveFeedTask().execute();
+              new RetrieveFeedTask_user().execute();
+              kku_List_Arr = Event_all.getInstance().getEventUser();
+              Log.d("TAG123" , kku_List_Arr.toString());
               tv_result_filter.setVisibility(View.INVISIBLE);
               recyclerView.setVisibility(View.VISIBLE);
-              Event_kku.getInstance().setEventLists(kku_List_Arr);
               setAdapterFunc(kku_List_Arr);
+              pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                  @Override
+                  public void onRefresh() {
+                      kku_List_Arr = Event_all.getInstance().getEventLists();
+                      setAdapterFunc(kku_List_Arr);
+                      pullToRefresh.setRefreshing(false);
+                  }
+              });
+
               break;
 
       }
@@ -214,7 +234,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
         }, 2000);
     }
 
-    public class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
+    public class RetrieveFeedTask_kku extends AsyncTask<Void, Void, String> {
         // display progressbar while loading
         protected void onPreExecute() {
             super.onPreExecute();
@@ -227,7 +247,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
 
             try {
                 URL urlAddr;
-                urlAddr = new URL(urlVal);
+                urlAddr = new URL("https://www.kku.ac.th/ikku/api/activities/services/topActivity.php");
                 HttpURLConnection urlConnection = (HttpURLConnection) urlAddr.openConnection();
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -273,7 +293,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
                     JSONObject object = (JSONObject) new JSONTokener(response).nextValue();
                     JSONArray jsonArray = object.getJSONArray("activities");
 
-                        if(urlVal.equals("https://www.kku.ac.th/ikku/api/activities/services/topActivity.php")) {
                             kku_List_Arr.clear();
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject activity_event = jsonArray.getJSONObject(i);
@@ -311,53 +330,122 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
                                 event_List_Arr.add(event_list);
                                 adapter.notifyDataSetChanged();
                             }
-
-                        } else if (urlVal.equals("https://us-central1-kku-even.cloudfunctions.net/listKKU")) {
-                            event_List_Arr.clear();
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject activity_event = jsonArray.getJSONObject(i);
-                                Event_list event_list = new Event_list();
-
-                                String pDateST = activity_event.getString("dateSt");
-                                String pDateED = activity_event.getString("dateEd");
-                                String pTimeST = activity_event.getString("timeSt");
-                                String pTimeED = activity_event.getString("timeEd");
-
-                                String timeStamp = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(Calendar.getInstance().getTime());
-                                LocalDate currentDate = LocalDate.parse(timeStamp, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                                LocalDate getDateEvent = LocalDate.parse(pDateST, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                                event_list.setName(activity_event.getString("title").replaceAll("&quot;", "\""));
-                                event_list.setDate((pDateST.equals(pDateED))
-                                        ? (dateThai(pDateST, null, pTimeST, pTimeED))
-                                        : (dateThai(pDateST, pDateED, pTimeST, pTimeED)));
-                                event_list.setLocation(activity_event.getString("place"));
-                                event_list.setContent(activity_event.getString("content").replaceAll("&quot;", "\""));
-                                event_list.setImglink(activity_event.getString("image"));
-                                event_list.setmonthForFilter(getDateEvent.getMonthValue());
-                                event_list.setDateTimeST(parseDateTime(pDateST, pTimeST));
-                                event_list.setDateTimeED(parseDateTime(pDateED, pTimeED));
-                                String phoneDEL = activity_event.getString("phone");
-                                phoneDEL = phoneDEL.replaceAll(" ", "");
-                                phoneDEL = phoneDEL.replaceAll("-", "");
-                                if (phoneDEL.length() > 10) {
-                                    phoneDEL = phoneDEL.substring(0, 9);
-                                }
-                                event_list.setPhonecontact(phoneDEL);
-                                event_list.setWebsite(activity_event.getString("website"));
-                                event_list.setSponsor(activity_event.getString("sponsor"));
-
-                                kku_List_Arr.add(event_list);
-                                adapter.notifyDataSetChanged();
-                            }
-                        }
-
-                        /*event_List_Arr.add(event_list);
-                        adapter.notifyDataSetChanged();*/
-
+                            Event_all.getInstance().setEventLists(event_List_Arr);
                     }
+                    new RetrieveFeedTask_user().execute();
+
                     progressBar.setVisibility(View.INVISIBLE);
                     recyclerView.setVisibility(View.VISIBLE);
                 } catch (ParseException e1) {
+                e1.printStackTrace();
+            } catch (JSONException e1) {
+                e1.printStackTrace();
+            }
+
+        }
+        }
+
+    public class RetrieveFeedTask_user extends AsyncTask<Void, Void, String> {
+        // display progressbar while loading
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.INVISIBLE);
+        }
+
+        @SuppressLint("WrongThread")
+        protected String doInBackground(Void... urls) {
+
+            try {
+                URL urlAddr;
+                urlAddr = new URL("https://us-central1-kku-even.cloudfunctions.net/listKKU");
+                HttpURLConnection urlConnection = (HttpURLConnection) urlAddr.openConnection();
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
+                    }
+                    bufferedReader.close();
+                    return stringBuilder.toString();
+                }
+                finally{
+                    urlConnection.disconnect();
+                }
+            }
+            catch(Exception e) {
+                Log.e("ERROR", e.getMessage(), e);
+                return null;
+            }
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        protected void onPostExecute(String response) {
+            super.onPreExecute();
+
+            try {
+                if(response == null) {
+                    final Dialog dialog = new Dialog(MainActivity.this);
+                    dialog.setContentView(R.layout.customdialog);
+                    dialog.setCancelable(false);
+
+                    Button button1 = dialog.findViewById(R.id.button_dialog);
+                    button1.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            dialog.cancel();
+                            finish();
+                            System.exit(0);
+                        }
+                    });
+                    dialog.show();
+                }else {
+                    kku_List_Arr.clear();
+                    JSONObject object = (JSONObject) new JSONTokener(response).nextValue();
+                    JSONArray jsonArray = object.getJSONArray("activities");
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject activity_event = jsonArray.getJSONObject(i);
+                            Event_list event_list = new Event_list();
+
+                            String pDateST = activity_event.getString("dateSt");
+                            String pDateED = activity_event.getString("dateEd");
+                            String pTimeST = activity_event.getString("timeSt");
+                            String pTimeED = activity_event.getString("timeEd");
+
+                            String timeStamp = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(Calendar.getInstance().getTime());
+                            LocalDate currentDate = LocalDate.parse(timeStamp, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                            LocalDate getDateEvent = LocalDate.parse(pDateST, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                            event_list.setName(activity_event.getString("title").replaceAll("&quot;", "\""));
+                            event_list.setDate((pDateST.equals(pDateED))
+                                    ? (dateThai(pDateST, null, pTimeST, pTimeED))
+                                    : (dateThai(pDateST, pDateED, pTimeST, pTimeED)));
+                            event_list.setLocation(activity_event.getString("place"));
+                            event_list.setContent(activity_event.getString("content").replaceAll("&quot;", "\""));
+                            event_list.setImglink(activity_event.getString("image"));
+                            event_list.setmonthForFilter(getDateEvent.getMonthValue());
+                            event_list.setDateTimeST(parseDateTime(pDateST, pTimeST));
+                            event_list.setDateTimeED(parseDateTime(pDateED, pTimeED));
+                            String phoneDEL = activity_event.getString("phone");
+
+                            phoneDEL = phoneDEL.replaceAll(" ", "");
+                            phoneDEL = phoneDEL.replaceAll("-", "");
+                            if (phoneDEL.length() > 10) {
+                                phoneDEL = phoneDEL.substring(0, 9);
+                            }
+                            event_list.setPhonecontact(phoneDEL);
+                            event_list.setWebsite(activity_event.getString("website"));
+                            event_list.setSponsor(activity_event.getString("sponsor"));
+
+                            kku_List_Arr.add(event_list);
+                            adapter.notifyDataSetChanged();
+                        }
+
+                        Event_all.getInstance().setEventUser(kku_List_Arr);
+                }
+                progressBar.setVisibility(View.INVISIBLE);
+                recyclerView.setVisibility(View.VISIBLE);
+            } catch (ParseException e1) {
                 e1.printStackTrace();
             } catch (JSONException e1) {
                 e1.printStackTrace();
@@ -366,7 +454,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewItemC
             }
 
         }
-        }
+    }
 
 
     @Override
